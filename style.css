@@ -1,0 +1,18 @@
+body {
+  font-family: Futura;
+}
+
+#container {
+  width: 100vw;
+  height: 100vw;
+  background-color: #75bba0;
+}
+
+#success {
+  font-size: 500%;
+  text-align: center;
+  background-color: yellow;
+  color: teal;
+  height: 100vw;
+  width: 100vw;
+}
