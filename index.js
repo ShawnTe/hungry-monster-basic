@@ -77,13 +77,18 @@
     num2 = parseInt(num2);
 
     if (game.target === num1 + num2) {
-      document.getElementById('full-screen').innerHTML = "<br />RIGHT<br />ON! <br /><img src='./images/celebrate.gif' width='400' />";
+      document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./images/celebrate.gif' width='400' /><br />";
       document.getElementById('full-screen').setAttribute('id', 'success');
+      document.getElementById('play-button').classList.remove('hidden');
 
     } else {
       console.log("Drag a number out and try again")
       document.getElementById('h1').innerHTML = "Drag at least one number out and try again";
-
-
     }
   }
+
+  document.getElementById("play-button").addEventListener("click", reloadPage);
+
+  function reloadPage() {
+    location.reload()
+  };
