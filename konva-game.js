@@ -4,17 +4,20 @@
 /////////////////////////////////////////
 
   var width = window.innerWidth;
-  // var width = 700;
-  // var height = 500;
   var height = window.innerHeight;
 
-  stage = new Konva.Stage({
+  var stage = new Konva.Stage({
     container: 'container',
     width: width,
     height: height
   });
 
-  layer = new Konva.Layer();
+  var layer = new Konva.Layer();
+
+  var group = new Konva.Group({
+    x: 50,
+    y: 50
+  });
 
   var text = new Konva.Text({
     fill : 'black',
@@ -22,8 +25,6 @@
   });
 
   var tempArray = []
-
-  // layer.add(text);
 
   stage.add(layer);
 
@@ -73,29 +74,54 @@ const drawNumbers = (layer) => {
 }
 
 const drawTarget = () => {
-  // var group = new Konva.Group({
-  //      x: -100,
-  //      y: 0,
-  //  });
+  // var name = game.target
+  // var target = new Konva.Text({
+  //   x : -100,
+  //   y : 0,
+  //   name : 'Target',
+  //   text : name,
+  //   fontSize : 300,
+  //   fontFamily : 'Futura',
+  //   fill : 'purple',
+  //   padding : 100,
+  //   shadowOffsetX : 10,
+  //   shadowOffsetY : 10,
+  //   draggable : false,
+  //   id : 'target-number'
+  // })
+  // layer.add(target);
+  var imageObj = new Image();
+  imageObj.onload = function() {
+    var monster = new Konva.Image({
+      x: 0,
+      y: 0,
+      image: imageObj,
+      width: 406,
+      height: 418
+    });
+    group.add(monster);
 
+    var text = new Konva.Text({
+      x : -100,
+      y : 300,
+      name : 'Target',
+      text : '17',
+      fontSize : 300,
+      fontFamily : 'Futura',
+      fill : 'purple',
+      padding : 100,
+      shadowOffsetX : 10,
+      shadowOffsetY : 10,
+      draggable : false,
+      id : 'target-number'
+    });
 
-  var name = game.target
-  var target = new Konva.Text({
-    x : -100,
-    y : 0,
-    name : 'Target',
-    text : name,
-    fontSize : 300,
-    fontFamily : 'Futura',
-    fill : 'purple',
-    padding : 100,
-    shadowOffsetX : 10,
-    shadowOffsetY : 10,
-    draggable : false,
-    id : 'target-number'
-  })
-  layer.add(target);
+    group.add(text);
+    layer.add(group);
+    stage.add(layer);
+  };
 
+  imageObj.src = './images/blue-monster-510w.png';
 
 }
 
