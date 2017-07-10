@@ -23,7 +23,7 @@
 
   var tempArray = []
 
-  layer.add(text);
+  // layer.add(text);
 
   stage.add(layer);
 
@@ -31,7 +31,7 @@
   stage.add(tempLayer);
 
 
-  const init = () => {
+const init = () => {
   // playGame(stage);
   game = new Game();
   assignNumbers(stage);
@@ -73,6 +73,12 @@ const drawNumbers = (layer) => {
 }
 
 const drawTarget = () => {
+  // var group = new Konva.Group({
+  //      x: -100,
+  //      y: 0,
+  //  });
+
+
   var name = game.target
   var target = new Konva.Text({
     x : -100,
@@ -86,21 +92,12 @@ const drawTarget = () => {
     shadowOffsetX : 10,
     shadowOffsetY : 10,
     draggable : false,
-    // fill : "yellow",
-    // numPoints :10,
-    // innerRadius : 50,
-    // outerRadius : 55,
-    // draggable: true,
     id : 'target-number'
-    // name: name,
-    // shadowOffsetX : 10,
-    // shadowOffsetY : 10,
   })
-
   layer.add(target);
+
+
 }
-
-
 
 /// how to hold this until onload?
 
