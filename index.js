@@ -8,8 +8,8 @@
 
   const Number = function(stage) {
     this.value = generateRandomNumber(10, 1)
-    this.img = "./images/cupcake-163593_640.jpg"
-    this.x = generateRandomNumber(900,400),
+    // this.img = "./images/cupcake-163593_640.jpg"
+    this.x = generateRandomNumber(900,500),
     // console.log(this.x)
     this.y = generateRandomNumber(600,0),
     // console.log(this.y)
@@ -25,7 +25,7 @@
     this.numbers = []
   };
 
-  const assignNumbers = (stage) => {
+  const assignNumbers = () => {
     for (var i = 1; i < numOfNumbers; i++) {
       let num = new Number(stage)
 

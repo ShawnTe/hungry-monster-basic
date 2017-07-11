@@ -16,12 +16,15 @@
 
   var group = new Konva.Group({
     x: 50,
-    y: 50
+    y: 50,
+    fill : 'Yellow',
+    width: width/4,
+    height: height/4
   });
 
   var text = new Konva.Text({
     fill : 'black',
-    fontSize : 20
+    fontSize : 100
   });
 
   var tempArray = []
@@ -35,22 +38,23 @@
 const init = () => {
   // playGame(stage);
   game = new Game();
-  assignNumbers(stage);
-  drawNumbers(layer);
+  assignNumbers();
+  drawNumbers();
   assignTarget();
-  drawTarget(stage, layer);
+  drawTarget();
   layer.draw();
 }
 
 
-// var text = new Konva.Text({
-//     fill : 'black'
-// });
-// layer.add(text);
-const drawNumbers = (layer) => {
+var text = new Konva.Text({
+    fill : 'black'
+});
+layer.add(text);
+
+const drawNumbers = () => {
   let gameNumbers = game.numbers
   // var number;
-  var colors = ["blue", "green", "red", "pink", "yellow", "purple", "teal"];
+  var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
   for(var i = 0; i < gameNumbers.length; i++) {
     let gameNum = gameNumbers[i];
     var number = new Konva.Text({
@@ -74,7 +78,7 @@ const drawNumbers = (layer) => {
 }
 
 const drawTarget = () => {
-  // var name = game.target
+  var name = game.target
   // var target = new Konva.Text({
   //   x : -100,
   //   y : 0,
@@ -94,29 +98,44 @@ const drawTarget = () => {
   imageObj.onload = function() {
     var monster = new Konva.Image({
       x: 0,
-      y: 0,
+      y: 100,
       image: imageObj,
       width: 406,
-      height: 418
+      height: 418,
+      id : 'target-monster'
     });
     group.add(monster);
 
-    var text = new Konva.Text({
-      x : -100,
-      y : 300,
-      name : 'Target',
-      text : '17',
-      fontSize : 300,
-      fontFamily : 'Futura',
-      fill : 'purple',
-      padding : 100,
-      shadowOffsetX : 10,
-      shadowOffsetY : 10,
-      draggable : false,
-      id : 'target-number'
-    });
+    
 
-    group.add(text);
+    var tooltip = new Konva.Label({
+            x: 200,
+            y: 110,
+            opacity: 0.75
+        });
+        tooltip.add(new Konva.Tag({
+            name : 'Target',
+            fill: 'gold',
+            pointerDirection: 'down',
+            pointerWidth: 20,
+            pointerHeight: 30,
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: 10,
+            shadowOpacity: 0.5
+        }));
+        tooltip.add(new Konva.Text({
+            text: name,
+            fontFamily: 'Futura',
+            fontSize: 75,
+            padding: 15,
+            fill: 'white'
+        }));
+
+
+
+    group.add(tooltip);
     layer.add(group);
     stage.add(layer);
   };
@@ -200,7 +219,7 @@ function holdUntilLoad()  {
       layer.draw();
   });
   stage.on("dragleave", function(e){
-      e.target.fill('blue');
+      // e.target.fill('blue');
       text.text('dragleave ' + e.target.name());
       layer.draw();
       if (e.target.name() == "Target") {
@@ -228,7 +247,7 @@ function holdUntilLoad()  {
   });
   stage.on("drop", function(e){
 
-      if (e.target.attrs.id === "target-number"){
+      if (e.target.attrs.id === "target-monster"){
         // console.log("Get event:  " + e.target);
         // console.log("in DROP function - if");
         let equationNumber = parseInt(e.currentTarget.tapStartShape.text());
@@ -249,7 +268,7 @@ function holdUntilLoad()  {
         // console.log("in DROP function WHYWHY WHY??");
       };
 
-      e.target.fill('red');
+      e.target.fill('teal');
       // console.log("Dropped on value:")
       // console.log(e.target.name());
       // console.log(e.target.id());
