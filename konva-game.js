@@ -215,15 +215,15 @@ function holdUntilLoad()  {
   });
   stage.on("dragenter", function(e){
       e.target.fill('LemonChiffon');
-      text.text('dragenter ' + e.target.name());
+      // text.text('dragenter ' + e.target.name());
       layer.draw();
   });
   stage.on("dragleave", function(e){
       // e.target.fill('blue');
-      text.text('dragleave ' + e.target.name());
+      // text.text('dragleave ' + e.target.name());
       layer.draw();
       if (e.target.name() == "Target") {
-        console.log('SAY YESSSSS AND number: ' )
+        console.log('SAY YESSSSS ' )
         // console.log(this )
         // if # is in tempArray, then delete
         let num = parseInt(this.tapStartShape.partialText);
@@ -249,41 +249,16 @@ function holdUntilLoad()  {
       layer.draw();
   });
   stage.on("drop", function(e){
-    console.log(e)
+    // console.log(e)
       if (e.target.attrs.id === "target-monster"){
-        // console.log("Get event:  " + e.target);
-        // console.log("in DROP function - if");
+
         equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
         tempArray.push(equationNumber);
-
-        if (tempArray.length == 2){
-          let num1 = tempArray[0]
-          let num2 = tempArray[1]
-
-          checkForCorrectMath(num1,num2);
-        } else {
-          // console.log('doing nothing because !==2 items in array');
-        };
+        checkForCorrectMath();
         console.log(tempArray);
-
-      } else {
-        // console.log("in DROP function WHYWHY WHY??");
-      };
-
+      } else { };
       e.target.fill('MediumAquaMarine');
-      // console.log("Dropped on value:")
-      // console.log(e.target.name());
-      // console.log(e.target.id());
-
-      // dropped on value
-      // var littleNumNum = parseInt(e.target.name())   // this is the number name
-      // console.log(littleNumNum)    // need to convert to integer?
-      // console.log('drop ' + e.currentTarget.tapStartShape.partialText);
-      console.log('drop ' + equationNumber);
-
-      text.text('You added ' + equationNumber);
-
       layer.draw();
   });
 }

@@ -68,22 +68,44 @@
     game.target = actualNumValue1 + actualNumValue2
   }
 
-  const checkForCorrectMath = (num1, num2) => {
-    console.log("IN CHECK MATH FUNCTION")
-    console.log(num1)
-    console.log(num2)
+  const youWin = () => {
+    document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./images/celebrate.gif' width='400' /><br />";
+    document.getElementById('full-screen').setAttribute('id', 'success');
+    document.getElementById('play-button').classList.remove('hidden');
+  }
 
-    num1 = parseInt(num1);
-    num2 = parseInt(num2);
-
-    if (game.target === num1 + num2) {
-      document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./images/celebrate.gif' width='400' /><br />";
-      document.getElementById('full-screen').setAttribute('id', 'success');
-      document.getElementById('play-button').classList.remove('hidden');
-
+  const tryAgain = (answer) => {
+    console.log(answer)
+    if (answer == 'low') {
+      text.text("I'm still hungry!");
     } else {
-      console.log("Drag a number out and try again")
-      document.getElementById('h1').innerHTML = "Drag at least one number out and try again";
+      text.text("I'm too full!");
+    }
+  }
+
+  const addNumbers = () => {
+
+  }
+  const checkForCorrectMath = () => {
+    var numbersToAdd = []
+
+    for (var i = 0; i < tempArray.length; i++) {
+      numbersToAdd.push(parseInt(tempArray[i]));
+    }
+
+    var sum = numbersToAdd.reduce((a,b) => a+b, 0);
+
+    if (game.target === sum) {
+      youWin();
+    } else {
+      var answer = ""
+
+      if (sum < game.target) {
+        answer = 'low'
+      } else {
+        answer = 'high'
+      }
+      tryAgain(answer);
     }
   }
 
