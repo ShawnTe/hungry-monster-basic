@@ -23,14 +23,31 @@
   });
 
   var text = new Konva.Text({
-    x: width/2 - 50,
-    y: 30,
-    text: 'Will get replaced',
+    x: 50,
+    y: 5,
+    text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
     fontFamily : 'Futura',
     fill : 'DarkSlateGray',
-    fontSize : 40
+    fontSize : 30
   });
 
+  var rect = new Konva.Rect({
+    x: 0,
+     y: 0,
+    //  stroke: '#555',
+    //  strokeWidth: 5,
+     fill: 'BurlyWood',
+     width: stage.getWidth() - 70,
+     height: text.getHeight() + 10
+
+    //  shadowColor: 'black',
+    //  shadowBlur: 10,
+    //  shadowOffset: [10, 10],
+    //  shadowOpacity: 0.2,
+    //  cornerRadius: 10
+  })
+
+  layer.add(rect)
   layer.add(text)   //??
   var tempArray = []
 
@@ -83,7 +100,7 @@ const drawTarget = () => {
   imageObj.onload = function() {
     var monster = new Konva.Image({
       x: 0,
-      y: 100,
+      y: 150,
       image: imageObj,
       width: 406,
       height: 418,
@@ -94,7 +111,7 @@ const drawTarget = () => {
 
     var tooltip = new Konva.Label({
             x: 200,
-            y: 110,
+            y: 160,
             opacity: 0.75
         });
         tooltip.add(new Konva.Tag({
