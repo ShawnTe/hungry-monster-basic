@@ -4,6 +4,8 @@ body {
 
 #container {
   background-color: MediumAquaMarine;
+  border: 25px solid DodgerBlue;
+  border-radius: 20px;
 }
 
 

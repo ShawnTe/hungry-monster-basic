@@ -3,15 +3,13 @@
 
 /////////////////////////////////////////
   var screenObj = window.screen;
-  // var width = window.innerWidth;
-  // var height = window.innerHeight;
-  var width = screenObj.width;
-  var height = screenObj.availHeight;
+  var width = window.innerWidth;
+  var height = screenObj.availHeight - 100;
 
   var stage = new Konva.Stage({
     container: 'container',
     width: width,
-    height: height,
+    height: height
   });
 
   var layer = new Konva.Layer();
