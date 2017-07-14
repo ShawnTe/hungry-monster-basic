@@ -1,5 +1,5 @@
 // Share: html5 canvase method: measureText(txt)
-  const numOfNumbers = 6;
+  const numOfNumbers = 7;
 
   const generateRandomNumber = (max, min) => {
     randomNumber = Math.floor( (Math.random() * (max - min) + min) )
@@ -11,7 +11,7 @@
     // this.img = "./images/cupcake-163593_640.jpg"
     this.x = generateRandomNumber(900,500),
     // console.log(this.x)
-    this.y = generateRandomNumber(600,0),
+    this.y = generateRandomNumber(600,100),
     // console.log(this.y)
     // name = `${game.numbers[i].value}`,
     // this.name = "XXXXXXXXXXXXXXXXXXXXXXXX",
@@ -42,7 +42,7 @@
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
 
-          if (dx > 50 && dy > 50) {
+          if (dx > 80 && dy > 80) {
             // console.log("Acceptable" + num)
 
             return num;

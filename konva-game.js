@@ -2,14 +2,16 @@
 
 
 /////////////////////////////////////////
-
-  var width = window.innerWidth;
-  var height = window.innerHeight;
+  var screenObj = window.screen;
+  // var width = window.innerWidth;
+  // var height = window.innerHeight;
+  var width = screenObj.width;
+  var height = screenObj.availHeight;
 
   var stage = new Konva.Stage({
     container: 'container',
     width: width,
-    height: height
+    height: height,
   });
 
   var layer = new Konva.Layer();
@@ -23,11 +25,17 @@
   });
 
   var text = new Konva.Text({
-    fill : 'black',
-    fontSize : 100
+    x: width/2 - 50,
+    y: 30,
+    text: 'Will get replaced',
+    fontFamily : 'Futura',
+    fill : 'DarkSlateGray',
+    fontSize : 40
   });
 
+  layer.add(text)   //??
   var tempArray = []
+
 
   stage.add(layer);
 
@@ -44,12 +52,6 @@ const init = () => {
   drawTarget();
   layer.draw();
 }
-
-
-var text = new Konva.Text({
-    fill : 'black'
-});
-layer.add(text);
 
 const drawNumbers = () => {
   let gameNumbers = game.numbers
@@ -79,21 +81,6 @@ const drawNumbers = () => {
 
 const drawTarget = () => {
   var name = game.target
-  // var target = new Konva.Text({
-  //   x : -100,
-  //   y : 0,
-  //   name : 'Target',
-  //   text : name,
-  //   fontSize : 300,
-  //   fontFamily : 'Futura',
-  //   fill : 'purple',
-  //   padding : 100,
-  //   shadowOffsetX : 10,
-  //   shadowOffsetY : 10,
-  //   draggable : false,
-  //   id : 'target-number'
-  // })
-  // layer.add(target);
   var imageObj = new Image();
   imageObj.onload = function() {
     var monster = new Konva.Image({
@@ -102,11 +89,10 @@ const drawTarget = () => {
       image: imageObj,
       width: 406,
       height: 418,
+      padding: 10,
       id : 'target-monster'
     });
     group.add(monster);
-
-    
 
     var tooltip = new Konva.Label({
             x: 200,
@@ -133,8 +119,6 @@ const drawTarget = () => {
             fill: 'white'
         }));
 
-
-
     group.add(tooltip);
     layer.add(group);
     stage.add(layer);
@@ -153,10 +137,11 @@ function holdUntilLoad()  {
     console.log("This is the picked up number: " + e.target.text())
 
     e.target.moveTo(tempLayer);
-    text.text('Moving ' + e.target.name());
+    // console.log('Moving ' + e.target.name());
     layer.draw();
   });
   var previousShape;
+  var equationNumber;
   stage.on("dragmove", function(evt){
       var pos = stage.getPointerPosition();
       var shape = layer.getIntersection(pos);
@@ -214,7 +199,7 @@ function holdUntilLoad()  {
       tempLayer.draw();
   });
   stage.on("dragenter", function(e){
-      e.target.fill('green');
+      e.target.fill('LemonChiffon');
       text.text('dragenter ' + e.target.name());
       layer.draw();
   });
@@ -242,15 +227,18 @@ function holdUntilLoad()  {
       };
   });
   stage.on("dragover", function(e){
-      text.text('dragover ' + e.target.name());
+      // text.text('dragover ');
+      // console.log('dragover ' + e.target.name());
+      // console.log(e.currentTarget.tapStartShape.parseText)
+
       layer.draw();
   });
   stage.on("drop", function(e){
-
+    console.log(e)
       if (e.target.attrs.id === "target-monster"){
         // console.log("Get event:  " + e.target);
         // console.log("in DROP function - if");
-        let equationNumber = parseInt(e.currentTarget.tapStartShape.text());
+        equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
         tempArray.push(equationNumber);
 
@@ -268,7 +256,7 @@ function holdUntilLoad()  {
         // console.log("in DROP function WHYWHY WHY??");
       };
 
-      e.target.fill('teal');
+      e.target.fill('MediumAquaMarine');
       // console.log("Dropped on value:")
       // console.log(e.target.name());
       // console.log(e.target.id());
@@ -276,7 +264,11 @@ function holdUntilLoad()  {
       // dropped on value
       // var littleNumNum = parseInt(e.target.name())   // this is the number name
       // console.log(littleNumNum)    // need to convert to integer?
-      text.text('drop ' + e.target.name());
+      // console.log('drop ' + e.currentTarget.tapStartShape.partialText);
+      console.log('drop ' + equationNumber);
+
+      text.text('You added ' + equationNumber);
+
       layer.draw();
   });
 }
