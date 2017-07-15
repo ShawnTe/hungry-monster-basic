@@ -28,7 +28,8 @@
     text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
     fontFamily : 'Futura',
     fill : 'DarkSlateGray',
-    fontSize : 30
+    fontSize : 40
+    // CENTER TEXT
   });
 
   var rect = new Konva.Rect({
@@ -37,7 +38,7 @@
     //  stroke: '#555',
     //  strokeWidth: 5,
      fill: 'BurlyWood',
-     width: stage.getWidth() - 70,
+     width: stage.getWidth()*.90,
      height: text.getHeight() + 10
 
     //  shadowColor: 'black',
@@ -77,15 +78,13 @@ const drawNumbers = () => {
     var number = new Konva.Text({
       x : gameNum.x,
       y : gameNum.y,
-      // x : generateRandomNumber(stage.getWidth() - 200) + 100,
-      // y : generateRandomNumber(stage.getHeight() -200) + 100,
-      // name : gameNum.name,
       name : 'Current number',
       text : gameNum.value,
       fontSize : 80,
       fontFamily : 'Futura',
       fill : colors[i],
       padding : 10,
+      // MAKE SHADOW WHITE OR SOMETHING TO STAND OUT ON MONSTER
       shadowOffsetX : 5,
       shadowOffsetY : 5,
       draggable: true,
@@ -150,9 +149,9 @@ document.getElementById("container").addEventListener("click", holdUntilLoad());
 function holdUntilLoad()  {
   stage.on("dragstart", function(e){
     console.log("This is the picked up number: " + e.target.text())
-
+    // IF DRAG PICKKUP IS TARGET, THEN DISREGARD
     e.target.moveTo(tempLayer);
-    // console.log('Moving ' + e.target.name());
+    text.text("");
     layer.draw();
   });
   var previousShape;
@@ -215,30 +214,24 @@ function holdUntilLoad()  {
   });
   stage.on("dragenter", function(e){
       e.target.fill('LemonChiffon');
+
+      // ONLY CHANGE COLOR IF target-monster
+
+
       // text.text('dragenter ' + e.target.name());
       layer.draw();
   });
   stage.on("dragleave", function(e){
-      // e.target.fill('blue');
-      // text.text('dragleave ' + e.target.name());
       layer.draw();
-      if (e.target.name() == "Target") {
-        console.log('SAY YESSSSS ' )
-        // console.log(this )
-        // if # is in tempArray, then delete
+      e.target.fill('MediumAquaMarine');
+
+      if (e.target.attrs.id == "target-monster") {
         let num = parseInt(this.tapStartShape.partialText);
-        // console.log(parseInt(num))
-        console.log('tempArray: ')
-        console.log(tempArray);
-        var whazza = tempArray.includes(num)
-        console.log(whazza)
+
         if (tempArray.includes(num)){
-          let index = tempArray.indexOf(num)
-            tempArray.splice(index, 1);
-        } else {
-          console.log('tempArray.includes is FALSE')
+          removeNumberFromArray(num);
+          checkForCorrectMath();
         }
-        console.log(tempArray)
       };
   });
   stage.on("dragover", function(e){
@@ -249,18 +242,22 @@ function holdUntilLoad()  {
       layer.draw();
   });
   stage.on("drop", function(e){
-    // console.log(e)
-      if (e.target.attrs.id === "target-monster"){
+    if (e.target.attrs.id === "target-monster"){
 
-        equationNumber = parseInt(e.currentTarget.tapStartShape.text());
+      equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
-        tempArray.push(equationNumber);
-        checkForCorrectMath();
-        console.log(tempArray);
-      } else { };
-      e.target.fill('MediumAquaMarine');
-      layer.draw();
+      tempArray.push(equationNumber);
+      text.text("You added: " + equationNumber)
+      checkForCorrectMath();
+      console.log(tempArray);
+    }
+    e.target.fill('MediumAquaMarine');
+    layer.draw();
   });
 }
 
+const removeNumberFromArray = (num) => {
+  let index = tempArray.indexOf(num)
+  tempArray.splice(index, 1);
+}
 init();

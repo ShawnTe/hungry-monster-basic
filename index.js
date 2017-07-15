@@ -69,6 +69,7 @@
   }
 
   const youWin = () => {
+    // DELAY 1000 MSEC
     document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./images/celebrate.gif' width='400' /><br />";
     document.getElementById('full-screen').setAttribute('id', 'success');
     document.getElementById('play-button').classList.remove('hidden');
@@ -85,18 +86,19 @@
 
   const addNumbers = () => {
 
-  }
-  const checkForCorrectMath = () => {
     var numbersToAdd = []
 
     for (var i = 0; i < tempArray.length; i++) {
       numbersToAdd.push(parseInt(tempArray[i]));
     }
-
     var sum = numbersToAdd.reduce((a,b) => a+b, 0);
-
+    return sum
+  }
+  const checkForCorrectMath = () => {
+    sum = addNumbers();
     if (game.target === sum) {
       youWin();
+
     } else {
       var answer = ""
 
