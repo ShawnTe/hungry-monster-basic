@@ -138,7 +138,7 @@ const drawTarget = () => {
     stage.add(layer);
   };
 
-  imageObj.src = './images/blue-monster-510w.png';
+  imageObj.src = './app/images/blue-monster-510w.png';
 
 }
 
