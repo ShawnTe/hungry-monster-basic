@@ -1,4 +1,3 @@
-// Share: html5 canvase method: measureText(txt)
   const numOfNumbers = 7;
 
   const generateRandomNumber = (max, min) => {

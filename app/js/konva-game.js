@@ -1,5 +1,4 @@
-
-
+var Konva = require('konva');
 
 /////////////////////////////////////////
   var screenObj = window.screen;

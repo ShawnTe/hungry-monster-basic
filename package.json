@@ -2,9 +2,10 @@
   "name": "hungry-monster-pre-react",
   "version": "1.0.0",
   "description": "A Javascript Math Game",
-  "main": "index.html",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "webpack ./index.js bundle.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/ShawnTe/hungry-monster-basic/issues"
   },
-  "homepage": "https://github.com/ShawnTe/hungry-monster-basic#readme"
+  "homepage": "https://github.com/ShawnTe/hungry-monster-basic#readme",
+  "dependencies": {
+    "konva": "^1.6.3"
+  },
+  "devDependencies": {
+    "webpack": "^3.3.0"
+  }
 }
