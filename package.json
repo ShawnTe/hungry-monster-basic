@@ -2,10 +2,10 @@
   "name": "hungry-monster-pre-react",
   "version": "1.0.0",
   "description": "A Javascript Math Game",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "webpack ./index.js bundle.js"
+    "build" : "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
