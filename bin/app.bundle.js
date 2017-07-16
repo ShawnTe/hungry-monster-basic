@@ -124,8 +124,6 @@ module.exports = number;
 /***/ (function(module, exports, __webpack_require__) {
 
 var numbers = __webpack_require__(0)
-// var KonvaGame = require('./konva-game')
-
 
 var gameSetUp = {
   Game: function() {
@@ -134,10 +132,9 @@ var gameSetUp = {
     this.target = 0,
     this.numbers = []
   },
-  
+
   assignTarget: function(game) {
     let numOfObjects = game.numbers.length
-    // console.log(game)
     let i = numbers.generateRandomNumber(numOfObjects-1,1)
     let j = i - 1
     let actualNumValue1 = game.numbers[i].value
@@ -145,8 +142,6 @@ var gameSetUp = {
 
     game.target = actualNumValue1 + actualNumValue2
   },
-
-
 }
 
 module.exports = gameSetUp;
@@ -156,136 +151,24 @@ module.exports = gameSetUp;
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var App = __webpack_require__(3)
 var Numbers = __webpack_require__(0)
 var gameSetUp = __webpack_require__(1)
-var KonvaGame = __webpack_require__(4)
+var KonvaGame = __webpack_require__(3)
+
+
+
+document.getElementById("play-button").addEventListener("click", reloadPage);
+
+function reloadPage() {
+  location.reload()
+};
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-
-
-
-  // const numOfNumbers = 7;
-
-  // const generateRandomNumber = (max, min) => {
-  //   randomNumber = Math.floor( (Math.random() * (max - min) + min) )
-  //   return randomNumber
-  // }
-
-  // const Number = function(stage) {
-  //   this.value = generateRandomNumber(10, 1)
-  //   this.x = generateRandomNumber(900,500),
-  //   // console.log(this.x)
-  //   this.y = generateRandomNumber(600,100),
-  //   // console.log(this.y)
-  //   this.text = this.value
-  // };
-
-  // const Game = function() {
-  //   this.numberOfTurns = 3
-  //   this.over = false
-  //   this.target = 0
-  //   this.numbers = []
-  // };
-
-  // const assignNumbers = () => {
-  //   for (var i = 1; i < numOfNumbers; i++) {
-  //     let num = new Number(stage)
-  //
-  //     detectOverlap(num, stage);
-  //     game.numbers.push(num)
-  //   }
-  // }
-
-  // const detectOverlap = (num, stage) => {
-  //   while (true) {
-  //     for (var i = 0; i < game.numbers.length; i++){
-  //       let numInArray = game.numbers[i]
-  //       let dx = Math.abs(numInArray.x - num.x);
-  //       let dy = Math.abs(numInArray.y - num.y);
-  //
-  //         if (dx > 80 && dy > 80) {
-  //           return num;
-  //         } else {
-  //           let num = new Number(stage)
-  //           detectOverlap(num, stage)
-  //         };
-  //         return false;
-  //     };
-  //     return num;
-  //   }
-  // }
-
-  // const assignTarget = () => {
-  //   let numOfObjects = game.numbers.length
-  //   // console.log(game)
-  //   let i = generateRandomNumber(numOfObjects-1,1)
-  //   let j = i - 1
-  //   let actualNumValue1 = game.numbers[i].value
-  //   let actualNumValue2 = game.numbers[j].value
-  //
-  //   game.target = actualNumValue1 + actualNumValue2
-  // }
-
-  // const youWin = () => {
-  //   // DELAY 1000 MSEC
-  //   document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./images/celebrate.gif' width='400' /><br />";
-  //   document.getElementById('full-screen').setAttribute('id', 'success');
-  //   document.getElementById('play-button').classList.remove('hidden');
-  // }
-
-  // const tryAgain = (answer) => {
-  //   console.log(answer)
-  //   if (answer == 'low') {
-  //     text.text("I'm still hungry!");
-  //   } else {
-  //     text.text("I'm too full!");
-  //   }
-  // }
-
-  // const addNumbers = () => {
-  //
-  //   var numbersToAdd = []
-  //
-  //   for (var i = 0; i < tempArray.length; i++) {
-  //     numbersToAdd.push(parseInt(tempArray[i]));
-  //   }
-  //   var sum = numbersToAdd.reduce((a,b) => a+b, 0);
-  //   return sum
-  // }
-  // const checkForCorrectMath = () => {
-  //   sum = addNumbers();
-  //   if (game.target === sum) {
-  //     youWin();
-  //
-  //   } else {
-  //     var answer = ""
-  //
-  //     if (sum < game.target) {
-  //       answer = 'low'
-  //     } else {
-  //       answer = 'high'
-  //     }
-  //     tryAgain(answer);
-  //   }
-  // }
-
-  document.getElementById("play-button").addEventListener("click", reloadPage);
-
-  function reloadPage() {
-    location.reload()
-  };
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Konva = __webpack_require__(5);
+var Konva = __webpack_require__(4);
 var gameSetUp = __webpack_require__(1);
 var numbers = __webpack_require__(0);
 
@@ -428,7 +311,7 @@ const drawTarget = () => {
     stage.add(layer);
   };
 
-  imageObj.src = './app/images/blue-monster-510w.png';
+  imageObj.src = './src/images/blue-monster-510w.png';
 
 }
 
@@ -572,7 +455,7 @@ const checkForCorrectMath = () => {
 
 const youWin = () => {
   // DELAY 1000 MSEC
-  document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./app/images/celebrate.gif' width='400' /><br />";
+  document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./src/images/celebrate.gif' width='400' /><br />";
   document.getElementById('full-screen').setAttribute('id', 'success');
   document.getElementById('play-button').classList.remove('hidden');
 }
@@ -594,7 +477,7 @@ init();
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*
@@ -847,8 +730,8 @@ init();
       // Node. Does not work with strict CommonJS, but
       // only CommonJS-like enviroments that support module.exports,
       // like Node.
-      var Canvas = __webpack_require__(7);
-      var jsdom = __webpack_require__(8).jsdom;
+      var Canvas = __webpack_require__(6);
+      var jsdom = __webpack_require__(7).jsdom;
 
       Konva.window = jsdom(
         '<!DOCTYPE html><html><head></head><body></body></html>'
@@ -18644,10 +18527,10 @@ init();
   Konva.Collection.mapMethods(Konva.Arrow);
 })();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 var g;
@@ -18674,13 +18557,13 @@ module.exports = g;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /* (ignored) */

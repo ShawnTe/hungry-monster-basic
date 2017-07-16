@@ -141,7 +141,7 @@ const drawTarget = () => {
     stage.add(layer);
   };
 
-  imageObj.src = './app/images/blue-monster-510w.png';
+  imageObj.src = './src/images/blue-monster-510w.png';
 
 }
 
@@ -285,7 +285,7 @@ const checkForCorrectMath = () => {
 
 const youWin = () => {
   // DELAY 1000 MSEC
-  document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./app/images/celebrate.gif' width='400' /><br />";
+  document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./src/images/celebrate.gif' width='400' /><br />";
   document.getElementById('full-screen').setAttribute('id', 'success');
   document.getElementById('play-button').classList.remove('hidden');
 }
