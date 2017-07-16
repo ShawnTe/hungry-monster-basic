@@ -1,6 +1,8 @@
 var Konva = require('konva');
+var gameSetUp = require('./game');
+var numbers = require('./numbers');
 
-/////////////////////////////////////////
+
   var screenObj = window.screen;
   var width = window.innerWidth;
   var height = screenObj.availHeight - 100;
@@ -60,15 +62,17 @@ var Konva = require('konva');
 
 const init = () => {
   // playGame(stage);
-  game = new Game();
-  assignNumbers();
-  drawNumbers();
-  assignTarget();
+  game = new gameSetUp.Game();
+  // debugger
+  numbers.assignNumbers(game);
+  // debugger
+  drawNumbers(game);
+  gameSetUp.assignTarget(game);
   drawTarget();
   layer.draw();
 }
 
-const drawNumbers = () => {
+const drawNumbers = (game) => {
   let gameNumbers = game.numbers
   // var number;
   var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
@@ -255,8 +259,48 @@ function holdUntilLoad()  {
   });
 }
 
+const addNumbers = () => {
+  var numbersToAdd = []
+
+  for (var i = 0; i < tempArray.length; i++) {
+    numbersToAdd.push(parseInt(tempArray[i]));
+  }
+  var sum = numbersToAdd.reduce((a,b) => a+b, 0);
+  return sum
+};
+const checkForCorrectMath = () => {
+  sum = addNumbers();
+  if (game.target === sum) {
+    youWin();
+  } else {
+    var answer = ""
+    if (sum < game.target) {
+      answer = 'low'
+    } else {
+      answer = 'high'
+    }
+    tryAgain(answer);
+  }
+}
+
+const youWin = () => {
+  // DELAY 1000 MSEC
+  document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./app/images/celebrate.gif' width='400' /><br />";
+  document.getElementById('full-screen').setAttribute('id', 'success');
+  document.getElementById('play-button').classList.remove('hidden');
+}
+
+const tryAgain = (answer) => {
+  console.log(answer)
+  if (answer == 'low') {
+    text.text("I'm still hungry!");
+  } else {
+    text.text("I'm too full!");
+  }
+}
+
 const removeNumberFromArray = (num) => {
   let index = tempArray.indexOf(num)
   tempArray.splice(index, 1);
-}
+};
 init();
