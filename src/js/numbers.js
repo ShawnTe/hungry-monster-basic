@@ -16,8 +16,7 @@ var number = {
  assignNumbers: function(game) {
     for (var i = 0; i < number.numOfNumbers; i++) {
       var num = new number.Number()
-
-      if (game.numbers.length < 1) {
+      if (game.numbers.length === 0) {
         game.numbers.push(num)
       } else {
         var newNum = number.detectOverlap(game, num);
@@ -28,22 +27,17 @@ var number = {
     return game;
   },
   detectOverlap: function(game, num) {
-    while (true) {
-      for (var i = 1; i < game.numbers.length; i++){
+      for (var i = 0; i < game.numbers.length; i++){
         let numInArray = game.numbers[i]
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
 
-          if (dx > 80 && dy > 80) {
-            return num;
-          } else {
-            let num = new number.Number()
+          if (dx < 20 || dy < 20) {
+            num = new number.Number()
             number.detectOverlap(game, num)
           };
-          return false;
       };
       return num;
-    }
   }
 }
 
