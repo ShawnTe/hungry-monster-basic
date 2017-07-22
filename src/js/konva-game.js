@@ -1,6 +1,6 @@
 var Konva = require('konva');
-var gameSetUp = require('./game');
-var numbers = require('./numbers');
+var GameSetUp = require('./game');
+var NumberElement = require('./numbers');
 
 
   var screenObj = window.screen;
@@ -62,12 +62,12 @@ var numbers = require('./numbers');
 
 const init = () => {
   // playGame(stage);
-  game = new gameSetUp.Game();
+  game = new GameSetUp.Game(7);
   // debugger
-  numbers.assignNumbers(game);
+  GameSetUp.assignNumbers(game);
   // debugger
   drawNumbers(game);
-  gameSetUp.assignTarget(game);
+  GameSetUp.assignTarget(game);
   drawTarget();
   layer.draw();
 }
@@ -303,4 +303,9 @@ const removeNumberFromArray = (num) => {
   let index = tempArray.indexOf(num)
   tempArray.splice(index, 1);
 };
+
+generateRandomNumber = function(max, min) {
+  randomNumber = Math.floor( (Math.random() * (max - min) + min) )
+  return randomNumber
+}
 init();

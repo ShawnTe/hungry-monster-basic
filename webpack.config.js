@@ -5,5 +5,8 @@ module.exports = {
  output: {
    path: path.resolve(__dirname, 'bin'),
    filename: 'app.bundle.js'
- }
+ },
+ resolve: {
+    extensions: ['.js']
+  }
 };
