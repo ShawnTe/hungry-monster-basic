@@ -67,84 +67,81 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-var number = {
-  numOfNumbers: 7,
-  generateRandomNumber: function(max, min) {
-    randomNumber = Math.floor( (Math.random() * (max - min) + min) )
-    return randomNumber
-  },
-  Number: function() {
-    this.value = number.generateRandomNumber(10, 1)
-    this.text = this.value
-    // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
-    this.x = number.generateRandomNumber(900,500)
-    // console.log(this.x)
-    this.y = number.generateRandomNumber(600,100)
-    // console.log(this.y)
-  },
- assignNumbers: function(game) {
-    for (var i = 0; i < number.numOfNumbers; i++) {
-      var num = new number.Number()
+var NumberElement = (function () {
 
-      if (game.numbers.length < 1) {
-        game.numbers.push(num)
-      } else {
-        var newNum = number.detectOverlap(game, num);
-        game.numbers.push(newNum)
-      }
-    }
-    console.log(game.numbers)
-    return game;
-  },
-  detectOverlap: function(game, num) {
-    while (true) {
-      for (var i = 1; i < game.numbers.length; i++){
-        let numInArray = game.numbers[i]
-        let dx = Math.abs(numInArray.x - num.x);
-        let dy = Math.abs(numInArray.y - num.y);
-
-          if (dx > 80 && dy > 80) {
-            return num;
-          } else {
-            let num = new number.Number()
-            number.detectOverlap(game, num)
-          };
-          return false;
-      };
-      return num;
+  return {
+    Number: function() {
+      this.value = generateRandomNumber(10, 1)
+      this.text = this.value
+      // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
+      this.x = generateRandomNumber(900,500)
+      // console.log(this.x)
+      this.y = generateRandomNumber(500,80)
+      // console.log(this.y)
     }
   }
-}
+})();
 
-module.exports = number;
+module.exports = NumberElement;
 
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var numbers = __webpack_require__(0)
+var NumberElement = __webpack_require__(0);
+// var numbers = require('./numbers')
 
-var gameSetUp = {
-  Game: function() {
-    this.numberOfTurns = 3,
-    this.over = false,
-    this.target = 0,
-    this.numbers = []
-  },
+var GameSetUp = (function () {
+  return {
+    numOfNumberElements: 7,
+    Game: function(numOfNumbers) {
+      this.numberOfTurns = 3,
+      this.over = false,
+      this.target = 0,
+      this.numOfNumbers = 0,
+      this.numbers = []
+    },
+    assignNumbers: function(game) {
+       for (var i = 0; i < GameSetUp.numOfNumberElements; i++) {
+         var num = new NumberElement.Number()
+         if (game.numbers.length === 0) {
+           game.numbers.push(num)
+         } else {
+           var newNum = GameSetUp.detectOverlap(game, num);
+           game.numbers.push(newNum)
+         }
+       }
+       console.log("In assignNumbers", game.numbers)
+       return game;
+     },
+     detectOverlap: function(game, num) {
+         for (var i = 0; i < game.numbers.length; i++){
+           let numInArray = game.numbers[i]
+           let dx = Math.abs(numInArray.x - num.x);
+           let dy = Math.abs(numInArray.y - num.y);
 
-  assignTarget: function(game) {
-    let numOfObjects = game.numbers.length
-    let i = numbers.generateRandomNumber(numOfObjects-1,1)
-    let j = i - 1
-    let actualNumValue1 = game.numbers[i].value
-    let actualNumValue2 = game.numbers[j].value
+             if (dx < 70 && dy < 70) {
+               num = new NumberElement.Number()
+               GameSetUp.detectOverlap(game, num)
+             };
+         };
+         return num;
+     },
+    assignTarget: function(game) {
+      let numOfObjects = game.numbers.length
+      let i = generateRandomNumber(numOfObjects-1,1)
+      let j = i - 1
+      let actualNumValue1 = game.numbers[i].value
+      let actualNumValue2 = game.numbers[j].value
 
-    game.target = actualNumValue1 + actualNumValue2
-  },
-}
+      game.target = actualNumValue1 + actualNumValue2
+    }
+  }
+})();
 
-module.exports = gameSetUp;
+
+module.exports = GameSetUp;
 
 
 /***/ }),
@@ -169,8 +166,8 @@ function reloadPage() {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Konva = __webpack_require__(4);
-var gameSetUp = __webpack_require__(1);
-var numbers = __webpack_require__(0);
+var GameSetUp = __webpack_require__(1);
+var NumberElement = __webpack_require__(0);
 
 
   var screenObj = window.screen;
@@ -199,28 +196,35 @@ var numbers = __webpack_require__(0);
     text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
     fontFamily : 'Futura',
     fill : 'DarkSlateGray',
-    fontSize : 40
-    // CENTER TEXT
+    // shadowColor: 'white',
+    // shadowBlur: 2,
+    // shadowOffsetX : 5,
+    // shadowOffsetY : 5,
+    // shadowOpacity: 0.2,
+    align: 'center',
+    fontSize : 30
   });
 
   var rect = new Konva.Rect({
-    x: 0,
+     x: 20,
      y: 0,
+     height: text.getHeight() + 14,
+     width: text.getWidth() + 50
     //  stroke: '#555',
     //  strokeWidth: 5,
-     fill: 'BurlyWood',
-     width: stage.getWidth()*.90,
-     height: text.getHeight() + 10
-
+     // fill: 'BurlyWood',
+     // width: stage.getWidth() - 20,
     //  shadowColor: 'black',
     //  shadowBlur: 10,
     //  shadowOffset: [10, 10],
     //  shadowOpacity: 0.2,
     //  cornerRadius: 10
   })
+  
+
 
   layer.add(rect)
-  layer.add(text)   //??
+  layer.add(text)  
   var tempArray = []
 
 
@@ -232,12 +236,12 @@ var numbers = __webpack_require__(0);
 
 const init = () => {
   // playGame(stage);
-  game = new gameSetUp.Game();
+  game = new GameSetUp.Game(7);
   // debugger
-  numbers.assignNumbers(game);
+  GameSetUp.assignNumbers(game);
   // debugger
   drawNumbers(game);
-  gameSetUp.assignTarget(game);
+  GameSetUp.assignTarget(game);
   drawTarget();
   layer.draw();
 }
@@ -386,17 +390,17 @@ function holdUntilLoad()  {
       tempLayer.draw();
   });
   stage.on("dragenter", function(e){
+    if (e.target.attrs.id == "target-monster") {
       e.target.fill('LemonChiffon');
+    }
 
-      // ONLY CHANGE COLOR IF target-monster
-
-
-      // text.text('dragenter ' + e.target.name());
       layer.draw();
   });
   stage.on("dragleave", function(e){
       layer.draw();
-      e.target.fill('MediumAquaMarine');
+      if (e.target.attrs.id == "target-monster") {
+        e.target.fill('MediumAquaMarine');
+      }
 
       if (e.target.attrs.id == "target-monster") {
         let num = parseInt(this.tapStartShape.partialText);
@@ -424,7 +428,9 @@ function holdUntilLoad()  {
       checkForCorrectMath();
       console.log(tempArray);
     }
-    e.target.fill('MediumAquaMarine');
+    if (e.target.attrs.id == "target-monster") {
+        e.target.fill('MediumAquaMarine');
+    }    
     layer.draw();
   });
 }
@@ -456,7 +462,7 @@ const checkForCorrectMath = () => {
 const youWin = () => {
   // DELAY 1000 MSEC
   document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./src/images/celebrate.gif' width='400' /><br />";
-  document.getElementById('full-screen').setAttribute('id', 'success');
+  document.getElementById('full-screen').setAttribute('class', 'success');
   document.getElementById('play-button').classList.remove('hidden');
 }
 
@@ -473,6 +479,11 @@ const removeNumberFromArray = (num) => {
   let index = tempArray.indexOf(num)
   tempArray.splice(index, 1);
 };
+
+generateRandomNumber = function(max, min) {
+  randomNumber = Math.floor( (Math.random() * (max - min) + min) )
+  return randomNumber
+}
 init();
 
 

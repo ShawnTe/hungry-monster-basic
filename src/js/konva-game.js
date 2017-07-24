@@ -1,6 +1,6 @@
 var Konva = require('konva');
-var gameSetUp = require('./game');
-var numbers = require('./numbers');
+var GameSetUp = require('./game');
+var NumberElement = require('./numbers');
 
 
   var screenObj = window.screen;
@@ -29,28 +29,35 @@ var numbers = require('./numbers');
     text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
     fontFamily : 'Futura',
     fill : 'DarkSlateGray',
-    fontSize : 40
-    // CENTER TEXT
+    // shadowColor: 'white',
+    // shadowBlur: 2,
+    // shadowOffsetX : 5,
+    // shadowOffsetY : 5,
+    // shadowOpacity: 0.2,
+    align: 'center',
+    fontSize : 30
   });
 
   var rect = new Konva.Rect({
-    x: 0,
+     x: 20,
      y: 0,
+     height: text.getHeight() + 14,
+     width: text.getWidth() + 50
     //  stroke: '#555',
     //  strokeWidth: 5,
-     fill: 'BurlyWood',
-     width: stage.getWidth()*.90,
-     height: text.getHeight() + 10
-
+     // fill: 'BurlyWood',
+     // width: stage.getWidth() - 20,
     //  shadowColor: 'black',
     //  shadowBlur: 10,
     //  shadowOffset: [10, 10],
     //  shadowOpacity: 0.2,
     //  cornerRadius: 10
   })
+  
+
 
   layer.add(rect)
-  layer.add(text)   //??
+  layer.add(text)  
   var tempArray = []
 
 
@@ -62,12 +69,12 @@ var numbers = require('./numbers');
 
 const init = () => {
   // playGame(stage);
-  game = new gameSetUp.Game();
+  game = new GameSetUp.Game(7);
   // debugger
-  numbers.assignNumbers(game);
+  GameSetUp.assignNumbers(game);
   // debugger
   drawNumbers(game);
-  gameSetUp.assignTarget(game);
+  GameSetUp.assignTarget(game);
   drawTarget();
   layer.draw();
 }
@@ -216,17 +223,17 @@ function holdUntilLoad()  {
       tempLayer.draw();
   });
   stage.on("dragenter", function(e){
+    if (e.target.attrs.id == "target-monster") {
       e.target.fill('LemonChiffon');
+    }
 
-      // ONLY CHANGE COLOR IF target-monster
-
-
-      // text.text('dragenter ' + e.target.name());
       layer.draw();
   });
   stage.on("dragleave", function(e){
       layer.draw();
-      e.target.fill('MediumAquaMarine');
+      if (e.target.attrs.id == "target-monster") {
+        e.target.fill('MediumAquaMarine');
+      }
 
       if (e.target.attrs.id == "target-monster") {
         let num = parseInt(this.tapStartShape.partialText);
@@ -254,7 +261,9 @@ function holdUntilLoad()  {
       checkForCorrectMath();
       console.log(tempArray);
     }
-    e.target.fill('MediumAquaMarine');
+    if (e.target.attrs.id == "target-monster") {
+        e.target.fill('MediumAquaMarine');
+    }    
     layer.draw();
   });
 }
@@ -286,7 +295,7 @@ const checkForCorrectMath = () => {
 const youWin = () => {
   // DELAY 1000 MSEC
   document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./src/images/celebrate.gif' width='400' /><br />";
-  document.getElementById('full-screen').setAttribute('id', 'success');
+  document.getElementById('full-screen').setAttribute('class', 'success');
   document.getElementById('play-button').classList.remove('hidden');
 }
 
@@ -303,4 +312,9 @@ const removeNumberFromArray = (num) => {
   let index = tempArray.indexOf(num)
   tempArray.splice(index, 1);
 };
+
+generateRandomNumber = function(max, min) {
+  randomNumber = Math.floor( (Math.random() * (max - min) + min) )
+  return randomNumber
+}
 init();
