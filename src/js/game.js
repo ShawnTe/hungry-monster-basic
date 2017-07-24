@@ -30,7 +30,7 @@ var GameSetUp = (function () {
            let dx = Math.abs(numInArray.x - num.x);
            let dy = Math.abs(numInArray.y - num.y);
 
-             if (dx < 50 && dy < 50) {
+             if (dx < 70 && dy < 70) {
                num = new NumberElement.Number()
                GameSetUp.detectOverlap(game, num)
              };
@@ -49,23 +49,5 @@ var GameSetUp = (function () {
   }
 })();
 
-// var gameSetUp = {
-  // Game: function() {
-  //   this.numberOfTurns = 3,
-  //   this.over = false,
-  //   this.target = 0,
-  //   this.numbers = []
-  // },
-
-  // assignTarget: function(game) {
-  //   let numOfObjects = game.numbers.length
-  //   let i = generateRandomNumber(numOfObjects-1,1)
-  //   let j = i - 1
-  //   let actualNumValue1 = game.numbers[i].value
-  //   let actualNumValue2 = game.numbers[j].value
-  //
-  //   game.target = actualNumValue1 + actualNumValue2
-  // },
-// }
 
 module.exports = GameSetUp;
