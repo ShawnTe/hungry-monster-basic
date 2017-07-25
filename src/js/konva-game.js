@@ -53,11 +53,11 @@ var NumberElement = require('./numbers');
     //  shadowOpacity: 0.2,
     //  cornerRadius: 10
   })
-  
+
 
 
   layer.add(rect)
-  layer.add(text)  
+  layer.add(text)
   var tempArray = []
 
 
@@ -263,7 +263,7 @@ function holdUntilLoad()  {
     }
     if (e.target.attrs.id == "target-monster") {
         e.target.fill('MediumAquaMarine');
-    }    
+    }
     layer.draw();
   });
 }
