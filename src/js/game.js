@@ -90,7 +90,7 @@ var GameSetUp = (function () {
         var expressionText = new Konva.Text({
           x: 130,
           y: 570,
-          text: "____ + ____",
+          // text: "____ + ____",
           fontFamily : 'Futura',
           fill : 'DarkSlateGray',
           // shadowColor: 'white',

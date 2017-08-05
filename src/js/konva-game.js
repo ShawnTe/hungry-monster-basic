@@ -60,7 +60,7 @@ document.getElementById("container").addEventListener("click", holdUntilLoad());
 
 function holdUntilLoad()  {
   stage.on("dragstart", function(e){
-    console.log("This is the picked up number: " + e.target.text())
+    // console.log("This is the picked up number: " + e.target.text())
     // IF DRAG PICKKUP IS TARGET, THEN DISREGARD
     e.target.moveTo(tempLayer);
     text.text("");
@@ -137,7 +137,6 @@ function holdUntilLoad()  {
       if (e.target.attrs.id == "target-monster") {
         e.target.fill('MediumAquaMarine');
       }
-
       if (e.target.attrs.id == "target-monster") {
         let num = parseInt(this.tapStartShape.partialText);
 
@@ -148,10 +147,6 @@ function holdUntilLoad()  {
       };
   });
   stage.on("dragover", function(e){
-      // text.text('dragover ');
-      // console.log('dragover ' + e.target.name());
-      // console.log(e.currentTarget.tapStartShape.parseText)
-
       layer.draw();
   });
   stage.on("drop", function(e){
@@ -160,9 +155,11 @@ function holdUntilLoad()  {
       equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
       tempArray.push(equationNumber);
-      // expressionText.text = equationNumber
-      text.text("You added: " + equationNumber)
+      // debugger
+      // group.children[1].partialText = "equationNumber"
+      // text.text("You added: " + equationNumber)
       checkForCorrectMath();
+
       console.log(tempArray);
     }
     if (e.target.attrs.id == "target-monster") {
@@ -197,13 +194,12 @@ const checkForCorrectMath = () => {
 }
 
 const youWin = () => {
-  // DELAY 1000 MSEC
   function successMessage() {
     document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./src/images/celebrate.gif' width='400' /><br />";
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
-  setTimeout(successMessage, 1000)
+  setTimeout(successMessage, 500)
 }
 
 const tryAgain = (answer) => {
