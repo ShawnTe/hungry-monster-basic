@@ -123,9 +123,9 @@ var GameSetUp = (function () {
           fontFamily : 'Futura',
           fill : colors[i],
           padding : 10,
-          // MAKE SHADOW WHITE OR SOMETHING TO STAND OUT ON MONSTER
-          shadowOffsetX : 5,
-          shadowOffsetY : 5,
+          shadowColor: 'white',
+          shadowOffsetX : 4,
+          shadowOffsetY : 4,
           draggable: true,
         });
         layer.add(number);

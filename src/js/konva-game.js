@@ -29,146 +29,32 @@ var text = new Konva.Text({
   text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
   fontFamily : 'Futura',
   fill : 'DarkSlateGray',
-  // shadowColor: 'white',
-  // shadowBlur: 2,
-  // shadowOffsetX : 5,
-  // shadowOffsetY : 5,
-  // shadowOpacity: 0.2,
+  shadowColor: 'white',
+  shadowOffsetX : 2,
+  shadowOffsetY : 2,
   align: 'center',
   fontSize : 30
 });
 
-var rect = new Konva.Rect({
-   x: 20,
-   y: 0,
-   height: text.getHeight() + 14,
-   width: text.getWidth() + 50
-  //  stroke: '#555',
-  //  strokeWidth: 5,
-   // fill: 'BurlyWood',
-   // width: stage.getWidth() - 20,
-  //  shadowColor: 'black',
-  //  shadowBlur: 10,
-  //  shadowOffset: [10, 10],
-  //  shadowOpacity: 0.2,
-  //  cornerRadius: 10
-})
 
-layer.add(rect)
-layer.add(text)
 var tempArray = []
-
-stage.add(layer);
-
 var tempLayer = new Konva.Layer();
+
+layer.add(text)
+stage.add(layer);
 stage.add(tempLayer);
 
 
 const init = () => {
-  // playGame(stage);
   game = new GameSetUp.Game(7);
-  // debugger
+
   GameSetUp.assignNumbers(game);
-  // debugger
   GameSetUp.drawNumbers(game, layer);
   GameSetUp.assignTarget(game);
   GameSetUp.drawTarget(game, group, layer, stage);
 
-  // drawTarget();
   layer.draw();
 }
-
-// const drawNumbers = (game) => {
-//   let gameNumbers = game.numbers
-//   // var number;
-//   var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
-//   for(var i = 0; i < gameNumbers.length; i++) {
-//     let gameNum = gameNumbers[i];
-//     var number = new Konva.Text({
-//       x : gameNum.x,
-//       y : gameNum.y,
-//       name : 'Current number',
-//       text : gameNum.value,
-//       fontSize : 80,
-//       fontFamily : 'Futura',
-//       fill : colors[i],
-//       padding : 10,
-//       // MAKE SHADOW WHITE OR SOMETHING TO STAND OUT ON MONSTER
-//       shadowOffsetX : 5,
-//       shadowOffsetY : 5,
-//       draggable: true,
-//     });
-//     layer.add(number);
-//   }
-// }
-
-// const drawTarget = () => {
-//   var name = game.target
-//   var imageObj = new Image();
-//   imageObj.onload = function() {
-//     var monster = new Konva.Image({
-//       x: 0,
-//       y: 150,
-//       image: imageObj,
-//       width: 406,
-//       height: 418,
-//       padding: 10,
-//       id : 'target-monster'
-//     });
-//     group.add(monster);
-//
-//     var tooltip = new Konva.Label({
-//       x: 200,
-//       y: 160,
-//       opacity: 0.75
-//     });
-//
-//     tooltip.add(new Konva.Tag({
-//         name : 'Target',
-//         fill: 'gold',
-//         pointerDirection: 'down',
-//         pointerWidth: 20,
-//         pointerHeight: 30,
-//         lineJoin: 'round',
-//         shadowColor: 'black',
-//         shadowBlur: 10,
-//         shadowOffset: 10,
-//         shadowOpacity: 0.5
-//     }));
-//     tooltip.add(new Konva.Text({
-//         text: name,
-//         fontFamily: 'Futura',
-//         fontSize: 75,
-//         padding: 15,
-//         fill: 'white'
-//     }));
-//
-//     var expressionText = new Konva.Text({
-//       x: 130,
-//       y: 570,
-//       text: "____ + ____",
-//       fontFamily : 'Futura',
-//       fill : 'DarkSlateGray',
-//       // shadowColor: 'white',
-//       // shadowBlur: 2,
-//       // shadowOffsetX : 5,
-//       // shadowOffsetY : 5,
-//       // shadowOpacity: 0.2,
-//       align: 'center',
-//       fontSize : 30
-//     });
-//
-//     group.add(expressionText);
-//     group.add(tooltip);
-//     layer.add(group);
-//     stage.add(layer);
-//   };
-//
-//   imageObj.src = './src/images/blue-monster-510w.png';
-//
-// }
-
-/// how to hold this until onload?
 
 document.getElementById("container").addEventListener("click", holdUntilLoad());
 
