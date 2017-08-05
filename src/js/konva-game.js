@@ -3,68 +3,65 @@ var GameSetUp = require('./game');
 var NumberElement = require('./numbers');
 
 
-  var screenObj = window.screen;
-  var width = window.innerWidth;
-  var height = screenObj.availHeight - 100;
+var screenObj = window.screen;
+var width = window.innerWidth;
+var height = screenObj.availHeight - 100;
 
-  var stage = new Konva.Stage({
-    container: 'container',
-    width: width,
-    height: height
-  });
+var stage = new Konva.Stage({
+  container: 'container',
+  width: width,
+  height: height
+});
 
-  var layer = new Konva.Layer();
+var layer = new Konva.Layer();
 
-  var group = new Konva.Group({
-    x: 50,
-    y: 50,
-    fill : 'Yellow',
-    width: width/4,
-    height: height/4
-  });
+var group = new Konva.Group({
+  x: 50,
+  y: 50,
+  fill : 'Yellow',
+  width: width/4,
+  height: height/4
+});
 
-  var text = new Konva.Text({
-    x: 50,
-    y: 5,
-    text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
-    fontFamily : 'Futura',
-    fill : 'DarkSlateGray',
-    // shadowColor: 'white',
-    // shadowBlur: 2,
-    // shadowOffsetX : 5,
-    // shadowOffsetY : 5,
-    // shadowOpacity: 0.2,
-    align: 'center',
-    fontSize : 30
-  });
+var text = new Konva.Text({
+  x: 50,
+  y: 5,
+  text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
+  fontFamily : 'Futura',
+  fill : 'DarkSlateGray',
+  // shadowColor: 'white',
+  // shadowBlur: 2,
+  // shadowOffsetX : 5,
+  // shadowOffsetY : 5,
+  // shadowOpacity: 0.2,
+  align: 'center',
+  fontSize : 30
+});
 
-  var rect = new Konva.Rect({
-     x: 20,
-     y: 0,
-     height: text.getHeight() + 14,
-     width: text.getWidth() + 50
-    //  stroke: '#555',
-    //  strokeWidth: 5,
-     // fill: 'BurlyWood',
-     // width: stage.getWidth() - 20,
-    //  shadowColor: 'black',
-    //  shadowBlur: 10,
-    //  shadowOffset: [10, 10],
-    //  shadowOpacity: 0.2,
-    //  cornerRadius: 10
-  })
+var rect = new Konva.Rect({
+   x: 20,
+   y: 0,
+   height: text.getHeight() + 14,
+   width: text.getWidth() + 50
+  //  stroke: '#555',
+  //  strokeWidth: 5,
+   // fill: 'BurlyWood',
+   // width: stage.getWidth() - 20,
+  //  shadowColor: 'black',
+  //  shadowBlur: 10,
+  //  shadowOffset: [10, 10],
+  //  shadowOpacity: 0.2,
+  //  cornerRadius: 10
+})
 
+layer.add(rect)
+layer.add(text)
+var tempArray = []
 
+stage.add(layer);
 
-  layer.add(rect)
-  layer.add(text)
-  var tempArray = []
-
-
-  stage.add(layer);
-
-  var tempLayer = new Konva.Layer();
-  stage.add(tempLayer);
+var tempLayer = new Konva.Layer();
+stage.add(tempLayer);
 
 
 const init = () => {
@@ -75,7 +72,9 @@ const init = () => {
   // debugger
   drawNumbers(game);
   GameSetUp.assignTarget(game);
-  drawTarget();
+  GameSetUp.drawTarget(game, group, layer, stage);
+
+  // drawTarget();
   layer.draw();
 }
 
@@ -103,54 +102,71 @@ const drawNumbers = (game) => {
   }
 }
 
-const drawTarget = () => {
-  var name = game.target
-  var imageObj = new Image();
-  imageObj.onload = function() {
-    var monster = new Konva.Image({
-      x: 0,
-      y: 150,
-      image: imageObj,
-      width: 406,
-      height: 418,
-      padding: 10,
-      id : 'target-monster'
-    });
-    group.add(monster);
-
-    var tooltip = new Konva.Label({
-            x: 200,
-            y: 160,
-            opacity: 0.75
-        });
-        tooltip.add(new Konva.Tag({
-            name : 'Target',
-            fill: 'gold',
-            pointerDirection: 'down',
-            pointerWidth: 20,
-            pointerHeight: 30,
-            lineJoin: 'round',
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOffset: 10,
-            shadowOpacity: 0.5
-        }));
-        tooltip.add(new Konva.Text({
-            text: name,
-            fontFamily: 'Futura',
-            fontSize: 75,
-            padding: 15,
-            fill: 'white'
-        }));
-
-    group.add(tooltip);
-    layer.add(group);
-    stage.add(layer);
-  };
-
-  imageObj.src = './src/images/blue-monster-510w.png';
-
-}
+// const drawTarget = () => {
+//   var name = game.target
+//   var imageObj = new Image();
+//   imageObj.onload = function() {
+//     var monster = new Konva.Image({
+//       x: 0,
+//       y: 150,
+//       image: imageObj,
+//       width: 406,
+//       height: 418,
+//       padding: 10,
+//       id : 'target-monster'
+//     });
+//     group.add(monster);
+//
+//     var tooltip = new Konva.Label({
+//       x: 200,
+//       y: 160,
+//       opacity: 0.75
+//     });
+//
+//     tooltip.add(new Konva.Tag({
+//         name : 'Target',
+//         fill: 'gold',
+//         pointerDirection: 'down',
+//         pointerWidth: 20,
+//         pointerHeight: 30,
+//         lineJoin: 'round',
+//         shadowColor: 'black',
+//         shadowBlur: 10,
+//         shadowOffset: 10,
+//         shadowOpacity: 0.5
+//     }));
+//     tooltip.add(new Konva.Text({
+//         text: name,
+//         fontFamily: 'Futura',
+//         fontSize: 75,
+//         padding: 15,
+//         fill: 'white'
+//     }));
+//
+//     var expressionText = new Konva.Text({
+//       x: 130,
+//       y: 570,
+//       text: "____ + ____",
+//       fontFamily : 'Futura',
+//       fill : 'DarkSlateGray',
+//       // shadowColor: 'white',
+//       // shadowBlur: 2,
+//       // shadowOffsetX : 5,
+//       // shadowOffsetY : 5,
+//       // shadowOpacity: 0.2,
+//       align: 'center',
+//       fontSize : 30
+//     });
+//
+//     group.add(expressionText);
+//     group.add(tooltip);
+//     layer.add(group);
+//     stage.add(layer);
+//   };
+//
+//   imageObj.src = './src/images/blue-monster-510w.png';
+//
+// }
 
 /// how to hold this until onload?
 
@@ -210,6 +226,7 @@ function holdUntilLoad()  {
   stage.on("dragend", function(e){
       var pos = stage.getPointerPosition();
       var shape = layer.getIntersection(pos);
+      // console.log("e", e.target.partialText);
       if (shape) {
           previousShape.fire('drop', {
               type : 'drop',
@@ -257,6 +274,7 @@ function holdUntilLoad()  {
       equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
       tempArray.push(equationNumber);
+      // expressionText.text = equationNumber
       text.text("You added: " + equationNumber)
       checkForCorrectMath();
       console.log(tempArray);

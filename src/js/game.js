@@ -23,20 +23,20 @@ var GameSetUp = (function () {
        }
        console.log("In assignNumbers", game.numbers)
        return game;
-     },
-     detectOverlap: function(game, num) {
-         for (var i = 0; i < game.numbers.length; i++){
-           let numInArray = game.numbers[i]
-           let dx = Math.abs(numInArray.x - num.x);
-           let dy = Math.abs(numInArray.y - num.y);
+    },
+    detectOverlap: function(game, num) {
+      for (var i = 0; i < game.numbers.length; i++){
+        let numInArray = game.numbers[i]
+        let dx = Math.abs(numInArray.x - num.x);
+        let dy = Math.abs(numInArray.y - num.y);
 
-             if (dx < 70 && dy < 70) {
-               num = new NumberElement.Number()
-               GameSetUp.detectOverlap(game, num)
-             };
-         };
-         return num;
-     },
+        if (dx < 70 && dy < 70) {
+          num = new NumberElement.Number()
+          GameSetUp.detectOverlap(game, num)
+        };
+      };
+      return num;
+    },
     assignTarget: function(game) {
       let numOfObjects = game.numbers.length
       let i = generateRandomNumber(numOfObjects-1,1)
@@ -45,8 +45,72 @@ var GameSetUp = (function () {
       let actualNumValue2 = game.numbers[j].value
 
       game.target = actualNumValue1 + actualNumValue2
+    },
+    drawTarget: function(game, group, layer, stage) {
+      var name = game.target
+      var imageObj = new Image();
+      imageObj.onload = function() {
+        var monster = new Konva.Image({
+          x: 0,
+          y: 150,
+          image: imageObj,
+          width: 406,
+          height: 418,
+          padding: 10,
+          id : 'target-monster'
+        });
+        group.add(monster);
+
+        var tooltip = new Konva.Label({
+          x: 200,
+          y: 160,
+          opacity: 0.75
+        });
+
+        tooltip.add(new Konva.Tag({
+            name : 'Target',
+            fill: 'gold',
+            pointerDirection: 'down',
+            pointerWidth: 20,
+            pointerHeight: 30,
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: 10,
+            shadowOpacity: 0.5
+        }));
+        tooltip.add(new Konva.Text({
+            text: name,
+            fontFamily: 'Futura',
+            fontSize: 75,
+            padding: 15,
+            fill: 'white'
+        }));
+
+        var expressionText = new Konva.Text({
+          x: 130,
+          y: 570,
+          text: "____ + ____",
+          fontFamily : 'Futura',
+          fill : 'DarkSlateGray',
+          // shadowColor: 'white',
+          // shadowBlur: 2,
+          // shadowOffsetX : 5,
+          // shadowOffsetY : 5,
+          // shadowOpacity: 0.2,
+          align: 'center',
+          fontSize : 30
+        });
+
+        group.add(expressionText);
+        group.add(tooltip);
+        layer.add(group);
+        stage.add(layer);
+      };
+      imageObj.src = './src/images/blue-monster-510w.png';
     }
   }
+
 })();
 
 
