@@ -70,7 +70,7 @@ const init = () => {
   // debugger
   GameSetUp.assignNumbers(game);
   // debugger
-  drawNumbers(game);
+  GameSetUp.drawNumbers(game, layer);
   GameSetUp.assignTarget(game);
   GameSetUp.drawTarget(game, group, layer, stage);
 
@@ -78,29 +78,29 @@ const init = () => {
   layer.draw();
 }
 
-const drawNumbers = (game) => {
-  let gameNumbers = game.numbers
-  // var number;
-  var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
-  for(var i = 0; i < gameNumbers.length; i++) {
-    let gameNum = gameNumbers[i];
-    var number = new Konva.Text({
-      x : gameNum.x,
-      y : gameNum.y,
-      name : 'Current number',
-      text : gameNum.value,
-      fontSize : 80,
-      fontFamily : 'Futura',
-      fill : colors[i],
-      padding : 10,
-      // MAKE SHADOW WHITE OR SOMETHING TO STAND OUT ON MONSTER
-      shadowOffsetX : 5,
-      shadowOffsetY : 5,
-      draggable: true,
-    });
-    layer.add(number);
-  }
-}
+// const drawNumbers = (game) => {
+//   let gameNumbers = game.numbers
+//   // var number;
+//   var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
+//   for(var i = 0; i < gameNumbers.length; i++) {
+//     let gameNum = gameNumbers[i];
+//     var number = new Konva.Text({
+//       x : gameNum.x,
+//       y : gameNum.y,
+//       name : 'Current number',
+//       text : gameNum.value,
+//       fontSize : 80,
+//       fontFamily : 'Futura',
+//       fill : colors[i],
+//       padding : 10,
+//       // MAKE SHADOW WHITE OR SOMETHING TO STAND OUT ON MONSTER
+//       shadowOffsetX : 5,
+//       shadowOffsetY : 5,
+//       draggable: true,
+//     });
+//     layer.add(number);
+//   }
+// }
 
 // const drawTarget = () => {
 //   var name = game.target

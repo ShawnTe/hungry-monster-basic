@@ -108,6 +108,28 @@ var GameSetUp = (function () {
         stage.add(layer);
       };
       imageObj.src = './src/images/blue-monster-510w.png';
+    },
+    drawNumbers: function(game, layer) {
+      let gameNumbers = game.numbers
+      var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
+      for(var i = 0; i < gameNumbers.length; i++) {
+        let gameNum = gameNumbers[i];
+        var number = new Konva.Text({
+          x : gameNum.x,
+          y : gameNum.y,
+          name : 'Current number',
+          text : gameNum.value,
+          fontSize : 80,
+          fontFamily : 'Futura',
+          fill : colors[i],
+          padding : 10,
+          // MAKE SHADOW WHITE OR SOMETHING TO STAND OUT ON MONSTER
+          shadowOffsetX : 5,
+          shadowOffsetY : 5,
+          draggable: true,
+        });
+        layer.add(number);
+      }
     }
   }
 
