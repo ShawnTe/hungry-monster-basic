@@ -2,6 +2,10 @@ body {
   font-family: Futura;
 }
 
+.wrong-device {
+  margin: 300px;
+}
+
 #container {
   background-color: MediumAquaMarine;
   border: 25px solid DodgerBlue;
