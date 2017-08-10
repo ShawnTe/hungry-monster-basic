@@ -10,3 +10,10 @@ Remember to open up Chrome DevTools to use the mobile simulator.
 * KonvaJS library
 * Webpack
 * CSS
+
+
+
+#### to get going...
+npm run build  
+or  
+node_modules/.bin/webpack --progress --colors --watch
