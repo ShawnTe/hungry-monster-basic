@@ -27,13 +27,13 @@ var text = new Konva.Text({
   x: 50,
   y: 5,
   text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
-  fontFamily : 'Futura',
-  fill : 'DarkSlateGray',
+  fontFamily: 'Futura',
+  fill: 'DarkSlateGray',
   shadowColor: 'white',
-  shadowOffsetX : 2,
-  shadowOffsetY : 2,
+  shadowOffsetX: 2,
+  shadowOffsetY: 2,
   align: 'center',
-  fontSize : 30
+  fontSize: 30
 });
 
 var youAddedNumbers = new Konva.Text({
@@ -169,10 +169,7 @@ function holdUntilLoad()  {
       tempArray.push(equationNumber);
       checkForCorrectMath();
       showNumbers();
-      // console.log(tempArray);
-        e.target.fill('MediumAquaMarine');
-    }
-    if (e.target.attrs.id == "target-monster") {
+      e.target.fill('MediumAquaMarine');
     }
     layer.draw();
   });
@@ -226,6 +223,9 @@ const youWin = () => {
 
 const tryAgain = (answer) => {
   console.log(answer)
+    text.x(380);
+    text.y(15);
+    text.fontSize(40);
   if (answer == 'low') {
     text.text("I'm still hungry!");
   } else {
