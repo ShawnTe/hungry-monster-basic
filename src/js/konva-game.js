@@ -225,7 +225,7 @@ const tryAgain = (answer) => {
   console.log(answer)
     text.x(380);
     text.y(15);
-    text.fontSize(40);
+    text.fontSize(45);
   if (answer == 'low') {
     text.text("I'm still hungry!");
   } else {

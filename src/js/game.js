@@ -90,7 +90,6 @@ var GameSetUp = (function () {
             shadowOffsetX : 5,
             shadowOffsetY : 5,
         }));
-
         group.add(tooltip);
         layer.add(group);
         stage.add(layer);
