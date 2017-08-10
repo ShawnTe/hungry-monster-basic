@@ -36,11 +36,23 @@ var text = new Konva.Text({
   fontSize : 30
 });
 
+var youAddedNumbers = new Konva.Text({
+  x: 130,
+  y: 620,
+  // text: "",
+  fontFamily : 'Futura',
+  fill : 'DarkSlateGray',
+  shadowColor: 'white',
+  shadowBlur: 2,
+  shadowOpacity: 0.2,
+  align: 'center',
+  fontSize : 30
+});
 
 var tempArray = []
 var tempLayer = new Konva.Layer();
-
-layer.add(text)
+layer.add(youAddedNumbers);
+layer.add(text);
 stage.add(layer);
 stage.add(tempLayer);
 
@@ -151,16 +163,12 @@ function holdUntilLoad()  {
   });
   stage.on("drop", function(e){
     if (e.target.attrs.id === "target-monster"){
-
       equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
       tempArray.push(equationNumber);
-      // debugger
-      // group.children[1].partialText = "equationNumber"
-      // text.text("You added: " + equationNumber)
       checkForCorrectMath();
-
-      console.log(tempArray);
+      showNumbers();
+      // console.log(tempArray);
     }
     if (e.target.attrs.id == "target-monster") {
         e.target.fill('MediumAquaMarine');
@@ -169,15 +177,28 @@ function holdUntilLoad()  {
   });
 }
 
+const showNumbers = () => { 
+  let numbersAdded = ""
+    for(var i = 0; i < tempArray.length; i++) {
+      if (numbersAdded) {
+        numbersAdded += " + " + tempArray[i];
+      } else {
+        numbersAdded += "You added:  " + tempArray[i];
+      }
+    }
+    youAddedNumbers.setText(numbersAdded);
+} 
+
 const addNumbers = () => {
-  var numbersToAdd = []
+  let numbersToAdd = []
 
   for (var i = 0; i < tempArray.length; i++) {
     numbersToAdd.push(parseInt(tempArray[i]));
   }
-  var sum = numbersToAdd.reduce((a,b) => a+b, 0);
+  let sum = numbersToAdd.reduce((a,b) => a+b, 0);
   return sum
 };
+
 const checkForCorrectMath = () => {
   sum = addNumbers();
   if (game.target === sum) {

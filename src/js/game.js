@@ -84,26 +84,28 @@ var GameSetUp = (function () {
             fontFamily: 'Futura',
             fontSize: 75,
             padding: 15,
-            fill: 'white'
+            fill: 'white',
+            shadowColor: 'DarkSlateGray',
+            shadowBlur: 2,
+            shadowOffsetX : 5,
+            shadowOffsetY : 5,
         }));
 
         var expressionText = new Konva.Text({
           x: 130,
           y: 570,
-          // text: "____ + ____",
+          // text: " _*_ ",
           fontFamily : 'Futura',
           fill : 'DarkSlateGray',
           // shadowColor: 'white',
           // shadowBlur: 2,
-          // shadowOffsetX : 5,
-          // shadowOffsetY : 5,
           // shadowOpacity: 0.2,
           align: 'center',
           fontSize : 30
         });
 
-        group.add(expressionText);
         group.add(tooltip);
+        group.add(expressionText);
         layer.add(group);
         stage.add(layer);
       };
