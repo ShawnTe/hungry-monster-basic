@@ -57,7 +57,7 @@ var GameSetUp = (function () {
           width: 406,
           height: 418,
           padding: 10,
-          id : 'target-monster'
+          id: 'target-monster'
         });
         group.add(monster);
 
@@ -68,7 +68,7 @@ var GameSetUp = (function () {
         });
 
         tooltip.add(new Konva.Tag({
-            name : 'Target',
+            name: 'Target',
             fill: 'gold',
             pointerDirection: 'down',
             pointerWidth: 20,
@@ -91,21 +91,7 @@ var GameSetUp = (function () {
             shadowOffsetY : 5,
         }));
 
-        var expressionText = new Konva.Text({
-          x: 130,
-          y: 570,
-          // text: " _*_ ",
-          fontFamily : 'Futura',
-          fill : 'DarkSlateGray',
-          // shadowColor: 'white',
-          // shadowBlur: 2,
-          // shadowOpacity: 0.2,
-          align: 'center',
-          fontSize : 30
-        });
-
         group.add(tooltip);
-        group.add(expressionText);
         layer.add(group);
         stage.add(layer);
       };

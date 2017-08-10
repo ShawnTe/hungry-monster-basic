@@ -154,6 +154,7 @@ function holdUntilLoad()  {
 
         if (tempArray.includes(num)){
           removeNumberFromArray(num);
+          showNumbers();
           checkForCorrectMath();
         }
       };
@@ -169,9 +170,9 @@ function holdUntilLoad()  {
       checkForCorrectMath();
       showNumbers();
       // console.log(tempArray);
+        e.target.fill('MediumAquaMarine');
     }
     if (e.target.attrs.id == "target-monster") {
-        e.target.fill('MediumAquaMarine');
     }
     layer.draw();
   });
