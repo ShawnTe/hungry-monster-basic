@@ -3,10 +3,10 @@ var NumberElement = require('./numbers');
 
 var GameSetUp = (function () {
   return {
-    numOfNumberElements: 7,
+    numOfNumberElements: 8,
     Game: function(numOfNumbers) {
-      this.numberOfTurns = 3,
-      this.over = false,
+      // this.numberOfTurns = 3,
+      // this.over = false,
       this.target = 0,
       this.numOfNumbers = 0,
       this.numbers = []
