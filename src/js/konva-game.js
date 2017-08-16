@@ -5,7 +5,8 @@ var NumberElement = require('./numbers');
 
 var screenObj = window.screen;
 var width = window.innerWidth;
-var height = screenObj.availHeight - 100;
+var height = screenObj.availHeight - 115;
+// var height = window.innerWidth;
 
 var stage = new Konva.Stage({
   container: 'container',
