@@ -70,7 +70,7 @@
 var NumberElement = (function () {
 
   return {
-    maxNum: 5,
+    maxNum: 14,
     Number: function() {
       this.value = generateRandomNumber(NumberElement.maxNum, 1)
       this.text = this.value
