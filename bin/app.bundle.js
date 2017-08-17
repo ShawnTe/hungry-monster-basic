@@ -70,8 +70,9 @@
 var NumberElement = (function () {
 
   return {
+    maxSum: 15,
     Number: function() {
-      this.value = generateRandomNumber(10, 1)
+      this.value = generateRandomNumber(NumberElement.maxSum, 1)
       this.text = this.value
       // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
       this.x = generateRandomNumber(900,500)
@@ -94,10 +95,10 @@ var NumberElement = __webpack_require__(0);
 
 var GameSetUp = (function () {
   return {
-    numOfNumberElements: 7,
+    numOfNumberElements: 8,
     Game: function(numOfNumbers) {
-      this.numberOfTurns = 3,
-      this.over = false,
+      // this.numberOfTurns = 3,
+      // this.over = false,
       this.target = 0,
       this.numOfNumbers = 0,
       this.numbers = []
@@ -252,7 +253,8 @@ var NumberElement = __webpack_require__(0);
 
 var screenObj = window.screen;
 var width = window.innerWidth;
-var height = screenObj.availHeight - 100;
+var height = screenObj.availHeight - 115;
+// var height = window.innerWidth;
 
 var stage = new Konva.Stage({
   container: 'container',
@@ -431,7 +433,7 @@ const showNumbers = () => {
         numbersAdded += "You added:  " + tempArray[i];
       }
     }
-    youAddedNumbers.setText(numbersAdded);
+    youAddedNumbers.setText(numbersAdded + " = ");
 } 
 
 const addNumbers = () => {
