@@ -3,7 +3,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 	console.log("Playing")
 	var Numbers = require('./numbers')
 	var gameSetUp = require('./gameSetUp')
-	var KonvaGame = require('./konva-game')
+	var KonvaGame = require('./konvaGame')
 
 } else {
 	console.log("Not a mobile device")
