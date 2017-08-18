@@ -1,5 +1,5 @@
 var Konva = require('konva');
-var GameSetUp = require('./game');
+var GameSetUp = require('./gameSetUp');
 var NumberElement = require('./numbers');
 
 
