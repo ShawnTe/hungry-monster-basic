@@ -43,19 +43,12 @@ body {
   /*background-color: Magenta;*/
 }
 
-@keyframes flash-play {
-    from {color: purple;}
-    to {color: mediumblue;}
-}
 @keyframes flash-border {
     from {border-color: purple;}
-    to {border-color: green;}
+    to {border-color: orange;}
 }
 #play-button {
   color: Purple;
-  animation-name: flash-play;
-  animation-duration: 500ms;
-  animation-iteration-count: infinite;
   font-family: Futura;
   width: 35vw;
   height: 15vw;
@@ -63,8 +56,8 @@ body {
   padding: 2vw;
   padding-bottom: 50px;
   background-color: GreenYellow;
-  animation-name: flash-play;
-  animation-duration: 400ms;
+  animation-name: flash-border;
+  animation-duration: 700ms;
   animation-iteration-count: infinite;
   border: 5px solid;
   border-radius: 15px;
