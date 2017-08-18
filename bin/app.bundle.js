@@ -64,48 +64,31 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
-/***/ (function(module, exports) {
-
-var NumberElement = (function () {
-
-  return {
-    maxNum: 14,
-    Number: function() {
-      this.value = generateRandomNumber(NumberElement.maxNum, 1)
-      this.text = this.value
-      // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
-      this.x = generateRandomNumber(900,500)
-      // console.log(this.x)
-      this.y = generateRandomNumber(500,80)
-      // console.log(this.y)
-    }
-  }
-})();
-
-module.exports = NumberElement;
-
-
-/***/ }),
+/* 0 */,
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var NumberElement = __webpack_require__(0);
-// var numbers = require('./numbers')
+/***/ (function(module, exports) {
 
 var GameSetUp = (function () {
   return {
     numOfNumberElements: 8,
+    maxNum: 14,
     Game: function(numOfNumbers) {
       // this.numberOfTurns = 3,
       // this.over = false,
       this.target = 0,
-      this.numOfNumbers = 0,
+      this.numOfNumbers = numOfNumbers,
       this.numbers = []
     },
+    Number: function() {
+      this.value = generateRandomNumber(GameSetUp.maxNum, 1)
+      this.text = this.value
+      // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
+      this.x = generateRandomNumber(900,500)
+      this.y = generateRandomNumber(500,80)
+    },
     assignNumbers: function(game) {
-       for (var i = 0; i < GameSetUp.numOfNumberElements; i++) {
-         var num = new NumberElement.Number()
+       for (var i = 0; i < game.numOfNumbers; i++) {
+         var num = new GameSetUp.Number()
          if (game.numbers.length === 0) {
            game.numbers.push(num)
          } else {
@@ -123,7 +106,7 @@ var GameSetUp = (function () {
         let dy = Math.abs(numInArray.y - num.y);
 
         if (dx < 70 && dy < 70) {
-          num = new NumberElement.Number()
+          num = new GameSetUp.Number()
           GameSetUp.detectOverlap(game, num)
         };
       };
@@ -225,7 +208,6 @@ module.exports = GameSetUp;
 // Try Modernizr
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 	console.log("Playing")
-	var Numbers = __webpack_require__(0)
 	var gameSetUp = __webpack_require__(1)
 	var KonvaGame = __webpack_require__(3)
 
@@ -248,13 +230,12 @@ function reloadPage() {
 
 var Konva = __webpack_require__(4);
 var GameSetUp = __webpack_require__(1);
-var NumberElement = __webpack_require__(0);
 
 
 var screenObj = window.screen;
 var width = window.innerWidth;
 var height = screenObj.availHeight - 115;
-// var height = window.innerWidth;
+// var height = window.innerWidth;    Why does extend below window?
 
 var stage = new Konva.Stage({
   container: 'container',
