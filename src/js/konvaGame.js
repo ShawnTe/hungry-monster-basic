@@ -1,12 +1,11 @@
 var Konva = require('konva');
-var GameSetUp = require('./game');
-var NumberElement = require('./numbers');
+var GameSetUp = require('./gameSetUp');
 
 
 var screenObj = window.screen;
 var width = window.innerWidth;
 var height = screenObj.availHeight - 115;
-// var height = window.innerWidth;
+// var height = window.innerWidth;    Why does extend below window?
 
 var stage = new Konva.Stage({
   container: 'container',

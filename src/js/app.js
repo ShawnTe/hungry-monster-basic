@@ -1,9 +1,8 @@
 // Try Modernizr
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 	console.log("Playing")
-	var Numbers = require('./numbers')
-	var gameSetUp = require('./game')
-	var KonvaGame = require('./konva-game')
+	var gameSetUp = require('./gameSetUp')
+	var KonvaGame = require('./konvaGame')
 
 } else {
 	console.log("Not a mobile device")
