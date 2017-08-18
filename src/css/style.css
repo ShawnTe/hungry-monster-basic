@@ -2,6 +2,25 @@ body {
   font-family: Futura;
 }
 
+.hidden {
+  display: none;
+}
+@keyframes flashing-colors {
+    from {background-color: magenta;}
+    to {background-color: gold;}
+}
+.success {
+  animation-name: flashing-colors;
+  animation-duration: 400ms;
+  animation-iteration-count: infinite;
+  background-color: red;
+  color: SpringGreen;
+  font-size: 500%;
+  height: 40vw;
+  padding-top: 100px;
+  text-align: center;
+  width: 1000px;
+}
 .wrong-device {
   margin: 300px;
 }
@@ -11,62 +30,30 @@ body {
   border: 25px solid DodgerBlue;
   border-radius: 20px;
 }
-
-@keyframes flashing-colors {
-    from {background-color: magenta;}
-    to {background-color: gold;}
-}
-.success {
-  font-size: 500%;
-  text-align: center;
-  background-color: red;
-  animation-name: flashing-colors;
-  animation-duration: 400ms;
-  animation-iteration-count: infinite;
-  color: SpringGreen;
-  height: 40vw;
-  width: 1000px;
-  padding-top: 100px;
-}
-
-.hidden {
-  display: none;
-}
-
 #h1 {
   font-size: 20px;
 }
-
 #lower-page {
-  width: 1000px;
   text-align: center;
-  /*background-color: Magenta;*/
-}
-
-@keyframes flash-play {
-    from {color: purple;}
-    to {color: mediumblue;}
+  width: 1000px;
 }
 @keyframes flash-border {
     from {border-color: purple;}
-    to {border-color: green;}
+    to {border-color: orange;}
 }
 #play-button {
-  color: Purple;
-  animation-name: flash-play;
-  animation-duration: 500ms;
+  animation-name: flash-border;
+  animation-duration: 700ms;
   animation-iteration-count: infinite;
-  font-family: Futura;
-  width: 35vw;
-  height: 15vw;
-  font-size: 3em;
-  padding: 2vw;
-  padding-bottom: 50px;
   background-color: GreenYellow;
-  animation-name: flash-play;
-  animation-duration: 400ms;
-  animation-iteration-count: infinite;
   border: 5px solid;
   border-radius: 15px;
+  color: Purple;
+  font-family: Futura;
+  font-size: 3em;
+  height: 15vw;
   margin: 3vw auto;
+  padding: 2vw;
+  padding-bottom: 50px;
+  width: 35vw;
 }
