@@ -22,7 +22,7 @@ Remember to open up Chrome DevTools and use the mobile simulator.
   * Track correct streak
   * Track settings 
 * Add mouse drag and drop
-* Add Offline capability
+* Add Offline capability / PWA-ify
 * Add ReactJS UI
 * Add animation for visual interest and feedback
 
