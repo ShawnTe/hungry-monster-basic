@@ -26,7 +26,7 @@ var GameSetUp = (function () {
            game.numbers.push(newNum)
          }
        }
-       console.log("In assignNumbers", game.numbers)
+       // console.log("In assignNumbers", game.numbers)
        return game;
     },
     detectOverlap: function(game, num) {
@@ -34,8 +34,11 @@ var GameSetUp = (function () {
         let numInArray = game.numbers[i]
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
+        var overlap = 70
+          if(GameSetUp.width < 700) overlap = 40
+        console.log('overlap', overlap)
 
-        if (dx < 50 && dy < 50) {
+        if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
           GameSetUp.detectOverlap(game, num)
         };
@@ -51,13 +54,28 @@ var GameSetUp = (function () {
 
       game.target = actualNumValue1 + actualNumValue2
     },
-    drawTarget: function(game, group, layer, stage) {
+    drawTarget: function(game, group, layer, stage, targetNumFontSize) {
       var name = game.target
       var imageObj = new Image();
+      var targetNumFontSize = targetNumFontSize;
+      console.log('targetNumFontSize', targetNumFontSize)
+      
       imageObj.onload = function() {
+        var monsterX = 0;
+        if(GameSetUp.width < 700) monsterX = -30;
+
+        var monsterY = stage.getHeight() / 5;
+        if(GameSetUp.width < 700) monsterY = 0;
+      
+        var targetNumX = stage.getWidth() / 9;
+        if(GameSetUp.width < 700) targetNumX = 0;
+
+        var targetNumY = stage.getHeight() / 5;
+        if(GameSetUp.width < 700) targetNumY = stage.getHeight() / 8;
+      
         var monster = new Konva.Image({
-          x: 0,
-          y: stage.getHeight() / 5,
+          x: monsterX,
+          y: monsterY,
           image: imageObj,
           width: stage.getWidth() / 2.5,
           height: stage.getWidth() / 2.5,
@@ -67,8 +85,8 @@ var GameSetUp = (function () {
         group.add(monster);
 
         var tooltip = new Konva.Label({
-          x: stage.getWidth() / 9,
-          y: stage.getHeight() / 5,
+          x: targetNumX,
+          y: targetNumY,
           rotation: -10,
           opacity: 0.75
         });
@@ -89,7 +107,7 @@ var GameSetUp = (function () {
         tooltip.add(new Konva.Text({
             text: name,
             fontFamily: 'Futura',
-            fontSize: 40,
+            fontSize: targetNumFontSize,
             padding: 15,
             fill: 'white',
             shadowColor: 'DarkSlateGray',
