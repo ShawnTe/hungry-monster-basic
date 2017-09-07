@@ -60,21 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, exports) {
 
 var GameSetUp = (function () {
   return {
     numOfNumberElements: 8,
     maxNum: 14,
+    width: window.innerWidth,
+    height: window.screen.availHeight - 115,
     Game: function(numOfNumbers) {
-      // this.numberOfTurns = 3,
-      // this.over = false,
       this.target = 0,
       this.numOfNumbers = numOfNumbers,
       this.numbers = []
@@ -83,8 +82,8 @@ var GameSetUp = (function () {
       this.value = generateRandomNumber(GameSetUp.maxNum, 1)
       this.text = this.value
       // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
-      this.x = generateRandomNumber(900,500)
-      this.y = generateRandomNumber(500,80)
+      this.x = generateRandomNumber(GameSetUp.width*.83,GameSetUp.width*.4)
+      this.y = generateRandomNumber(GameSetUp.height*.8,GameSetUp.height*.1)
     },
     assignNumbers: function(game) {
        for (var i = 0; i < game.numOfNumbers; i++) {
@@ -105,7 +104,7 @@ var GameSetUp = (function () {
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
 
-        if (dx < 70 && dy < 70) {
+        if (dx < 50 && dy < 50) {
           num = new GameSetUp.Number()
           GameSetUp.detectOverlap(game, num)
         };
@@ -127,18 +126,19 @@ var GameSetUp = (function () {
       imageObj.onload = function() {
         var monster = new Konva.Image({
           x: 0,
-          y: 150,
+          y: stage.getHeight() / 5,
           image: imageObj,
-          width: 406,
-          height: 418,
+          width: stage.getWidth() / 2.5,
+          height: stage.getWidth() / 2.5,
           padding: 10,
           id: 'target-monster'
         });
         group.add(monster);
 
         var tooltip = new Konva.Label({
-          x: 200,
-          y: 160,
+          x: stage.getWidth() / 9,
+          y: stage.getHeight() / 5,
+          rotation: -10,
           opacity: 0.75
         });
 
@@ -146,18 +146,19 @@ var GameSetUp = (function () {
             name: 'Target',
             fill: 'gold',
             pointerDirection: 'down',
-            pointerWidth: 20,
+            pointerWidth: 10,
             pointerHeight: 30,
             lineJoin: 'round',
             shadowColor: 'black',
             shadowBlur: 10,
             shadowOffset: 10,
+            opacity: .8,
             shadowOpacity: 0.5
         }));
         tooltip.add(new Konva.Text({
             text: name,
             fontFamily: 'Futura',
-            fontSize: 75,
+            fontSize: 40,
             padding: 15,
             fill: 'white',
             shadowColor: 'DarkSlateGray',
@@ -171,7 +172,7 @@ var GameSetUp = (function () {
       };
       imageObj.src = './src/images/blue-monster-510w.png';
     },
-    drawNumbers: function(game, layer) {
+    drawNumbers: function(game, layer, fontSize) {
       let gameNumbers = game.numbers
       var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
       for(var i = 0; i < gameNumbers.length; i++) {
@@ -181,7 +182,7 @@ var GameSetUp = (function () {
           y : gameNum.y,
           name : 'Current number',
           text : gameNum.value,
-          fontSize : 80,
+          fontSize : fontSize,
           fontFamily : 'Futura',
           fill : colors[i],
           padding : 10,
@@ -202,14 +203,14 @@ module.exports = GameSetUp;
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Try Modernizr
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 	console.log("Playing")
-	var gameSetUp = __webpack_require__(1)
-	var KonvaGame = __webpack_require__(3)
+	var gameSetUp = __webpack_require__(0)
+	var KonvaGame = __webpack_require__(2)
 
 } else {
 	console.log("Not a mobile device")
@@ -225,16 +226,16 @@ function reloadPage() {
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Konva = __webpack_require__(4);
-var GameSetUp = __webpack_require__(1);
+var Konva = __webpack_require__(3);
+var GameSetUp = __webpack_require__(0);
 
 
 var screenObj = window.screen;
-var width = window.innerWidth;
-var height = screenObj.availHeight - 115;
+var width = window.innerWidth *.9;
+var height = window.innerHeight *.9;
 // var height = window.innerWidth;    Why does extend below window?
 
 var stage = new Konva.Stage({
@@ -267,9 +268,8 @@ var text = new Konva.Text({
 });
 
 var youAddedNumbers = new Konva.Text({
-  x: 130,
-  y: 620,
-  // text: "",
+  x: width * .13,
+  y: height * .9,
   fontFamily : 'Futura',
   fill : 'DarkSlateGray',
   shadowColor: 'white',
@@ -286,13 +286,15 @@ layer.add(text);
 stage.add(layer);
 stage.add(tempLayer);
 
+var numberFontSize = 80
+if(width < 700) numberFontSize = 40
 
 const init = () => {
   game = new GameSetUp.Game(7);
 
   GameSetUp.assignNumbers(game);
-  GameSetUp.drawNumbers(game, layer);
-  GameSetUp.assignTarget(game);
+  GameSetUp.drawNumbers(game, layer, numberFontSize);
+  GameSetUp.assignTarget  (game);
   GameSetUp.drawTarget(game, group, layer, stage);
 
   layer.draw();
@@ -476,7 +478,7 @@ init();
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*
@@ -729,8 +731,8 @@ init();
       // Node. Does not work with strict CommonJS, but
       // only CommonJS-like enviroments that support module.exports,
       // like Node.
-      var Canvas = __webpack_require__(6);
-      var jsdom = __webpack_require__(7).jsdom;
+      var Canvas = __webpack_require__(5);
+      var jsdom = __webpack_require__(6).jsdom;
 
       Konva.window = jsdom(
         '<!DOCTYPE html><html><head></head><body></body></html>'
@@ -18526,10 +18528,10 @@ init();
   Konva.Collection.mapMethods(Konva.Arrow);
 })();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -18556,13 +18558,13 @@ module.exports = g;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /* (ignored) */

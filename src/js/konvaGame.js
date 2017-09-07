@@ -3,8 +3,8 @@ var GameSetUp = require('./gameSetUp');
 
 
 var screenObj = window.screen;
-var width = window.innerWidth;
-var height = screenObj.availHeight - 115;
+var width = window.innerWidth *.9;
+var height = window.innerHeight *.9;
 // var height = window.innerWidth;    Why does extend below window?
 
 var stage = new Konva.Stage({
@@ -37,9 +37,8 @@ var text = new Konva.Text({
 });
 
 var youAddedNumbers = new Konva.Text({
-  x: 130,
-  y: 620,
-  // text: "",
+  x: width * .13,
+  y: height * .9,
   fontFamily : 'Futura',
   fill : 'DarkSlateGray',
   shadowColor: 'white',
@@ -56,13 +55,15 @@ layer.add(text);
 stage.add(layer);
 stage.add(tempLayer);
 
+var numberFontSize = 80
+if(width < 700) numberFontSize = 40
 
 const init = () => {
   game = new GameSetUp.Game(7);
 
   GameSetUp.assignNumbers(game);
-  GameSetUp.drawNumbers(game, layer);
-  GameSetUp.assignTarget(game);
+  GameSetUp.drawNumbers(game, layer, numberFontSize);
+  GameSetUp.assignTarget  (game);
   GameSetUp.drawTarget(game, group, layer, stage);
 
   layer.draw();
