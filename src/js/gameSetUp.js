@@ -2,9 +2,9 @@ var GameSetUp = (function () {
   return {
     numOfNumberElements: 8,
     maxNum: 14,
+    width: window.innerWidth,
+    height: window.screen.availHeight - 115,
     Game: function(numOfNumbers) {
-      // this.numberOfTurns = 3,
-      // this.over = false,
       this.target = 0,
       this.numOfNumbers = numOfNumbers,
       this.numbers = []
@@ -13,8 +13,8 @@ var GameSetUp = (function () {
       this.value = generateRandomNumber(GameSetUp.maxNum, 1)
       this.text = this.value
       // SHOULD THESE BE IN HERE? OR IN THE KONVA NUMBER FUNCTION????
-      this.x = generateRandomNumber(900,500)
-      this.y = generateRandomNumber(500,80)
+      this.x = generateRandomNumber(GameSetUp.width*.83,GameSetUp.width*.4)
+      this.y = generateRandomNumber(GameSetUp.height*.8,GameSetUp.height*.1)
     },
     assignNumbers: function(game) {
        for (var i = 0; i < game.numOfNumbers; i++) {
@@ -26,7 +26,7 @@ var GameSetUp = (function () {
            game.numbers.push(newNum)
          }
        }
-       console.log("In assignNumbers", game.numbers)
+       // console.log("In assignNumbers", game.numbers)
        return game;
     },
     detectOverlap: function(game, num) {
@@ -34,8 +34,11 @@ var GameSetUp = (function () {
         let numInArray = game.numbers[i]
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
+        var overlap = 70
+          if(GameSetUp.width < 700) overlap = 40
+        console.log('overlap', overlap)
 
-        if (dx < 70 && dy < 70) {
+        if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
           GameSetUp.detectOverlap(game, num)
         };
@@ -51,24 +54,40 @@ var GameSetUp = (function () {
 
       game.target = actualNumValue1 + actualNumValue2
     },
-    drawTarget: function(game, group, layer, stage) {
+    drawTarget: function(game, group, layer, stage, targetNumFontSize) {
       var name = game.target
       var imageObj = new Image();
+      var targetNumFontSize = targetNumFontSize;
+      console.log('targetNumFontSize', targetNumFontSize)
+      
       imageObj.onload = function() {
+        var monsterX = 0;
+        if(GameSetUp.width < 700) monsterX = -30;
+
+        var monsterY = stage.getHeight() / 5;
+        if(GameSetUp.width < 700) monsterY = 0;
+      
+        var targetNumX = stage.getWidth() / 9;
+        if(GameSetUp.width < 700) targetNumX = 0;
+
+        var targetNumY = stage.getHeight() / 5;
+        if(GameSetUp.width < 700) targetNumY = stage.getHeight() / 8;
+      
         var monster = new Konva.Image({
-          x: 0,
-          y: 150,
+          x: monsterX,
+          y: monsterY,
           image: imageObj,
-          width: 406,
-          height: 418,
+          width: stage.getWidth() / 2.5,
+          height: stage.getWidth() / 2.5,
           padding: 10,
           id: 'target-monster'
         });
         group.add(monster);
 
         var tooltip = new Konva.Label({
-          x: 200,
-          y: 160,
+          x: targetNumX,
+          y: targetNumY,
+          rotation: -10,
           opacity: 0.75
         });
 
@@ -76,18 +95,19 @@ var GameSetUp = (function () {
             name: 'Target',
             fill: 'gold',
             pointerDirection: 'down',
-            pointerWidth: 20,
+            pointerWidth: 10,
             pointerHeight: 30,
             lineJoin: 'round',
             shadowColor: 'black',
             shadowBlur: 10,
             shadowOffset: 10,
+            opacity: .8,
             shadowOpacity: 0.5
         }));
         tooltip.add(new Konva.Text({
             text: name,
             fontFamily: 'Futura',
-            fontSize: 75,
+            fontSize: targetNumFontSize,
             padding: 15,
             fill: 'white',
             shadowColor: 'DarkSlateGray',
@@ -101,7 +121,7 @@ var GameSetUp = (function () {
       };
       imageObj.src = './src/images/blue-monster-510w.png';
     },
-    drawNumbers: function(game, layer) {
+    drawNumbers: function(game, layer, fontSize) {
       let gameNumbers = game.numbers
       var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
       for(var i = 0; i < gameNumbers.length; i++) {
@@ -111,7 +131,7 @@ var GameSetUp = (function () {
           y : gameNum.y,
           name : 'Current number',
           text : gameNum.value,
-          fontSize : 80,
+          fontSize : fontSize,
           fontFamily : 'Futura',
           fill : colors[i],
           padding : 10,

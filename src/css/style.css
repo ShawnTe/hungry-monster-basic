@@ -1,59 +1,83 @@
 body {
   font-family: Futura;
 }
-
 .hidden {
   display: none;
 }
-@keyframes flashing-colors {
-    from {background-color: magenta;}
-    to {background-color: gold;}
-}
-.success {
-  animation-name: flashing-colors;
-  animation-duration: 400ms;
-  animation-iteration-count: infinite;
-  background-color: red;
-  color: SpringGreen;
-  font-size: 500%;
-  height: 40vw;
-  padding-top: 100px;
-  text-align: center;
-  width: 1000px;
-}
-.wrong-device {
-  margin: 300px;
-}
-
 #container {
   background-color: MediumAquaMarine;
   border: 25px solid DodgerBlue;
-  border-radius: 20px;
+  border-radius: 15px;
+  height: 90vh;
 }
-#h1 {
+.success {
+  color: Purple;
+  font-size: 400%;
+  text-align: center;
+  width: 100%;
+}
+.wrong-device {
+  margin: 300px;
+  font-size: 2em;
+}
+/*#h1 {
   font-size: 20px;
-}
+}*/
 #lower-page {
   text-align: center;
-  width: 1000px;
+  width: 100%;
 }
+#success-image {
+  margin-top: 10vh;
+}
+
 @keyframes flash-border {
     from {border-color: purple;}
     to {border-color: orange;}
 }
+
 #play-button {
-  animation-name: flash-border;
-  animation-duration: 700ms;
-  animation-iteration-count: infinite;
-  background-color: GreenYellow;
-  border: 5px solid;
-  border-radius: 15px;
-  color: Purple;
-  font-family: Futura;
-  font-size: 3em;
-  height: 15vw;
-  margin: 3vw auto;
-  padding: 2vw;
-  padding-bottom: 50px;
-  width: 35vw;
+    animation-name: flash-border;
+    animation-duration: 700ms;
+    animation-iteration-count: infinite;
+    background-color: GreenYellow;
+    border: 5px solid;
+    border-radius: 10px;
+    color: Purple;
+    font-family: Futura;
+    font-size: 3em;
+    position: absolute;
+    bottom: 8vw;
+    margin: 2vw auto 0;
+    padding: 2vw;
+    left: 33vw;
+    /*padding-bottom: 2vw;*/
+    width: 35vw;
+  }
+
+@media (max-width: 700px) { 
+  #container {
+    border: 15px solid DodgerBlue;
+  }
+  #play-button {
+    font-size: 1em;
+    position: static;
+    float: right;
+    margin: 0 5vw 0 auto;
+    left: default;
+    bottom: 3vw;
+    width: 18vw;
+  }
+  .success {
+    /*padding-top: 3%;*/
+    color: Gold;
+    font-size: 400%;
+    height: 30vw;
+    text-align: center;
+    width: 100%;
+  }
+  #success-image {
+    margin-top: 5vh;
+    margin-left: -10vw;
+  } 
 }
