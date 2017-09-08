@@ -95,7 +95,7 @@ var GameSetUp = (function () {
            game.numbers.push(newNum)
          }
        }
-       console.log("In assignNumbers", game.numbers)
+       // console.log("In assignNumbers", game.numbers)
        return game;
     },
     detectOverlap: function(game, num) {
@@ -103,8 +103,11 @@ var GameSetUp = (function () {
         let numInArray = game.numbers[i]
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
+        var overlap = 70
+          if(GameSetUp.width < 700) overlap = 40
+        console.log('overlap', overlap)
 
-        if (dx < 50 && dy < 50) {
+        if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
           GameSetUp.detectOverlap(game, num)
         };
@@ -120,13 +123,28 @@ var GameSetUp = (function () {
 
       game.target = actualNumValue1 + actualNumValue2
     },
-    drawTarget: function(game, group, layer, stage) {
+    drawTarget: function(game, group, layer, stage, targetNumFontSize) {
       var name = game.target
       var imageObj = new Image();
+      var targetNumFontSize = targetNumFontSize;
+      console.log('targetNumFontSize', targetNumFontSize)
+      
       imageObj.onload = function() {
+        var monsterX = 0;
+        if(GameSetUp.width < 700) monsterX = -30;
+
+        var monsterY = stage.getHeight() / 5;
+        if(GameSetUp.width < 700) monsterY = 0;
+      
+        var targetNumX = stage.getWidth() / 9;
+        if(GameSetUp.width < 700) targetNumX = 0;
+
+        var targetNumY = stage.getHeight() / 5;
+        if(GameSetUp.width < 700) targetNumY = stage.getHeight() / 8;
+      
         var monster = new Konva.Image({
-          x: 0,
-          y: stage.getHeight() / 5,
+          x: monsterX,
+          y: monsterY,
           image: imageObj,
           width: stage.getWidth() / 2.5,
           height: stage.getWidth() / 2.5,
@@ -136,8 +154,8 @@ var GameSetUp = (function () {
         group.add(monster);
 
         var tooltip = new Konva.Label({
-          x: stage.getWidth() / 9,
-          y: stage.getHeight() / 5,
+          x: targetNumX,
+          y: targetNumY,
           rotation: -10,
           opacity: 0.75
         });
@@ -158,7 +176,7 @@ var GameSetUp = (function () {
         tooltip.add(new Konva.Text({
             text: name,
             fontFamily: 'Futura',
-            fontSize: 40,
+            fontSize: targetNumFontSize,
             padding: 15,
             fill: 'white',
             shadowColor: 'DarkSlateGray',
@@ -254,9 +272,18 @@ var group = new Konva.Group({
   height: height/4
 });
 
+var titleFontSize = 30;
+if(width < 700) titleFontSize = 16;
+
+var titleTextX = 50;
+if(width < 700) titleTextX = 100;
+
+var titleTextY = 5;
+if(width < 700) titleTextY = 16;
+
 var text = new Konva.Text({
-  x: 50,
-  y: 5,
+  x: titleTextX,
+  y: titleTextY,
   text: 'Hungry Monster! Drag 2 numbers to equal monster\'s number',
   fontFamily: 'Futura',
   fill: 'DarkSlateGray',
@@ -264,8 +291,11 @@ var text = new Konva.Text({
   shadowOffsetX: 2,
   shadowOffsetY: 2,
   align: 'center',
-  fontSize: 30
+  fontSize: titleFontSize
 });
+
+var numbersAddedFontSize = 30
+if(width < 700) numbersAddedFontSize = 20
 
 var youAddedNumbers = new Konva.Text({
   x: width * .13,
@@ -276,7 +306,7 @@ var youAddedNumbers = new Konva.Text({
   shadowBlur: 2,
   shadowOpacity: 0.2,
   align: 'center',
-  fontSize : 30
+  fontSize : numbersAddedFontSize
 });
 
 var tempArray = []
@@ -289,13 +319,16 @@ stage.add(tempLayer);
 var numberFontSize = 80
 if(width < 700) numberFontSize = 40
 
+var targetNumFontSize = 70
+if(width < 700) targetNumFontSize = 30
+
 const init = () => {
   game = new GameSetUp.Game(7);
 
   GameSetUp.assignNumbers(game);
   GameSetUp.drawNumbers(game, layer, numberFontSize);
   GameSetUp.assignTarget  (game);
-  GameSetUp.drawTarget(game, group, layer, stage);
+  GameSetUp.drawTarget(game, group, layer, stage, targetNumFontSize);
 
   layer.draw();
 }
@@ -446,7 +479,7 @@ const checkForCorrectMath = () => {
 
 const youWin = () => {
   function successMessage() {
-    document.getElementById('full-screen').innerHTML = "RIGHT ON! <br /><img src='./src/images/celebrate.gif' width='400' /><br />";
+    document.getElementById('container').innerHTML = `RIGHT ON! <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
@@ -454,10 +487,18 @@ const youWin = () => {
 }
 
 const tryAgain = (answer) => {
-  console.log(answer)
-    text.x(380);
-    text.y(15);
-    text.fontSize(45);
+  var feedbackFontSize = 50;
+  if(width < 700) feedbackFontSize = 20;
+
+  var feedbackTextX = 400;
+  if(width < 700) feedbackTextX = stage.getWidth()/2;
+
+  var feedbackTextY = 20;
+  if(width < 700) feedbackTextY = 16;
+
+  text.x(feedbackTextX);
+  text.y(feedbackTextY);
+  text.fontSize(feedbackFontSize);
   if (answer == 'low') {
     text.text("I'm still hungry!");
   } else {
