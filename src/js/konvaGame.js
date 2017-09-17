@@ -228,14 +228,32 @@ const checkForCorrectMath = () => {
   }
 }
 
+let successMessages = [
+  "Right on, Turkey Feathers!",
+  "Huzzah Fo-Fizzah!",
+  "WooHoo Shmoodo!",
+  "Hot Diggity Doggie!",
+  "Booya, Baby!",
+  "Bodacious!",
+  "Fantastiliscious!",
+  "Fantastico Bombastico!",
+  "Rock on till the break of dawn!"
+];
+
+const getMessage = function(list, highestIndex) {
+  let messageIndex = generateRandomNumber(highestIndex,lowestIndex=0)
+
+  return list[messageIndex]
+}
 const youWin = () => {
   function successMessage() {
-    document.getElementById('container').innerHTML = `RIGHT ON! <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
+    document.getElementById('container').innerHTML = `${getMessage(successMessages, successMessages.length-1)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
   setTimeout(successMessage, 500)
 }
+
 
 const tryAgain = (answer) => {
   var feedbackFontSize = 50;

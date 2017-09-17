@@ -36,7 +36,7 @@ var GameSetUp = (function () {
         let dy = Math.abs(numInArray.y - num.y);
         var overlap = 70
           if(GameSetUp.width < 700) overlap = 40
-        console.log('overlap', overlap)
+        // console.log('overlap', overlap)
 
         if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
@@ -142,6 +142,9 @@ var GameSetUp = (function () {
         });
         layer.add(number);
       }
+    },
+    chooseRandomMessage: function(messageType) {
+
     }
   }
 
