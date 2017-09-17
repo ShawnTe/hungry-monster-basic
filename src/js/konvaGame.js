@@ -235,9 +235,14 @@ let successMessages = [
   "Hot Diggity Doggie!",
   "Booya, Baby!",
   "Bodacious!",
-  "Fantastiliscious!",
+  "Fantastilicious!",
   "Fantastico Bombastico!",
-  "Rock on till the break of dawn!"
+  "Rock on, Sugar Cakes!",
+  "Razzle Dazzle!",
+  "Kaboom Kaboomie",
+  "Hooray Hurrah!",
+  "Honky Dora-licious",
+  "Fantastico!"
 ];
 
 const getMessage = function(list, highestIndex) {
@@ -257,13 +262,19 @@ const youWin = () => {
 let tooLowMessages = [
   "I'm still hungry!",
   "More, please!",
-  "More more more!"
+  "More more more!",
+  "I want another bite!",
+  "Give me another! (please)"
 ]
 
 let tooHighMessages = [
   "I'm too full!",
   "Ugh, no more!",
-  "I have a tummy ache!"
+  "I have a tummy ache!",
+  "Burp. Too much!",
+  "Less, please.",
+  "Not So Much!",
+  "I can't eat that much"
 ]
 
 const tryAgain = (answer) => {
