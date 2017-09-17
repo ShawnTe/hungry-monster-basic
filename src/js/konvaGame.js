@@ -247,13 +247,24 @@ const getMessage = function(list, highestIndex) {
 }
 const youWin = () => {
   function successMessage() {
-    document.getElementById('container').innerHTML = `${getMessage(successMessages, successMessages.length-1)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
+    document.getElementById('container').innerHTML = `${getMessage(successMessages, successMessages.length)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
   setTimeout(successMessage, 500)
 }
 
+let tooLowMessages = [
+  "I'm still hungry!",
+  "More, please!",
+  "More more more!"
+]
+
+let tooHighMessages = [
+  "I'm too full!",
+  "Ugh, no more!",
+  "I have a tummy ache!"
+]
 
 const tryAgain = (answer) => {
   var feedbackFontSize = 50;
@@ -269,9 +280,9 @@ const tryAgain = (answer) => {
   text.y(feedbackTextY);
   text.fontSize(feedbackFontSize);
   if (answer == 'low') {
-    text.text("I'm still hungry!");
+    text.text(`${getMessage(tooLowMessages, tooLowMessages.length)}`);
   } else {
-    text.text("I'm too full!");
+    text.text(`${getMessage(tooHighMessages, tooHighMessages.length)}`);
   }
 }
 
