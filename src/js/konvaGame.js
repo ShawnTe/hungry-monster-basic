@@ -1,5 +1,7 @@
 var Konva = require('konva');
 var GameSetUp = require('./gameSetUp');
+// import { SuccessMessages } from '../data/messages'
+
 
 
 var screenObj = window.screen;
@@ -263,18 +265,18 @@ let tooLowMessages = [
   "I'm still hungry!",
   "More, please!",
   "More more more!",
-  "I want another bite!",
-  "Give me another! (please)"
+  "Another bite!",
+  "Give me another!"
 ]
 
 let tooHighMessages = [
   "I'm too full!",
   "Ugh, no more!",
-  "I have a tummy ache!",
+  "I have a belly ache!",
   "Burp. Too much!",
   "Less, please.",
   "Not So Much!",
-  "I can't eat that much"
+  "I can't eat so much"
 ]
 
 const tryAgain = (answer) => {

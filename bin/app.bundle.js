@@ -105,7 +105,7 @@ var GameSetUp = (function () {
         let dy = Math.abs(numInArray.y - num.y);
         var overlap = 70
           if(GameSetUp.width < 700) overlap = 40
-        console.log('overlap', overlap)
+        // console.log('overlap', overlap)
 
         if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
@@ -211,6 +211,9 @@ var GameSetUp = (function () {
         });
         layer.add(number);
       }
+    },
+    chooseRandomMessage: function(messageType) {
+
     }
   }
 
@@ -249,6 +252,8 @@ function reloadPage() {
 
 var Konva = __webpack_require__(3);
 var GameSetUp = __webpack_require__(0);
+// import { SuccessMessages } from '../data/messages'
+
 
 
 var screenObj = window.screen;
@@ -477,14 +482,54 @@ const checkForCorrectMath = () => {
   }
 }
 
+let successMessages = [
+  "Right on, Turkey Feathers!",
+  "Huzzah Fo-Fizzah!",
+  "WooHoo Shmoodo!",
+  "Hot Diggity Doggie!",
+  "Booya, Baby!",
+  "Bodacious!",
+  "Fantastilicious!",
+  "Fantastico Bombastico!",
+  "Rock on, Sugar Cakes!",
+  "Razzle Dazzle!",
+  "Kaboom Kaboomie",
+  "Hooray Hurrah!",
+  "Honky Dora-licious",
+  "Fantastico!"
+];
+
+const getMessage = function(list, highestIndex) {
+  let messageIndex = generateRandomNumber(highestIndex,lowestIndex=0)
+
+  return list[messageIndex]
+}
 const youWin = () => {
   function successMessage() {
-    document.getElementById('container').innerHTML = `RIGHT ON! <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
+    document.getElementById('container').innerHTML = `${getMessage(successMessages, successMessages.length)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
   setTimeout(successMessage, 500)
 }
+
+let tooLowMessages = [
+  "I'm still hungry!",
+  "More, please!",
+  "More more more!",
+  "Another bite!",
+  "Give me another!"
+]
+
+let tooHighMessages = [
+  "I'm too full!",
+  "Ugh, no more!",
+  "I have a belly ache!",
+  "Burp. Too much!",
+  "Less, please.",
+  "Not So Much!",
+  "I can't eat so much"
+]
 
 const tryAgain = (answer) => {
   var feedbackFontSize = 50;
@@ -500,9 +545,9 @@ const tryAgain = (answer) => {
   text.y(feedbackTextY);
   text.fontSize(feedbackFontSize);
   if (answer == 'low') {
-    text.text("I'm still hungry!");
+    text.text(`${getMessage(tooLowMessages, tooLowMessages.length)}`);
   } else {
-    text.text("I'm too full!");
+    text.text(`${getMessage(tooHighMessages, tooHighMessages.length)}`);
   }
 }
 
