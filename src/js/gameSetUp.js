@@ -43,7 +43,6 @@ var GameSetUp = (function () {
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
         let overlap = GameSetUp.sizeAdjust(70,40);
-        // console.log('overlap', overlap)
 
         if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
@@ -65,7 +64,6 @@ var GameSetUp = (function () {
       var name = game.target
       var imageObj = new Image();
       var targetNumFontSize = targetNumFontSize;
-      console.log('targetNumFontSize', targetNumFontSize)
       
       imageObj.onload = function() {
         let monsterX = GameSetUp.sizeAdjust(0,-30)
@@ -142,6 +140,9 @@ var GameSetUp = (function () {
         });
         layer.add(number);
       }
+    },
+    chooseRandomMessage: function(messageType) {
+
     }
   }
 

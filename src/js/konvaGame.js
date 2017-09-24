@@ -1,10 +1,11 @@
 var Konva = require('konva');
 var GameSetUp = require('./gameSetUp');
+// import { SuccessMessages } from '../data/messages'
+
 
 var screenObj = window.screen;
-var width = window.innerWidth *.9;
-var height = window.innerHeight *.9;
-// var height = window.innerWidth;    Why does extend below window?
+var width = window.innerWidth *.95;
+var height = window.innerHeight *.95;
 
 var stage = new Konva.Stage({
   container: 'container',
@@ -97,7 +98,7 @@ function holdUntilLoad()  {
                   target : previousShape,
                   evt : evt.evt
               }, true);
-              // enter new targer
+              // enter new target
               shape.fire('dragenter', {
                   type : 'dragenter',
                   target : shape,
@@ -130,7 +131,6 @@ function holdUntilLoad()  {
   stage.on("dragend", function(e){
       var pos = stage.getPointerPosition();
       var shape = layer.getIntersection(pos);
-      // console.log("e", e.target.partialText);
       if (shape) {
           previousShape.fire('drop', {
               type : 'drop',
@@ -217,14 +217,55 @@ const checkForCorrectMath = () => {
   }
 }
 
+let successMessages = [
+  "Right on, Turkey Feathers!",
+  "Huzzah Fo-Fizzah!",
+  "WooHoo Shmoodo!",
+  "Hot Diggity Doggie!",
+  "Booya, Baby!",
+  "Bodacious!",
+  "Fantastilicious!",
+  "Fantastico Bombastico!",
+  "Rock on, Sugar Cakes!",
+  "Razzle Dazzle!",
+  "Kaboom Kaboomie",
+  "Hooray Hurrah!",
+  "Honky Dora-licious",
+  "Fantastico!"
+];
+
+const getMessage = function(list) {
+  let highestIndex = list.length
+  let messageIndex = generateRandomNumber(highestIndex,lowestIndex=0)
+
+  return list[messageIndex]
+}
 const youWin = () => {
   function successMessage() {
-    document.getElementById('container').innerHTML = `RIGHT ON! <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
+    document.getElementById('container').innerHTML = `${getMessage(successMessages)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
   setTimeout(successMessage, 500)
 }
+
+let tooLowMessages = [
+  "I'm still hungry!",
+  "More, please!",
+  "More more more!",
+  "Another bite!",
+  "Give me another!"
+]
+
+let tooHighMessages = [
+  "I'm too full!",
+  "Ugh, no more!",
+  "I have a belly ache!",
+  "Burp. Too much!",
+  "Less, please.",
+  "Not So Much!",
+  "I can't eat so much"
+]
 
 const tryAgain = (answer) => {
   let feedbackFontSize = GameSetUp.sizeAdjust(50,20)
@@ -235,9 +276,9 @@ const tryAgain = (answer) => {
   text.y(feedbackTextY);
   text.fontSize(feedbackFontSize);
   if (answer == 'low') {
-    text.text("I'm still hungry!");
+    text.text(`${getMessage(tooLowMessages)}`);
   } else {
-    text.text("I'm too full!");
+    text.text(`${getMessage(tooHighMessages)}`);
   }
 }
 
