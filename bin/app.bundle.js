@@ -73,6 +73,14 @@ var GameSetUp = (function () {
     maxNum: 14,
     width: window.innerWidth,
     height: window.screen.availHeight - 115,
+    sizeAdjust: function(large,small) {
+      let size = 0
+
+      if(GameSetUp.width < 700) size = small
+      else size = large
+
+      return size
+    },
     Game: function(numOfNumbers) {
       this.target = 0,
       this.numOfNumbers = numOfNumbers,
@@ -103,9 +111,7 @@ var GameSetUp = (function () {
         let numInArray = game.numbers[i]
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
-        var overlap = 70
-          if(GameSetUp.width < 700) overlap = 40
-        // console.log('overlap', overlap)
+        let overlap = GameSetUp.sizeAdjust(70,40);
 
         if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
@@ -127,21 +133,13 @@ var GameSetUp = (function () {
       var name = game.target
       var imageObj = new Image();
       var targetNumFontSize = targetNumFontSize;
-      console.log('targetNumFontSize', targetNumFontSize)
       
       imageObj.onload = function() {
-        var monsterX = 0;
-        if(GameSetUp.width < 700) monsterX = -30;
+        let monsterX = GameSetUp.sizeAdjust(0,-30)
+        let monsterY = GameSetUp.sizeAdjust(stage.getHeight() / 5,0)
+        let targetNumX = GameSetUp.sizeAdjust(stage.getWidth() / 9,0)
+        let targetNumY = GameSetUp.sizeAdjust(stage.getHeight() / 5,0)
 
-        var monsterY = stage.getHeight() / 5;
-        if(GameSetUp.width < 700) monsterY = 0;
-      
-        var targetNumX = stage.getWidth() / 9;
-        if(GameSetUp.width < 700) targetNumX = 0;
-
-        var targetNumY = stage.getHeight() / 5;
-        if(GameSetUp.width < 700) targetNumY = stage.getHeight() / 8;
-      
         var monster = new Konva.Image({
           x: monsterX,
           y: monsterY,
@@ -255,10 +253,9 @@ var GameSetUp = __webpack_require__(0);
 // import { SuccessMessages } from '../data/messages'
 
 
-
 var screenObj = window.screen;
-var width = window.innerWidth *.9;
-var height = window.innerHeight *.9;
+var width = window.innerWidth *.95;
+var height = window.innerHeight *.95;
 
 var stage = new Konva.Stage({
   container: 'container',
@@ -276,14 +273,9 @@ var group = new Konva.Group({
   height: height/4
 });
 
-var titleFontSize = 30;
-if(width < 700) titleFontSize = 16;
-
-var titleTextX = 50;
-if(width < 700) titleTextX = 100;
-
-var titleTextY = 5;
-if(width < 700) titleTextY = 16;
+let titleFontSize = GameSetUp.sizeAdjust(30,16)
+let titleTextX = GameSetUp.sizeAdjust(50,100)
+let titleTextY = GameSetUp.sizeAdjust(5,16)
 
 var text = new Konva.Text({
   x: titleTextX,
@@ -298,8 +290,7 @@ var text = new Konva.Text({
   fontSize: titleFontSize
 });
 
-var numbersAddedFontSize = 30
-if(width < 700) numbersAddedFontSize = 20
+let numbersAddedFontSize = GameSetUp.sizeAdjust(30,20)
 
 var youAddedNumbers = new Konva.Text({
   x: width * .13,
@@ -320,11 +311,8 @@ layer.add(text);
 stage.add(layer);
 stage.add(tempLayer);
 
-var numberFontSize = 80
-if(width < 700) numberFontSize = 40
-
-var targetNumFontSize = 70
-if(width < 700) targetNumFontSize = 30
+let numberFontSize = GameSetUp.sizeAdjust(80,40)
+let targetNumFontSize = GameSetUp.sizeAdjust(70,30)
 
 const init = () => {
   game = new GameSetUp.Game(7);
@@ -409,7 +397,6 @@ function holdUntilLoad()  {
     if (e.target.attrs.id == "target-monster") {
       e.target.fill('LemonChiffon');
     }
-
       layer.draw();
   });
   stage.on("dragleave", function(e){
@@ -531,14 +518,9 @@ let tooHighMessages = [
 ]
 
 const tryAgain = (answer) => {
-  var feedbackFontSize = 50;
-  if(width < 700) feedbackFontSize = 20;
-
-  var feedbackTextX = 400;
-  if(width < 700) feedbackTextX = stage.getWidth()/2;
-
-  var feedbackTextY = 20;
-  if(width < 700) feedbackTextY = 16;
+  let feedbackFontSize = GameSetUp.sizeAdjust(50,20)
+  let feedbackTextX = GameSetUp.sizeAdjust(400,stage.getWidth()/2)
+  let feedbackTextY = GameSetUp.sizeAdjust(20,16)
 
   text.x(feedbackTextX);
   text.y(feedbackTextY);
