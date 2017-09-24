@@ -7,7 +7,6 @@ var GameSetUp = require('./gameSetUp');
 var screenObj = window.screen;
 var width = window.innerWidth *.9;
 var height = window.innerHeight *.9;
-// var height = window.innerWidth;    Why does extend below window?
 
 var stage = new Konva.Stage({
   container: 'container',
@@ -109,7 +108,7 @@ function holdUntilLoad()  {
                   target : previousShape,
                   evt : evt.evt
               }, true);
-              // enter new targer
+              // enter new target
               shape.fire('dragenter', {
                   type : 'dragenter',
                   target : shape,
@@ -142,7 +141,6 @@ function holdUntilLoad()  {
   stage.on("dragend", function(e){
       var pos = stage.getPointerPosition();
       var shape = layer.getIntersection(pos);
-      // console.log("e", e.target.partialText);
       if (shape) {
           previousShape.fire('drop', {
               type : 'drop',
@@ -247,14 +245,15 @@ let successMessages = [
   "Fantastico!"
 ];
 
-const getMessage = function(list, highestIndex) {
+const getMessage = function(list) {
+  let highestIndex = list.length
   let messageIndex = generateRandomNumber(highestIndex,lowestIndex=0)
 
   return list[messageIndex]
 }
 const youWin = () => {
   function successMessage() {
-    document.getElementById('container').innerHTML = `${getMessage(successMessages, successMessages.length)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
+    document.getElementById('container').innerHTML = `${getMessage(successMessages)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
@@ -293,9 +292,9 @@ const tryAgain = (answer) => {
   text.y(feedbackTextY);
   text.fontSize(feedbackFontSize);
   if (answer == 'low') {
-    text.text(`${getMessage(tooLowMessages, tooLowMessages.length)}`);
+    text.text(`${getMessage(tooLowMessages)}`);
   } else {
-    text.text(`${getMessage(tooHighMessages, tooHighMessages.length)}`);
+    text.text(`${getMessage(tooHighMessages)}`);
   }
 }
 
