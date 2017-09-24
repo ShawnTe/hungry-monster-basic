@@ -4,6 +4,14 @@ var GameSetUp = (function () {
     maxNum: 14,
     width: window.innerWidth,
     height: window.screen.availHeight - 115,
+    sizeAdjust: function(large,small) {
+      let size = 0
+
+      if(GameSetUp.width < 700) size = small
+      else size = large
+
+      return size
+    },
     Game: function(numOfNumbers) {
       this.target = 0,
       this.numOfNumbers = numOfNumbers,
@@ -34,9 +42,7 @@ var GameSetUp = (function () {
         let numInArray = game.numbers[i]
         let dx = Math.abs(numInArray.x - num.x);
         let dy = Math.abs(numInArray.y - num.y);
-        var overlap = 70
-          if(GameSetUp.width < 700) overlap = 40
-        // console.log('overlap', overlap)
+        let overlap = GameSetUp.sizeAdjust(70,40);
 
         if (dx < overlap && dy < overlap) {
           num = new GameSetUp.Number()
@@ -58,21 +64,13 @@ var GameSetUp = (function () {
       var name = game.target
       var imageObj = new Image();
       var targetNumFontSize = targetNumFontSize;
-      console.log('targetNumFontSize', targetNumFontSize)
       
       imageObj.onload = function() {
-        var monsterX = 0;
-        if(GameSetUp.width < 700) monsterX = -30;
+        let monsterX = GameSetUp.sizeAdjust(0,-30)
+        let monsterY = GameSetUp.sizeAdjust(stage.getHeight() / 5,0)
+        let targetNumX = GameSetUp.sizeAdjust(stage.getWidth() / 9,0)
+        let targetNumY = GameSetUp.sizeAdjust(stage.getHeight() / 5,0)
 
-        var monsterY = stage.getHeight() / 5;
-        if(GameSetUp.width < 700) monsterY = 0;
-      
-        var targetNumX = stage.getWidth() / 9;
-        if(GameSetUp.width < 700) targetNumX = 0;
-
-        var targetNumY = stage.getHeight() / 5;
-        if(GameSetUp.width < 700) targetNumY = stage.getHeight() / 8;
-      
         var monster = new Konva.Image({
           x: monsterX,
           y: monsterY,
