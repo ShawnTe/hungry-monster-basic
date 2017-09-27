@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ShawnTe/hungry-monster-basic.svg?branch=master)](https://travis-ci.org/ShawnTe/hungry-monster-basic)
+
 # Hungry Monster!
 
 This is a simple math game that I created for my 7 year old niece to practice Javascript and module patterning. It is for mobile devices, i.e. touch (not click) and drag.  
