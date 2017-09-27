@@ -4,9 +4,19 @@
   "description": "A Javascript Math Game",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "webpack --config webpack.config.js",
-    "build:watch" : "node_modules/.bin/webpack --progress --colors --watch"
+    "test": "jest",
+    "build": "webpack --config webpack.config.js",
+    "build:watch": "node_modules/.bin/webpack --progress --colors --watch"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bin"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,6 +32,7 @@
     "konva": "^1.6.3"
   },
   "devDependencies": {
+    "jest": "^21.2.0",
     "webpack": "^3.3.0"
   }
 }
