@@ -67,9 +67,9 @@ var GameSetUp = (function () {
       
       imageObj.onload = function() {
         let monsterX = GameSetUp.sizeAdjust(0,-30)
-        let monsterY = GameSetUp.sizeAdjust(stage.getHeight() / 5,0)
-        let targetNumX = GameSetUp.sizeAdjust(stage.getWidth() / 9,0)
-        let targetNumY = GameSetUp.sizeAdjust(stage.getHeight() / 5,0)
+        let monsterY = GameSetUp.sizeAdjust(stage.getHeight() / 5,10)
+        let targetNumX = GameSetUp.sizeAdjust(stage.getWidth() / 9,20)
+        let targetNumY = GameSetUp.sizeAdjust(stage.getHeight() / 5,50)
 
         var monster = new Konva.Image({
           x: monsterX,
