@@ -83,6 +83,10 @@ body {
   } 
 }
 @media (orientation: portrait) {
-.orientation { display: block; }
-#full-screen { display: none; }
+  .orientation { display: block; }
+  #full-screen { display: none; }
+}
+@media (orientation: landscape) {
+  .orientation { display: none; }
+  /*.overlay { display: block; }*/
 }

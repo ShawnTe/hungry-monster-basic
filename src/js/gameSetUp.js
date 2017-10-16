@@ -75,8 +75,8 @@ var GameSetUp = (function () {
           x: monsterX,
           y: monsterY,
           image: imageObj,
-          width: stage.getWidth() / 2.5,
-          height: stage.getWidth() / 2.5,
+          width: stage.getWidth() / 2.8,
+          height: stage.getWidth() / 2.8,
           padding: 10,
           id: 'target-monster'
         });

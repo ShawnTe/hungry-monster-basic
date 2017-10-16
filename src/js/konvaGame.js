@@ -44,7 +44,7 @@ let numbersAddedFontSize = GameSetUp.sizeAdjust(30,20)
 
 var youAddedNumbers = new Konva.Text({
   x: width * .13,
-  y: height * .9,
+  y: height * .85,
   fontFamily : 'Futura',
   fill : 'DarkSlateGray',
   shadowColor: 'white',
