@@ -6,7 +6,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 
 } else {
 	console.log("Not a mobile device")
-  document.getElementById('full-screen').innerHTML = "<p>Run Hungry Monster on a mobile device, or in Chrome Dev Tools with mobile simulator</p>";
+  document.getElementById('full-screen').innerHTML = "<p>Run Hungry Monster:</p><ul><li>in lansdcape mode</li><li>on a mobile device</li><li>OR in Chrome Dev Tools with mobile simulator</li></ul>";
   document.getElementById('full-screen').setAttribute('class', 'wrong-device');
 }
 
