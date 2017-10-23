@@ -168,13 +168,19 @@ function holdUntilLoad()  {
       layer.draw();
   });
   stage.on("drop", function(e){
-    if (e.target.attrs.id === "target-monster"){
+    if (e.currentTarget.pointerPos.x > 50 && e.currentTarget.pointerPos.x < 440) {
       equationNumber = parseInt(e.currentTarget.tapStartShape.text());
 
       tempArray.push(equationNumber);
       checkForCorrectMath();
       showNumbers();
+
       e.target.fill('MediumAquaMarine');
+    // snap current number to new position for esy viewing
+      // if (e.target.attrs.id === "target-monster"){
+      // console.log('monster target: ', e.target.attrs)
+      // let currNumber = e.currentTarget.tapStartShape
+      // console.log('number: ', e.currentTarget.tapStartShape.attrs)
     }
     layer.draw();
   });
