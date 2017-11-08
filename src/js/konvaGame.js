@@ -1,6 +1,6 @@
 var Konva = require('konva');
 var GameSetUp = require('./gameSetUp');
-// import { SuccessMessages } from '../data/messages'
+var Messages = require ('../data/messages');
 
 
 var screenObj = window.screen;
@@ -223,23 +223,6 @@ const checkForCorrectMath = () => {
   }
 }
 
-let successMessages = [
-  "Right on, Turkey Feathers!",
-  "Huzzah Fo-Fizzah!",
-  "WooHoo Shmoodo!",
-  "Hot Diggity Doggie!",
-  "Booya, Baby!",
-  "Bodacious!",
-  "Fantastilicious!",
-  "Fantastico Bombastico!",
-  "Rock on, Sugar Cakes!",
-  "Razzle Dazzle!",
-  "Kaboom Kaboomie",
-  "Hooray Hurrah!",
-  "Honky Dora-licious",
-  "Fantastico!"
-];
-
 const getMessage = function(list) {
   let highestIndex = list.length
   let messageIndex = generateRandomNumber(highestIndex,lowestIndex=0)
@@ -248,30 +231,12 @@ const getMessage = function(list) {
 }
 const youWin = () => {
   function successMessage() {
-    document.getElementById('container').innerHTML = `${getMessage(successMessages)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
+    document.getElementById('container').innerHTML = `${getMessage(Messages.success)} <br /><img src='./src/images/celebrate.gif' width=${stage.getWidth()/2} id="success-image" /><br />`;
     document.getElementById('full-screen').setAttribute('class', 'success');
     document.getElementById('play-button').classList.remove('hidden');
   }
   setTimeout(successMessage, 500)
 }
-
-let tooLowMessages = [
-  "I'm still hungry!",
-  "More, please!",
-  "More more more!",
-  "Another bite!",
-  "Give me another!"
-]
-
-let tooHighMessages = [
-  "I'm too full!",
-  "Ugh, no more!",
-  "I have a belly ache!",
-  "Burp. Too much!",
-  "Less, please.",
-  "Not So Much!",
-  "I can't eat so much"
-]
 
 const tryAgain = (answer) => {
   let feedbackFontSize = GameSetUp.sizeAdjust(50,20)
@@ -282,9 +247,9 @@ const tryAgain = (answer) => {
   text.y(feedbackTextY);
   text.fontSize(feedbackFontSize);
   if (answer == 'low') {
-    text.text(`${getMessage(tooLowMessages)}`);
+    text.text(`${getMessage(Messages.tooLow)}`);
   } else {
-    text.text(`${getMessage(tooHighMessages)}`);
+    text.text(`${getMessage(Messages.tooHigh)}`);
   }
 }
 
