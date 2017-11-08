@@ -55,8 +55,21 @@ body {
     /*padding-bottom: 2vw;*/
     width: 35vw;
   }
-
-@media (max-width: 700px) { 
+.div-404 {
+  position: relative;
+  height: 700px;
+  width: 100%;
+}
+.text-404 {
+  text-align: center;
+  line-height: normal;
+  position: absolute;
+  height: 100px;
+  width: 300px;
+  top: 100px;
+  left: 35%;
+}
+@media (max-width: 700px) {
   #container {
     border: 15px solid DodgerBlue;
   }
@@ -80,7 +93,7 @@ body {
   #success-image {
     margin-top: 5vh;
     margin-left: -10vw;
-  } 
+  }
 }
 @media (orientation: portrait) {
   .orientation { display: block; }
