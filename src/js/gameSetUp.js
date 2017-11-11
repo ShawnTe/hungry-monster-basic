@@ -1,17 +1,13 @@
+const sizeAdjust = require('./sizeAdjust')
+
 var GameSetUp = (function () {
   return {
     numOfNumberElements: 8,
     maxNum: 14,
     width: window.innerWidth,
     height: window.screen.availHeight - 115,
-    sizeAdjust: function(large,small) {
-      let size = 0
-
-      if(GameSetUp.width < 700) size = small
-      else size = large
-
-      return size
-    },
+    sizeAdjust: sizeAdjust,
+    
     Game: function(numOfNumbers) {
       this.target = 0,
       this.numOfNumbers = numOfNumbers,
@@ -124,20 +120,18 @@ var GameSetUp = (function () {
       var colors = ["FireBrick", "maroon", "goldenrod", "magenta", "Peru", "purple"];
       for(var i = 0; i < gameNumbers.length; i++) {
         let gameNum = gameNumbers[i];
-        var number = new Konva.Text({
-          x : gameNum.x,
-          y : gameNum.y,
-          name : 'Current number',
-          text : gameNum.value,
-          fontSize : fontSize,
-          fontFamily : 'Futura',
-          fill : colors[i],
-          padding : 10,
-          shadowColor: 'white',
-          shadowOffsetX : 4,
-          shadowOffsetY : 4,
-          draggable: true,
-        });
+        
+        var konvaNumberBaseConfig = require('./konvaNumberBaseConfig')
+
+        var number = new Konva.Text(
+          Object.assign(konvaNumberBaseConfig(), {
+            x: gameNum.x,
+            y: gameNum.y,
+            text: gameNum.value,
+            fill: colors[i]
+          })
+        )
+        
         layer.add(number);
       }
     },
