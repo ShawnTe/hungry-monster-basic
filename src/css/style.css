@@ -64,11 +64,21 @@ body {
   text-align: center;
   line-height: normal;
   position: absolute;
+  font-size: 2em;
   height: 100px;
+  top: 80px;
   width: 300px;
-  top: 100px;
   left: 35%;
 }
+.error-404 {
+  margin-top: 4%;
+  font-size: 8em;
+  position: absolute;
+  left: -30%;
+  color: blue;
+  font-family: Verdana;
+}
+
 @media (max-width: 700px) {
   #container {
     border: 15px solid DodgerBlue;
