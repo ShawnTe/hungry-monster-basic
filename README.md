@@ -29,10 +29,37 @@ Remember to open up Chrome DevTools and use the mobile simulator.
 * Add animation for visual interest and feedback
 
 
-
-
-
 #### to get going...
 npm run build  
 or  
-node_modules/.bin/webpack --progress --colors --watch
+npm run build:watch
+
+then open index.html in browser  
+
+_example from Luke in Boulder_
+```js
+         //
+         var num = new GameSetUp.Number()
+
+         while( GameSetup.detectOverlap(game, num) ){
+           num = new GameSetUp.Number
+         }
+
+         game.numbers.push(num)
+         //
+
+         //
+
+         var NumberElement = require('./NumberElement')
+         var detectNumberElementOverlapInGame = require('./detectyaddayadda')
+
+         var numberElement = NumberElement.buildRandomized()
+
+         while( detectNumberElementOverlapInGame(game, numberElement) ){
+           numberElement = NumberElement.buildRandomized()
+         }
+
+         game.addNumberElement(numberElement)
+
+         //
+```

@@ -1,7 +1,7 @@
 // Try Modernizr
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 	console.log("Playing")
-	var gameSetUp = require('./gameSetUp')
+
 	var KonvaGame = require('./konvaGame')
 
 } else {
