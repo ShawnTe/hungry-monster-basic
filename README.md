@@ -12,14 +12,16 @@ Remember to open up Chrome DevTools and use the mobile simulator.
 * KonvaJS library
 * Webpack
 * CSS
+* Travis CI
+* Jest
 
 ## Upcoming
 * Settings
   * Change the max addition number
   * Change operator (\*, \-, \%)
   * Set # of guesses
-* Add Gulp and TravisCI
-* Add tests
+X Add Gulp and TravisCI
+X Add tests
 * Add account features so can track users data
   * Track correct streak
   * Track settings 
@@ -30,7 +32,8 @@ Remember to open up Chrome DevTools and use the mobile simulator.
 
 
 
-
+#### Jest
+* Add testCoverage to package.json
 
 #### to get going...
 npm run build  

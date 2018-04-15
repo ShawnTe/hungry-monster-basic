@@ -1,17 +1,22 @@
 var GameSetUp = require('../gameSetUp');
+// can also use test.only
 
-describe('GameSetUp', () => {
+test('Minimum Number of Elements', () => {
+	expect(GameSetUp.numOfNumberElements).toBeGreaterThanOrEqual(5)
+})
 
-	test('Number of Elements', () => {
+test.skip('sizeAdjust', () => {
 
-		expect(GameSetUp.numOfNumberElements).toEqual(8)
-	})
+	expect(GameSetUp.sizeAdjust(100,50)).toEqual(100)
+})
 
-	test('sizeAdjust', () => {
-
-		expect(GameSetUp.sizeAdjust(100,50)).toEqual(100)
-	})
+test.skip('Game', () => {
 
 })
+
+test.skip('Number', () => {
+
+})
+
 
 

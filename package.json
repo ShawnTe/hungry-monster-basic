@@ -4,7 +4,8 @@
   "description": "A Javascript Math Game",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "build": "webpack --config webpack.config.js",
     "build:watch": "node_modules/.bin/webpack --progress --colors --watch"
   },
@@ -16,6 +17,10 @@
     "moduleDirectories": [
       "node_modules",
       "bin"
+    ],
+    "testEnvironement": "jest-environment-node",
+    "collectCoverageFrom": [
+      "src/js/*.js"
     ]
   },
   "repository": {
