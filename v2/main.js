@@ -118,8 +118,8 @@ function showSuccess() {
   hideMonster();
   const happyyMonsterImage = document.createElement('img'); // Use DOM HTMLImageElement
   happyyMonsterImage.setAttribute('id', 'temp-success-image');
-  happyyMonsterImage.srcset="happy-monster-240w.png, happy-monster-310w.png 1.5x, happy-monster-481w.png 2x"
-  happyyMonsterImage.src = './images/happy-monster-481w.png';
+  happyyMonsterImage.srcset="happy-monster-240w.gif, happy-monster-310w.gif 1.5x, happy-monster-481w.gif 2x"
+  happyyMonsterImage.src = './images/happy-monster-481w.gif';
   // happyyMonsterImage.src = './images/happy-monster.gif';
   document.body.appendChild(happyyMonsterImage);
   happyyMonsterImage.classList.add('success-image');
