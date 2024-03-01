@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Protest Strike', sans-serif;
-  color: IndianRed;
+  color: #9B2226;
 }
 
 img {
@@ -46,15 +46,27 @@ img {
 }
 
 #container canvas,
+.hungry-image {
+  position: absolute;
+}
+
+#container canvas,
 .success-image {
   position: absolute;
 }
 
+.hungry-image {
+  width: 300px;
+  height: 465px;
+  left: 20%;
+  bottom: 20%;
+}
+
 .success-image {
-  width: 600px;
-  height: 800px;
-  left: 30%;
-  top: 25%;
+  width: 300px;
+  height: 465px;
+  left: 15%;
+  bottom: 0;
 }
 /* Gear icon */
 #main-screen-gear {
@@ -70,7 +82,7 @@ img {
   width: 100%;
   height: 100%;
   padding: 5px 15px 10px;
-  background-color: Cornsilk;
+  background-color: #94D2BD;
 }
 
 .settings-header {
@@ -109,10 +121,10 @@ h1 {
 
 input[type='text'] {
   border: none;
-  border-bottom: 2px solid IndianRed;
-  background-color: cornsilk;
+  border-bottom: 2px solid #9B2226;
+  background-color: #94D2BD;
   height: 2em;
-  color: indianred;
+  color: #9B2226;
   font-size: 25px;
   width: 50px;
   padding-left: 20px;
@@ -128,10 +140,10 @@ input[id='fname'] {
 }
 
 .button {
-  background-color: cornsilk;
-  border: 5px solid IndianRed;
+  background-color: #94D2BD;
+  border: 5px solid #9B2226;
   border-radius: 10px;
-  color: IndianRed;
+  color: #9B2226;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -192,13 +204,13 @@ input[id='fname'] {
 
 .grid > button {
   padding: 10px;
-  background-color: PapayaWhip;
+  background-color: #E9D8A6;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   font-size: 4em;
-  color: IndianRed;
+  color: #9B2226;
   font-family: 'Protest Strike', sans-serif;
   cursor: pointer;
   box-shadow: 0 15px 21px rgba(0, 0, 0, 0.2);
@@ -217,17 +229,17 @@ button.check {
 }
 
 .feedback {
-  top: 25%;
+  top: 5%;
   left: 20%;
 }
 
 .try-again {
   font-size: 4em;
-  color: SeaGreen;
+  color: #94D2BD;
 }
 .success {
   font-size: 6em;
-  color: DarkTurquoise;
+  color: #94D2BD;
   animation: blinker 0.7s linear infinite;
 }
 
@@ -240,11 +252,11 @@ button.check {
 .playAgain {
   font-size: 4em;
   font-family: 'Protest Strike', sans-serif;
-  color: SeaGreen;
+  color: #0A9396;
   top: 65%;
   right: 10%;
   border-radius: 10px;
-  border: 2px solid ForestGreen;
+  border: 2px solid #0A9396;
   background-color: YellowGreen;
 }
 
@@ -269,7 +281,7 @@ button.check {
   }
   input[type='text'] {
     height: 1.3em;
-    color: indianred;
+    color: #9B2226;
     font-size: 2em;
     width: 40px;
     padding-left: 20px;
@@ -280,7 +292,7 @@ button.check {
   }
 
   .button {
-    border: 3px solid IndianRed;
+    border: 3px solid #9B2226;
     border-radius: 6px;
     width: 100px;
     height: 40px;
@@ -309,7 +321,7 @@ button.check {
 
   .success {
     font-size: 4em;
-    color: DarkTurquoise;
+    color: #94D2BD;
     animation: blinker 0.7s linear infinite;
   }
   .success-image {
@@ -349,7 +361,7 @@ button.check {
   }
   input[type='text'] {
     height: 1em;
-    color: indianred;
+    color: #9B2226;
     font-size: 1.8em;
     width: 30px;
     padding-left: 10px;
@@ -360,7 +372,7 @@ button.check {
   }
 
   .button {
-    border: 3px solid IndianRed;
+    border: 3px solid #9B2226;
     border-radius: 6px;
     width: 80px;
     height: 30px;
@@ -389,7 +401,7 @@ button.check {
 
   .success {
     font-size: 3em;
-    color: DarkTurquoise;
+    /* color: DarkTurquoise; */
     animation: blinker 0.7s linear infinite;
   }
   .success-image {
@@ -399,11 +411,18 @@ button.check {
     bottom: 0%;
   }
 
+  .hungry-image {
+    width: 100px;
+    height: 200px;
+    /* left: 30%; */
+    /* bottom: 0%; */
+  }
+
   .playAgain {
     font-size: 1.5em;
     top: 75%;
     right: 3%;
     border-radius: 5px;
-    border: 1px solid ForestGreen;
+    /* border: 1px solid ForestGreen; */
   }
 }

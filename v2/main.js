@@ -1,24 +1,4 @@
-// ToDo
-// test all
-// [x] addition - missing
-// [ ] addition - total
-
-// [ ] subtraction - missing
-// [x] subtraction - total
-
-// [ ] multiplication - missing
-// [x] multiplication - total
-
-// [ ] division - missing ==> is showing !focusNumber
-// [x] division - total
-
-// Add to FORM missing v total
-// Animate monster
-// Enhance:
-//   try again
-//   you got it
-//   try a different one
-
+// import { takeTurn } from "./play.js";
 let state = {};
 
 const canvas = document.querySelector('#game');
@@ -84,6 +64,9 @@ function playAgain() {
   if (document.querySelector('#temp-success-image')) {
     document.querySelector('#temp-success-image').remove();
   }
+  if (document.querySelector('#temp-hungry-image')) {
+    document.querySelector('#temp-hungry-image').remove();
+  }
   draw();
   takeTurn();
 }
@@ -117,6 +100,10 @@ clearBtnEl.addEventListener('click', () => {
 });
 
 function showSuccess() {
+  if (document.querySelector('#temp-hungry-image')) {
+    document.querySelector('#temp-hungry-image').remove();
+  }
+
   feedbackEl.textContent = `YOU GOT IT${
     state.playerName ? ', ' + state.playerName : ''
   }!!!!`;
@@ -129,28 +116,14 @@ function showSuccess() {
   state.inputAnswer = '';
   // drawSuccess();
   hideMonster();
-  const img2 = document.createElement('img'); // Use DOM HTMLImageElement
-  img2.setAttribute('id', 'temp-success-image');
-  img2.src = './images/happy-monster.gif';
-  // img2.alt = 'a dancing banana';
-  document.body.appendChild(img2);
-  img2.classList.add('success-image');
+  const happyyMonsterImage = document.createElement('img'); // Use DOM HTMLImageElement
+  happyyMonsterImage.setAttribute('id', 'temp-success-image');
+  happyyMonsterImage.srcset="happy-monster-240w.png, happy-monster-310w.png 1.5x, happy-monster-481w.png 2x"
+  happyyMonsterImage.src = './images/happy-monster-481w.png';
+  // happyyMonsterImage.src = './images/happy-monster.gif';
+  document.body.appendChild(happyyMonsterImage);
+  happyyMonsterImage.classList.add('success-image');
 }
-
-// function drawSuccess() {
-//   // const ctx = document.getElementById('canvas').getContext('2d');
-//   const img = new Image();
-//   img.onload = () => {
-//     ctx.drawImage(img, 0, 0);
-//     // ctx.beginPath();
-//     // ctx.moveTo(30, 96);
-//     // ctx.lineTo(70, 66);
-//     // ctx.lineTo(103, 76);
-//     // ctx.lineTo(170, 15);
-//     // ctx.stroke();
-//   };
-//   img.src = './images/dancing-banana.gif';
-// }
 
 function tooHigh() {
   // if answer incorrect, offer a low or high hint
@@ -218,7 +191,7 @@ function newGame() {
   };
 
   // Generate buildings
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     generateBuilding(i);
   }
 
@@ -282,7 +255,7 @@ function generateBuilding(index) {
 // Draw functions
 function drawBackground() {
   // Draw sky
-  ctx.fillStyle = '#F8BA85';
+  ctx.fillStyle = '#EE9B00';
   ctx.fillRect(
     0,
     0,
@@ -291,7 +264,7 @@ function drawBackground() {
   );
 
   //Draw moon
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+  ctx.fillStyle = '#CA6702';
   ctx.beginPath();
   ctx.arc(300, 750, 60, 0, 2 * Math.PI);
   ctx.fill();
@@ -299,7 +272,7 @@ function drawBackground() {
 
 function drawBuildings() {
   state.buildings.forEach((building) => {
-    ctx.fillStyle = '#4A3C68';
+    ctx.fillStyle = '#001219';
     ctx.fillRect(building.x, 0, building.width, building.height);
 
     // Draw windows
@@ -324,7 +297,7 @@ function drawBuildings() {
           const x = room * (windowWidth + gap);
           const y = floor * (windowHeight + gap);
 
-          ctx.fillStyle = '#EBB6A2';
+          ctx.fillStyle = '#E9d8A6';
           ctx.fillRect(x, y, windowWidth, windowHeight);
 
           ctx.restore();
@@ -350,6 +323,16 @@ function drawMonster() {
   ctx.restore();
 }
 
+// function drawMonster() {
+//   const hungryMonsterImage = document.createElement('img'); // Use DOM HTMLImageElement
+//   hungryMonsterImage.setAttribute('id', 'temp-hungry-image');
+//   // hungryMonsterImage.srcset = './images/hungry-monster.png';
+//   hungryMonsterImage.srcset="hungry-monster-240w.png, hungry-monster-310w.png 1.5x, hungry-monster-481w.png 2x"
+//   hungryMonsterImage.src = './images/hungry-monster-481w.png';
+//   document.body.appendChild(hungryMonsterImage);
+//   hungryMonsterImage.classList.add('hungry-image');
+// }
+
 function hideMonster() {
   ctx.save();
 
@@ -360,7 +343,7 @@ function hideMonster() {
   const building = state.buildings.at(1);
   ctx.translate(building.x + building.width / 2, building.height);
 
-  ctx.fillStyle = '#F8BA85';
+  ctx.fillStyle = '#EE9B00';
   ctx.beginPath();
   ctx.moveTo(-162, 0);
   ctx.lineTo(-162, 271);
@@ -717,9 +700,6 @@ function setProblem(numbers) {
       return { num1: total, num2: num2New, total: totalNew };
     }
   }
-  // state.problemNum1 = numbers.num1;
-  // state.problemNum2 = numbers.num2;
-  // state.problemTotal = numbers.total;
 }
 
 function isFocusNumber(num) {
@@ -768,13 +748,18 @@ function takeTurn() {
 }
 
 const openSettings = () => {
+  if (document.querySelector('#temp-success-image')) {
+    document.querySelector('#temp-success-image').remove();
+  } 
+  if (document.querySelector('#temp-hungry-image')) {
+    document.querySelector('#temp-hungry-image').remove();
+  }
   gridEl.style.position = 'unset';
   problemEl.classList.add('hide');
   document.querySelector('#main-screen-gear').classList.add('hide');
   settingsEl.classList.remove('hide');
   feedbackEl.textContent = '';
   playAgainEl.classList.add('hide');
-  feedbackEl.classList.remove('success');
 
   document.querySelector('#fname').textContent = state.fname;
   document.querySelector('#focus-number').textContent = state.focusNumber;
