@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hungry Monster</title>
+    <link rel="stylesheet" href="main.css" type="text/css" />
+    <script type="text/javascript" src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="container">
+      <canvas id="game"></canvas>
+      <div class="" id="main-screen-gear">
+        <img src="images/gear.png" alt="gear icon" />
+      </div>
+      <div class="settings-container hide" id="settings-container">
+        <div class="settings-header">
+          <h1 class="header">Settings</h1>
+          <img src="images/gear.png" alt="gear icon" />
+        </div>
+        <form id="form">
+          <div class="columns">
+            <div class="col1">
+              <label for="fname">Name:</label>
+              <input type="text" id="fname" name="fname" />
+              <br />
+              <label for="focusNumber">Focus number (opt):</label>
+              <input type="text" id="focus-number" name="focusNumber" />
+              <br />
+              <label for="topNumber">Top number (opt):</label>
+              <input type="text" id="top-number" name="topNumber" />
+            </div>
+            <div class="col2">
+              <fieldset>
+                <legend>Choose problem type:</legend>
+                <div>
+                  <input
+                    type="radio"
+                    id="missing"
+                    name="problemType"
+                    value="missing"
+                    checked
+                  />
+                  <label for="missing">Missing number</label>
+                  <br />
+                  <input
+                    type="radio"
+                    id="endResult"
+                    name="problemType"
+                    value="endResult"
+                  />
+                  <label for="endResult">End result number</label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Choose operator:</legend>
+                <div>
+                  <input
+                    type="radio"
+                    id="addition"
+                    name="operator"
+                    value="addition"
+                    checked
+                  />
+                  <label for="addition">Addition</label>
+                  <input
+                    type="radio"
+                    id="subtraction"
+                    name="operator"
+                    value="subtraction"
+                  />
+                  <label for="subtraction">Subtraction</label>
+                  <br />
+                  <input
+                    type="radio"
+                    id="multiplication"
+                    name="operator"
+                    value="multiplication"
+                  />
+                  <label for="multiplication">Multiplication</label>
+                  <input
+                    type="radio"
+                    id="division"
+                    name="operator"
+                    value="division"
+                  />
+                  <label for="division">Division</label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="done-button">
+              <button class="button" type="submit">DONE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="number-problem-container">
+        <div class="number-problem" id="problem">
+          <div id="num1">X</div>
+          <div id="operation">x</div>
+          <div id="num2">Y</div>
+          <div>=</div>
+          <div id="total">Z</div>
+        </div>
+      </div>
+      <div class="grid" id="numbers-container">
+        <button class="grid-number" value="7" onClick="getInput(event)">
+          7
+        </button>
+        <button class="grid-number" value="8" onClick="getInput(event)">
+          8
+        </button>
+        <button class="grid-number" value="9" onClick="getInput(event)">
+          9
+        </button>
+        <button class="grid-number" value="4" onClick="getInput(event)">
+          4
+        </button>
+        <button class="grid-number" value="5" onClick="getInput(event)">
+          5
+        </button>
+        <button class="grid-number" value="6" onClick="getInput(event)">
+          6
+        </button>
+        <button class="grid-number" value="1" onClick="getInput(event)">
+          1
+        </button>
+        <button class="grid-number" value="2" onClick="getInput(event)">
+          2
+        </button>
+        <button class="grid-number" value="3" onClick="getInput(event)">
+          3
+        </button>
+        <button class="grid-number" value="0" onClick="getInput(event)">
+          0
+        </button>
+        <button class="grid-number clear" value="0"">
+          clear
+        </button>
+        <button class="grid-number check" onClick="checkAnswer()">go!</button>
+      </div>
+      <div class="feedback"></div>
+      <button class="playAgain hide">Play Again</button>
+      <div>
+
+      </div>
+    </div>
+  </body>
+</html>
