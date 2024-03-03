@@ -84,9 +84,9 @@ clearBtnEl.addEventListener("click", () => {
   const questionEl = document.querySelector(".question");
   const currentGuess = questionEl.textContent;
 
-  lastNumberRemoved = currentGuess.slice(0, -1);
+  // lastNumberRemoved = currentGuess.slice(0, -1);
   questionEl.textContent = "";
-  state.inputAnswer = lastNumberRemoved;
+  state.inputAnswer = "";
   if (!questionEl.textContent) {
     if (state.problemType === "missing") {
       num2El.textContent = "?";
