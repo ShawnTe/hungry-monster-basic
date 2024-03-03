@@ -1,4 +1,3 @@
-// import { takeTurn } from "./play.js";
 let state = {};
 
 const canvas = document.querySelector("#game");
@@ -27,7 +26,6 @@ function onFormSubmit(event) {
 
   const formData = new FormData(event.target);
   const data = Object.fromEntries(formData.entries());
-  console.log("data: ", data);
   state.playerName = data.fname ? data.fname : state.playerName;
 
   state.focusNumber = data.focusNumber ? data.focusNumber : state.focusNumber;
@@ -35,7 +33,6 @@ function onFormSubmit(event) {
   state.operation = data.operator ? data.operator : state.operation;
 
   state.topNumber = data.topNumber ? data.topNumber : state.topNumber;
-  console.log("state in form capture: ", state);
 
   state.problemType = data.problemType ? data.problemType : state.problemType;
 
@@ -92,7 +89,6 @@ clearBtnEl.addEventListener("click", () => {
       num2El.textContent = "?";
       num2El.classList.add("question");
     } else if (state.problemType === "endResult") {
-      // console.log('end result IN IT!!');
       num3El.textContent = "?";
       num3El.classList.add("question");
     }
@@ -112,7 +108,7 @@ function showSuccess() {
   gridEl.style.position = "unset";
   playAgainEl.classList.remove("hide");
 
-  state.phase = "celebrating";
+  // state.phase = "celebrating";
   state.inputAnswer = "";
   // drawSuccess();
   hideMonster();
@@ -141,27 +137,13 @@ function tooLow() {
 function checkAnswer() {
   feedbackEl.textContent = "";
   feedbackEl.classList.removeAll;
-  // console.log('Number(state.inputAnswer): ', Number(state.inputAnswer));
-  if (state.problemType === "endResult") {
-    if (Number(state.inputAnswer) === state.problemTotal) {
-      showSuccess();
-    } else if (Number(state.inputAnswer) > state.problemTotal) {
-      tooHigh();
-    } else if (Number(state.inputAnswer) < state.problemTotal) {
-      tooLow();
-    }
-  }
-  // console.log('Number(state.problemNum2): ', Number(state.problemNum2));
-  if (state.problemType === "missing") {
-    // console.log('In missing');
-    if (Number(state.inputAnswer) === state.problemNum2) {
-      // console.log('in missing SUCCESS');
-      showSuccess();
-    } else if (Number(state.inputAnswer) > state.problemNum2) {
-      tooHigh();
-    } else if (Number(state.inputAnswer) < state.problemNum2) {
-      tooLow();
-    }
+
+  if (Number(state.inputAnswer) === state.problemAnswer) {
+    showSuccess();
+  } else if (Number(state.inputAnswer) > state.problemAnswer) {
+    tooHigh();
+  } else if (Number(state.inputAnswer) < state.problemAnswer) {
+    tooLow();
   }
 }
 
@@ -185,6 +167,7 @@ function newGame() {
     problemNum1: null,
     problemNum2: null,
     problemTotal: null,
+    problemAnswer: null,
 
     inputAnswer: "",
 
@@ -554,6 +537,8 @@ function displayMultiplicationAndAdditionProblem(numbers, operation) {
   operationEl.textContent = operation;
 
   if (state.problemType === "endResult") {
+    state.problemAnswer = numbers.total;
+
     num3El.textContent = "?";
     num3El.classList.add("question");
 
@@ -561,6 +546,8 @@ function displayMultiplicationAndAdditionProblem(numbers, operation) {
     num2El.textContent = numbers.num2;
   } else {
     // "missing"
+    state.problemAnswer = numbers.num2;
+
     num3El.textContent = numbers.total;
 
     num2El.textContent = "?";
@@ -575,18 +562,20 @@ function displaySubtractionAndDivisionProblem(numbers, operation) {
   operationEl.textContent = operation;
 
   if (state.problemType === "endResult") {
+    state.problemAnswer = numbers.num2;
+
     num3El.textContent = "?";
     num3El.classList.add("question");
 
-    num2El.textContent = numbers.num1;
+    num2El.textContent = numbers.focusNum;
   } else {
     // problemType = missing
+    state.problemAnswer = numbers.num2;
+
     num2El.textContent = "?";
     num2El.classList.add("question");
 
-    num3El.textContent = isFocusNumber(numbers.num1)
-      ? numbers.num1
-      : numbers.num2;
+    num3El.textContent = numbers.focusNum;
   }
 }
 
@@ -597,7 +586,6 @@ function getRandomNumber(minNum, maxNum) {
 
 function getMultipicationNumbers() {
   // set num1 (get random # if not present)
-  // console.log('state.focusNumber: ', state.focusNumber);
   const num1 = Number(
     state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
   );
@@ -606,7 +594,6 @@ function getMultipicationNumbers() {
   // num2 is random between or equal to 2 and maxNum2
   const num2 = Number(getRandomNumber(2, maxNum2));
   const total = num1 * num2;
-  // console.log('getMultipicationNumbers: ', { num1, num2, total });
   state.problemNum1 = num1;
   state.problemNum2 = num2;
   state.problemTotal = total;
@@ -625,8 +612,6 @@ function getAdditionNumbers() {
   const num2 = Number(getRandomNumber(2, maxNum2));
   const total = num1 + num2;
 
-  // console.log('getAdditionNumbers: ', { num1, num2, total });
-
   state.problemNum1 = num1;
   state.problemNum2 = num2;
   state.problemTotal = total;
@@ -636,72 +621,67 @@ function getAdditionNumbers() {
 
 function getSubtractionNumbers() {
   // set num1 (get random # if not present)
-  const num1 = Number(
+  const focusNum = Number(
     state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
   ); // 8
 
-  const maxNum2 = Math.ceil(state.topNumber - num1); // 20 - 8 = 12
+  const maxNum2 = Math.ceil(state.topNumber - focusNum); // 20 - 8 = 12
   // num2 is random between or equal to 2 and maxNum2
   const num2 = Number(getRandomNumber(2, maxNum2));
-  const total = num1 + num2;
+  const total = focusNum + num2;
 
-  // console.log('getSubtractionNumbers: ', { num1, num2, total });
+  state.problemNum1 = focusNum;
+  state.problemNum2 = num2;
+  state.problemTotal = total;
 
-  state.problemNum1 = total;
-  state.problemNum2 = num1;
-  state.problemTotal = num2;
-
-  return { num1, num2, total };
+  return { focusNum, num2, total };
 }
 
 function getDivisionNumbers() {
   // set num1 (get random # if not present)
-  const num1 = Number(
+  const focusNum = Number(
     state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
   ); // 8
 
-  const maxNum2 = Math.ceil(state.topNumber / num1); // 20 - 8 = 12
+  const maxNum2 = Math.ceil(state.topNumber / focusNum); // 20 - 8 = 12
   // num2 is random between or equal to 2 and maxNum2
   const num2 = Number(getRandomNumber(2, maxNum2));
-  const total = num1 * num2;
+  const total = focusNum * num2;
 
-  // console.log('getSubtractionNumbers: ', { num1, num2, total });
+  state.problemNum1 = focusNum;
+  state.problemNum2 = num2;
+  state.problemTotal = total;
 
-  state.problemNum1 = total;
-  state.problemNum2 = num1;
-  state.problemTotal = num2;
-
-  return { num1, num2, total };
+  return { focusNum, num2, total };
 }
 
-function setProblem(numbers) {
-  if (state.operation === "subtraction") {
-    if (state.problemType === "endResult") {
-      if (isFocusNumber(numbers.num1)) {
-        num2New = numbers.num1;
-        num3New = numbers.num2;
-      } else {
-        num2New = numbers.num2;
-        num3New = numbers.num1;
-      }
-      // return { num1: numbers.total, num2: num2New, total: num3New };
-      state.problemNum1 = numebrs.total;
-      state.problemNum2 = num3New;
-      state.problemTotal = num3New;
-    }
+// function setProblem(numbers) {
+//   if (state.operation === "subtraction") {
+//     if (state.problemType === "endResult") {
+//       if (isFocusNumber(numbers.num1)) {
+//         num2New = numbers.num1;
+//         num3New = numbers.num2;
+//       } else {
+//         num2New = numbers.num2;
+//         num3New = numbers.num1;
+//       }
+//       state.problemNum1 = numebrs.total;
+//       state.problemNum2 = num3New;
+//       state.problemTotal = num3New;
+//     }
 
-    if (state.problemType === "missing") {
-      if (isFocusNumber(numbers.num1)) {
-        totalNew = numbers.num1;
-        num2New = numbers.num2;
-      } else {
-        totalNew = numbers.num2;
-        num2New = numbers.num1;
-      }
-      return { num1: total, num2: num2New, total: totalNew };
-    }
-  }
-}
+//     if (state.problemType === "missing") {
+//       if (isFocusNumber(numbers.num1)) {
+//         totalNew = numbers.num1;
+//         num2New = numbers.num2;
+//       } else {
+//         totalNew = numbers.num2;
+//         num2New = numbers.num1;
+//       }
+//       return { num1: total, num2: num2New, total: totalNew };
+//     }
+//   }
+// }
 
 function isFocusNumber(num) {
   return num === state.focusNumber;
@@ -711,7 +691,6 @@ function totalField(total) {
   if (state.problemType === "missing") {
     num3El.textContent = total;
   } else {
-    console.log("In total");
     num3El.textContent = "?";
     num3El.classList.add("question");
   }
