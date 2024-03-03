@@ -1,25 +1,25 @@
 // import { takeTurn } from "./play.js";
 let state = {};
 
-const canvas = document.querySelector('#game');
+const canvas = document.querySelector("#game");
 
-const gearEl = document.querySelector('#main-screen-gear');
-const settingsEl = document.querySelector('.settings-container');
-const problemEl = document.querySelector('.number-problem-container');
-const gridEl = document.querySelector('#numbers-container');
+const gearEl = document.querySelector("#main-screen-gear");
+const settingsEl = document.querySelector(".settings-container");
+const problemEl = document.querySelector(".number-problem-container");
+const gridEl = document.querySelector("#numbers-container");
 
 // problem
-const num1El = document.querySelector('#num1');
-const operationEl = document.querySelector('#operation');
-const num2El = document.querySelector('#num2');
-const num3El = document.querySelector('#total');
+const num1El = document.querySelector("#num1");
+const operationEl = document.querySelector("#operation");
+const num2El = document.querySelector("#num2");
+const num3El = document.querySelector("#total");
 
-const clearBtnEl = document.querySelector('.clear');
-const feedbackEl = document.querySelector('.feedback');
-const playAgainEl = document.querySelector('.playAgain');
+const clearBtnEl = document.querySelector(".clear");
+const feedbackEl = document.querySelector(".feedback");
+const playAgainEl = document.querySelector(".playAgain");
 
-const form = document.querySelector('#form');
-form.addEventListener('submit', onFormSubmit);
+const form = document.querySelector("#form");
+form.addEventListener("submit", onFormSubmit);
 
 // Settings Form
 function onFormSubmit(event) {
@@ -27,7 +27,7 @@ function onFormSubmit(event) {
 
   const formData = new FormData(event.target);
   const data = Object.fromEntries(formData.entries());
-  console.log('data: ', data);
+  console.log("data: ", data);
   state.playerName = data.fname ? data.fname : state.playerName;
 
   state.focusNumber = data.focusNumber ? data.focusNumber : state.focusNumber;
@@ -35,113 +35,114 @@ function onFormSubmit(event) {
   state.operation = data.operator ? data.operator : state.operation;
 
   state.topNumber = data.topNumber ? data.topNumber : state.topNumber;
-  console.log('state in form capture: ', state);
+  console.log("state in form capture: ", state);
 
   state.problemType = data.problemType ? data.problemType : state.problemType;
 
   // settingsEl.classList.add('hide');
-  const questionEl = document.querySelector('.question');
-  questionEl.classList.remove('question');
+  const questionEl = document.querySelector(".question");
+  questionEl.classList.remove("question");
 
   closeSettings();
   playAgain();
 }
 
 // PLAY AGAIN
-playAgainEl.addEventListener('click', () => {
-  feedbackEl.classList.remove('success');
-  feedbackEl.textContent = '';
+playAgainEl.addEventListener("click", () => {
+  feedbackEl.classList.remove("success");
+  feedbackEl.textContent = "";
 
-  document.querySelector('.success-image').classList.add('hide');
-  playAgainEl.classList.add('hide');
+  document.querySelector(".success-image").classList.add("hide");
+  playAgainEl.classList.add("hide");
   playAgain();
 });
 
 function playAgain() {
-  state.phase = 'hungry';
-  state.inputAnswer = '';
-  gridEl.style.position = 'absolute';
-  if (document.querySelector('#temp-success-image')) {
-    document.querySelector('#temp-success-image').remove();
+  state.phase = "hungry";
+  state.inputAnswer = "";
+  gridEl.style.position = "absolute";
+  if (document.querySelector("#temp-success-image")) {
+    document.querySelector("#temp-success-image").remove();
   }
-  if (document.querySelector('#temp-hungry-image')) {
-    document.querySelector('#temp-hungry-image').remove();
+  if (document.querySelector("#temp-hungry-image")) {
+    document.querySelector("#temp-hungry-image").remove();
   }
   draw();
   takeTurn();
 }
 function getInput(event) {
-  feedbackEl.textContent = '';
+  feedbackEl.textContent = "";
   feedbackEl.classList.removeAll;
   state.inputAnswer += +event.target.value;
-  const questionEl = document.querySelector('.question');
+  const questionEl = document.querySelector(".question");
   questionEl.textContent = String(state.inputAnswer);
 }
 
-clearBtnEl.addEventListener('click', () => {
-  feedbackEl.textContent = '';
+clearBtnEl.addEventListener("click", () => {
+  feedbackEl.textContent = "";
   feedbackEl.classList.removeAll;
-  const questionEl = document.querySelector('.question');
+  const questionEl = document.querySelector(".question");
   const currentGuess = questionEl.textContent;
 
   lastNumberRemoved = currentGuess.slice(0, -1);
-  questionEl.textContent = lastNumberRemoved;
+  questionEl.textContent = "";
   state.inputAnswer = lastNumberRemoved;
   if (!questionEl.textContent) {
-    if (state.problemType === 'missing') {
-      num2El.textContent = '?';
-      num2El.classList.add('question');
-    } else if (state.problemType === 'endResult') {
+    if (state.problemType === "missing") {
+      num2El.textContent = "?";
+      num2El.classList.add("question");
+    } else if (state.problemType === "endResult") {
       // console.log('end result IN IT!!');
-      num3El.textContent = '?';
-      num3El.classList.add('question');
+      num3El.textContent = "?";
+      num3El.classList.add("question");
     }
   }
 });
 
 function showSuccess() {
-  if (document.querySelector('#temp-hungry-image')) {
-    document.querySelector('#temp-hungry-image').remove();
+  if (document.querySelector("#temp-hungry-image")) {
+    document.querySelector("#temp-hungry-image").remove();
   }
 
   feedbackEl.textContent = `YOU GOT IT${
-    state.playerName ? ', ' + state.playerName : ''
+    state.playerName ? ", " + state.playerName : ""
   }!!!!`;
-  feedbackEl.classList.add('success');
+  feedbackEl.classList.add("success");
 
-  gridEl.style.position = 'unset';
-  playAgainEl.classList.remove('hide');
+  gridEl.style.position = "unset";
+  playAgainEl.classList.remove("hide");
 
-  state.phase = 'celebrating';
-  state.inputAnswer = '';
+  state.phase = "celebrating";
+  state.inputAnswer = "";
   // drawSuccess();
   hideMonster();
-  const happyyMonsterImage = document.createElement('img'); // Use DOM HTMLImageElement
-  happyyMonsterImage.setAttribute('id', 'temp-success-image');
-  happyyMonsterImage.srcset="happy-monster-240w.gif, happy-monster-310w.gif 1.5x, happy-monster-481w.gif 2x"
-  happyyMonsterImage.src = './images/happy-monster-481w.gif';
+  const happyyMonsterImage = document.createElement("img"); // Use DOM HTMLImageElement
+  happyyMonsterImage.setAttribute("id", "temp-success-image");
+  happyyMonsterImage.srcset =
+    "./images/happy-monster-240w.gif, ./images/happy-monster-310w.gif 1.5x, ./images/happy-monster-481w.gif 2x";
+  happyyMonsterImage.src = "./images/happy-monster-481w.gif";
   // happyyMonsterImage.src = './images/happy-monster.gif';
   document.body.appendChild(happyyMonsterImage);
-  happyyMonsterImage.classList.add('success-image');
+  happyyMonsterImage.classList.add("success-image");
 }
 
 function tooHigh() {
   // if answer incorrect, offer a low or high hint
-  feedbackEl.textContent = 'Ohhh, not so much';
-  feedbackEl.classList.add('try-again');
+  feedbackEl.textContent = "Ohhh, not so much";
+  feedbackEl.classList.add("try-again");
 }
 
 function tooLow() {
   // if answer incorrect, offer a low or high hint
-  feedbackEl.textContent = 'More! More!';
-  feedbackEl.classList.add('try-again');
+  feedbackEl.textContent = "More! More!";
+  feedbackEl.classList.add("try-again");
 }
 
 function checkAnswer() {
-  feedbackEl.textContent = '';
+  feedbackEl.textContent = "";
   feedbackEl.classList.removeAll;
   // console.log('Number(state.inputAnswer): ', Number(state.inputAnswer));
-  if (state.problemType === 'endResult') {
+  if (state.problemType === "endResult") {
     if (Number(state.inputAnswer) === state.problemTotal) {
       showSuccess();
     } else if (Number(state.inputAnswer) > state.problemTotal) {
@@ -151,7 +152,7 @@ function checkAnswer() {
     }
   }
   // console.log('Number(state.problemNum2): ', Number(state.problemNum2));
-  if (state.problemType === 'missing') {
+  if (state.problemType === "missing") {
     // console.log('In missing');
     if (Number(state.inputAnswer) === state.problemNum2) {
       // console.log('in missing SUCCESS');
@@ -166,26 +167,26 @@ function checkAnswer() {
 
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext("2d");
 
 newGame();
 
 function newGame() {
   // reset game state
   state = {
-    phase: 'hungry', // hungry | celebrating
+    phase: "hungry", // hungry | celebrating
     buildings: [],
-    playerName: '',
-    focusNumber: '',
+    playerName: "",
+    focusNumber: "",
     topNumber: 50,
-    operation: 'addition', // addition | subtraction | multiplication | division
-    problemType: 'endResult', // missing | endResult
+    operation: "addition", // addition | subtraction | multiplication | division
+    problemType: "endResult", // missing | endResult
 
     problemNum1: null,
     problemNum2: null,
     problemTotal: null,
 
-    inputAnswer: '',
+    inputAnswer: "",
 
     scale: 1,
   };
@@ -255,7 +256,7 @@ function generateBuilding(index) {
 // Draw functions
 function drawBackground() {
   // Draw sky
-  ctx.fillStyle = '#EE9B00';
+  ctx.fillStyle = "#EE9B00";
   ctx.fillRect(
     0,
     0,
@@ -264,7 +265,7 @@ function drawBackground() {
   );
 
   //Draw moon
-  ctx.fillStyle = '#CA6702';
+  ctx.fillStyle = "#CA6702";
   ctx.beginPath();
   ctx.arc(300, 750, 60, 0, 2 * Math.PI);
   ctx.fill();
@@ -272,7 +273,7 @@ function drawBackground() {
 
 function drawBuildings() {
   state.buildings.forEach((building) => {
-    ctx.fillStyle = '#001219';
+    ctx.fillStyle = "#001219";
     ctx.fillRect(building.x, 0, building.width, building.height);
 
     // Draw windows
@@ -297,7 +298,7 @@ function drawBuildings() {
           const x = room * (windowWidth + gap);
           const y = floor * (windowHeight + gap);
 
-          ctx.fillStyle = '#E9d8A6';
+          ctx.fillStyle = "#E9d8A6";
           ctx.fillRect(x, y, windowWidth, windowHeight);
 
           ctx.restore();
@@ -343,7 +344,7 @@ function hideMonster() {
   const building = state.buildings.at(1);
   ctx.translate(building.x + building.width / 2, building.height);
 
-  ctx.fillStyle = '#EE9B00';
+  ctx.fillStyle = "#EE9B00";
   ctx.beginPath();
   ctx.moveTo(-162, 0);
   ctx.lineTo(-162, 271);
@@ -356,7 +357,7 @@ function hideMonster() {
 }
 
 function drawMonsterBody() {
-  ctx.fillStyle = 'DarkCyan';
+  ctx.fillStyle = "DarkCyan";
 
   ctx.beginPath();
   ctx.moveTo(0, 35);
@@ -389,10 +390,10 @@ function drawMonsterBody() {
 }
 
 function drawMonsterRightArm() {
-  ctx.strokeStyle = 'DarkCyan';
+  ctx.strokeStyle = "DarkCyan";
   ctx.lineWidth = 16;
 
-  if (state.phase === 'celebrating') {
+  if (state.phase === "celebrating") {
     // arm
     ctx.beginPath();
     ctx.moveTo(83, 170);
@@ -428,10 +429,10 @@ function drawMonsterRightArm() {
 }
 
 function drawMonsterLeftArm() {
-  ctx.strokeStyle = 'DarkCyan';
+  ctx.strokeStyle = "DarkCyan";
   ctx.lineWidth = 16;
 
-  if (state.phase === 'celebrating') {
+  if (state.phase === "celebrating") {
     // arm
     ctx.beginPath();
     ctx.moveTo(-83, 170);
@@ -468,11 +469,11 @@ function drawMonsterLeftArm() {
 
 function drawMonsterEyes() {
   ctx.save();
-  ctx.fillStyle = 'white';
+  ctx.fillStyle = "white";
   ctx.scale(1, -1);
 
   ctx.beginPath();
-  if (state.phase === 'celebrating') {
+  if (state.phase === "celebrating") {
     // whites round
     ctx.arc(45, -160, 30, 0, 2 * Math.PI, false);
     ctx.arc(-45, -160, 30, 0, 2 * Math.PI, false);
@@ -485,9 +486,9 @@ function drawMonsterEyes() {
   ctx.fill();
 
   ctx.beginPath();
-  ctx.fillStyle = 'blue';
+  ctx.fillStyle = "blue";
 
-  if (state.phase === 'celebrating') {
+  if (state.phase === "celebrating") {
     // pupils big
     // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
     ctx.ellipse(45, -160, 12, 20, 0, 0, 2 * Math.PI);
@@ -502,7 +503,7 @@ function drawMonsterEyes() {
   ctx.restore();
 
   ctx.beginPath();
-  ctx.fillStyle = 'blue';
+  ctx.fillStyle = "blue";
 
   ctx.moveTo(-83, 170);
   // quadraticCurveTo(cpx, cpy, end-x, end-y);
@@ -511,13 +512,13 @@ function drawMonsterEyes() {
 }
 
 function drawMonsterMouth() {
-  ctx.strokeStyle = 'Crimson';
-  ctx.fillStyle = 'PaleGoldenrod';
+  ctx.strokeStyle = "Crimson";
+  ctx.fillStyle = "PaleGoldenrod";
 
   ctx.lineWidth = 8;
 
   ctx.beginPath();
-  if (state.phase === 'celebrating') {
+  if (state.phase === "celebrating") {
     // lips smile
     ctx.moveTo(-50, 100);
 
@@ -552,9 +553,9 @@ function divide(num1, num2) {
 function displayMultiplicationAndAdditionProblem(numbers, operation) {
   operationEl.textContent = operation;
 
-  if (state.problemType === 'endResult') {
-    num3El.textContent = '?';
-    num3El.classList.add('question');
+  if (state.problemType === "endResult") {
+    num3El.textContent = "?";
+    num3El.classList.add("question");
 
     num1El.textContent = numbers.num1;
     num2El.textContent = numbers.num2;
@@ -562,8 +563,8 @@ function displayMultiplicationAndAdditionProblem(numbers, operation) {
     // "missing"
     num3El.textContent = numbers.total;
 
-    num2El.textContent = '?';
-    num2El.classList.add('question');
+    num2El.textContent = "?";
+    num2El.classList.add("question");
 
     num1El.textContent = numbers.num1;
   }
@@ -573,15 +574,15 @@ function displaySubtractionAndDivisionProblem(numbers, operation) {
   num1El.textContent = numbers.total;
   operationEl.textContent = operation;
 
-  if (state.problemType === 'endResult') {
-    num3El.textContent = '?';
-    num3El.classList.add('question');
+  if (state.problemType === "endResult") {
+    num3El.textContent = "?";
+    num3El.classList.add("question");
 
     num2El.textContent = numbers.num1;
   } else {
     // problemType = missing
-    num2El.textContent = '?';
-    num2El.classList.add('question');
+    num2El.textContent = "?";
+    num2El.classList.add("question");
 
     num3El.textContent = isFocusNumber(numbers.num1)
       ? numbers.num1
@@ -674,8 +675,8 @@ function getDivisionNumbers() {
 }
 
 function setProblem(numbers) {
-  if (state.operation === 'subtraction') {
-    if (state.problemType === 'endResult') {
+  if (state.operation === "subtraction") {
+    if (state.problemType === "endResult") {
       if (isFocusNumber(numbers.num1)) {
         num2New = numbers.num1;
         num3New = numbers.num2;
@@ -689,7 +690,7 @@ function setProblem(numbers) {
       state.problemTotal = num3New;
     }
 
-    if (state.problemType === 'missing') {
+    if (state.problemType === "missing") {
       if (isFocusNumber(numbers.num1)) {
         totalNew = numbers.num1;
         num2New = numbers.num2;
@@ -707,12 +708,12 @@ function isFocusNumber(num) {
 }
 
 function totalField(total) {
-  if (state.problemType === 'missing') {
+  if (state.problemType === "missing") {
     num3El.textContent = total;
   } else {
-    console.log('In total');
-    num3El.textContent = '?';
-    num3El.classList.add('question');
+    console.log("In total");
+    num3El.textContent = "?";
+    num3El.classList.add("question");
   }
 }
 
@@ -728,56 +729,56 @@ function displayProblem(numbers, operation) {
 function takeTurn() {
   let numbers = {};
   switch (state.operation) {
-    case 'addition':
+    case "addition":
       numbers = getAdditionNumbers();
-      displayMultiplicationAndAdditionProblem(numbers, '+');
+      displayMultiplicationAndAdditionProblem(numbers, "+");
       break;
-    case 'subtraction':
+    case "subtraction":
       numbers = getSubtractionNumbers();
-      displaySubtractionAndDivisionProblem(numbers, '-');
+      displaySubtractionAndDivisionProblem(numbers, "-");
       break;
-    case 'multiplication':
+    case "multiplication":
       numbers = getMultipicationNumbers();
-      displayMultiplicationAndAdditionProblem(numbers, '*');
+      displayMultiplicationAndAdditionProblem(numbers, "*");
       break;
-    case 'division':
+    case "division":
       numbers = getDivisionNumbers();
-      displaySubtractionAndDivisionProblem(numbers, '/');
+      displaySubtractionAndDivisionProblem(numbers, "/");
       break;
   }
 }
 
 const openSettings = () => {
-  if (document.querySelector('#temp-success-image')) {
-    document.querySelector('#temp-success-image').remove();
-  } 
-  if (document.querySelector('#temp-hungry-image')) {
-    document.querySelector('#temp-hungry-image').remove();
+  if (document.querySelector("#temp-success-image")) {
+    document.querySelector("#temp-success-image").remove();
   }
-  gridEl.style.position = 'unset';
-  problemEl.classList.add('hide');
-  document.querySelector('#main-screen-gear').classList.add('hide');
-  settingsEl.classList.remove('hide');
-  feedbackEl.textContent = '';
-  playAgainEl.classList.add('hide');
+  if (document.querySelector("#temp-hungry-image")) {
+    document.querySelector("#temp-hungry-image").remove();
+  }
+  gridEl.style.position = "unset";
+  problemEl.classList.add("hide");
+  document.querySelector("#main-screen-gear").classList.add("hide");
+  settingsEl.classList.remove("hide");
+  feedbackEl.textContent = "";
+  playAgainEl.classList.add("hide");
 
-  document.querySelector('#fname').textContent = state.fname;
-  document.querySelector('#focus-number').textContent = state.focusNumber;
-  document.querySelector('#top-number').textContent = state.topNumber;
+  document.querySelector("#fname").textContent = state.fname;
+  document.querySelector("#focus-number").textContent = state.focusNumber;
+  document.querySelector("#top-number").textContent = state.topNumber;
 };
 
 const closeSettings = () => {
-  gearEl.classList.remove('hide');
-  settingsEl.classList.add('hide');
-  gridEl.style.position = 'absolute';
-  problemEl.classList.remove('hide');
+  gearEl.classList.remove("hide");
+  settingsEl.classList.add("hide");
+  gridEl.style.position = "absolute";
+  problemEl.classList.remove("hide");
 };
 
 document
-  .querySelector('#main-screen-gear')
-  .addEventListener('click', openSettings);
+  .querySelector("#main-screen-gear")
+  .addEventListener("click", openSettings);
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   canvas.width = document.documentElement.clientWidth;
   canvas.height = document.documentElement.clientHeight;
   calculateScale();
