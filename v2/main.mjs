@@ -1,3 +1,12 @@
+import Messages from "./lib/messages.mjs";
+import Utils from "./lib/utils.mjs";
+
+const { generateRandomNumber } = Utils();
+const { successMessages, tooHighMessages, tooLowMessages, chooseMessage } =
+  Messages();
+
+console.log("success phrase", chooseMessage(successMessages));
+
 let state = {};
 
 const canvas = document.querySelector("#game");
@@ -67,13 +76,14 @@ function playAgain() {
   draw();
   takeTurn();
 }
-function getInput(event) {
+export const getInput = (event) => {
   feedbackEl.textContent = "";
   feedbackEl.classList.removeAll;
   state.inputAnswer += +event.target.value;
   const questionEl = document.querySelector(".question");
   questionEl.textContent = String(state.inputAnswer);
-}
+};
+window.getInput = getInput;
 
 clearBtnEl.addEventListener("click", () => {
   feedbackEl.textContent = "";
@@ -101,7 +111,7 @@ function showSuccess() {
   }
 
   feedbackEl.textContent = `YOU GOT IT${
-    state.playerName ? ", " + state.playerName : ""
+    state.playerName ? ", " + state.playerName.toUpperCase() : ""
   }!!!!`;
   feedbackEl.classList.add("success");
 
@@ -134,7 +144,7 @@ function tooLow() {
   feedbackEl.classList.add("try-again");
 }
 
-function checkAnswer() {
+export const checkAnswer = () => {
   feedbackEl.textContent = "";
   feedbackEl.classList.removeAll;
 
@@ -145,7 +155,8 @@ function checkAnswer() {
   } else if (Number(state.inputAnswer) < state.problemAnswer) {
     tooLow();
   }
-}
+};
+window.checkAnswer = checkAnswer;
 
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
@@ -579,20 +590,15 @@ function displaySubtractionAndDivisionProblem(numbers, operation) {
   }
 }
 
-function getRandomNumber(minNum, maxNum) {
-  const result = Math.floor(minNum + Math.random() * (maxNum - minNum));
-  return result;
-}
-
 function getMultipicationNumbers() {
   // set num1 (get random # if not present)
   const num1 = Number(
-    state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
+    state.focusNumber ? state.focusNumber : generateRandomNumber(2, 10)
   );
 
   const maxNum2 = Math.ceil(state.topNumber / num1);
   // num2 is random between or equal to 2 and maxNum2
-  const num2 = Number(getRandomNumber(2, maxNum2));
+  const num2 = Number(generateRandomNumber(2, maxNum2));
   const total = num1 * num2;
   state.problemNum1 = num1;
   state.problemNum2 = num2;
@@ -603,13 +609,13 @@ function getMultipicationNumbers() {
 function getAdditionNumbers() {
   // set num1 (get random # if not present)
   const num1 = Number(
-    state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
+    state.focusNumber ? state.focusNumber : generateRandomNumber(2, 10)
   ); // 8
 
   const maxNum2 = Math.ceil(state.topNumber - num1); // 20 - 8 = 12
 
   // num2 is random between or equal to 2 and maxNum2
-  const num2 = Number(getRandomNumber(2, maxNum2));
+  const num2 = Number(generateRandomNumber(2, maxNum2));
   const total = num1 + num2;
 
   state.problemNum1 = num1;
@@ -622,12 +628,12 @@ function getAdditionNumbers() {
 function getSubtractionNumbers() {
   // set num1 (get random # if not present)
   const focusNum = Number(
-    state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
+    state.focusNumber ? state.focusNumber : generateRandomNumber(2, 10)
   ); // 8
 
   const maxNum2 = Math.ceil(state.topNumber - focusNum); // 20 - 8 = 12
   // num2 is random between or equal to 2 and maxNum2
-  const num2 = Number(getRandomNumber(2, maxNum2));
+  const num2 = Number(generateRandomNumber(2, maxNum2));
   const total = focusNum + num2;
 
   state.problemNum1 = focusNum;
@@ -640,12 +646,12 @@ function getSubtractionNumbers() {
 function getDivisionNumbers() {
   // set num1 (get random # if not present)
   const focusNum = Number(
-    state.focusNumber ? state.focusNumber : getRandomNumber(2, 10)
+    state.focusNumber ? state.focusNumber : generateRandomNumber(2, 10)
   ); // 8
 
   const maxNum2 = Math.ceil(state.topNumber / focusNum); // 20 - 8 = 12
   // num2 is random between or equal to 2 and maxNum2
-  const num2 = Number(getRandomNumber(2, maxNum2));
+  const num2 = Number(generateRandomNumber(2, maxNum2));
   const total = focusNum * num2;
 
   state.problemNum1 = focusNum;
@@ -741,6 +747,7 @@ const openSettings = () => {
   feedbackEl.textContent = "";
   playAgainEl.classList.add("hide");
 
+  document.querySelector("#fname").focus();
   document.querySelector("#fname").textContent = state.fname;
   document.querySelector("#focus-number").textContent = state.focusNumber;
   document.querySelector("#top-number").textContent = state.topNumber;

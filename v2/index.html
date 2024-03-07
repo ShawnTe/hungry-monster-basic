@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hungry Monster</title>
     <link rel="stylesheet" href="main.css" type="text/css" />
-    <script type="text/javascript" src="main.js" defer></script>
+    <script type="module" src="main.mjs" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,7 +34,7 @@
           <div class="columns">
             <div class="col1">
               <label for="fname">Name:</label>
-              <input type="text" id="fname" name="fname" />
+              <input type="text" id="fname" name="fname" maxlength="20" />
               <br />
               <label for="focusNumber">Focus number (opt):</label>
               <input type="text" id="focus-number" name="focusNumber" />
@@ -74,14 +74,15 @@
                     value="addition"
                     checked
                   />
-                  <label for="addition">Addition</label>
+                  <label for="addition">Addition => +</label>
+                  <br />
                   <input
                     type="radio"
                     id="subtraction"
                     name="operator"
                     value="subtraction"
                   />
-                  <label for="subtraction">Subtraction</label>
+                  <label for="subtraction">Subtraction => -</label>
                   <br />
                   <input
                     type="radio"
@@ -89,14 +90,15 @@
                     name="operator"
                     value="multiplication"
                   />
-                  <label for="multiplication">Multiplication</label>
+                  <label for="multiplication">Multiplication => *</label>
+                  <br />
                   <input
                     type="radio"
                     id="division"
                     name="operator"
                     value="division"
                   />
-                  <label for="division">Division</label>
+                  <label for="division">Division => /</label>
                 </div>
               </fieldset>
             </div>
