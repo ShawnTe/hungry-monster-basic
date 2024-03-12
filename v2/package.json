@@ -1,0 +1,9 @@
+{
+  "name": "hungry-monster-v2",
+  "version": "2.0.0",
+  "description": "A Javascript Math Game",
+  "main": "main.js",
+  "type": "module",
+  "author": "Shawn Tuttle",
+  "license": "MIT"
+}
