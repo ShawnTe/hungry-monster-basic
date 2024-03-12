@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hungry Monster</title>
-    <link rel="stylesheet" href="main.css" type="text/css" />
+    <link rel="stylesheet" href="mainx.css" type="text/css" />
     <script type="module" src="main.mjs" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,12 +20,74 @@
   </head>
 
   <body>
-    <div id="container">
+    <div id="container"></div>
       <canvas id="game"></canvas>
-      <div class="" id="main-screen-gear">
-        <img src="images/gear.png" alt="gear icon" />
+      <div id="game-layout">
+        <div id="feedback-box" class="feedback">
+          <div>What number will solve the problem?</div>
+        </div>
+        <div class="left-side">
+          <div id="problem-box">
+            <div class="number-problem" id="problem-container">
+              <div id="num1">X</div>
+              <div id="operation">x</div>
+              <div id="num2">Y</div>
+              <div>=</div>
+              <div id="total">Z</div>
+            </div>
+          </div>
+          <div class="monster-space" id="hungry-monster-box">
+          </div>
+        </div>
+        <div class="right-side calc-box">
+          <div class="grid" id="calc-container">
+            <button class="grid-number" value="7" onClick="getInput(event)">
+              7
+            </button>
+            <button class="grid-number" value="8" onClick="getInput(event)">
+              8
+            </button>
+            <button class="grid-number" value="9" onClick="getInput(event)">
+              9
+            </button>
+            <button class="grid-number" value="4" onClick="getInput(event)">
+              4
+            </button>
+            <button class="grid-number" value="5" onClick="getInput(event)">
+              5
+            </button>
+            <button class="grid-number" value="6" onClick="getInput(event)">
+              6
+            </button>
+            <button class="grid-number" value="1" onClick="getInput(event)">
+              1
+            </button>
+            <button class="grid-number" value="2" onClick="getInput(event)">
+              2
+            </button>
+            <button class="grid-number" value="3" onClick="getInput(event)">
+              3
+            </button>
+            <button class="grid-number" value="0" onClick="getInput(event)">
+              0
+            </button>
+            <button class="grid-number clear" value="0"">
+              clear
+            </button>
+            <button class="grid-number check" onClick="checkAnswer()">go!</button>
+          </div>
+        </div>
+        <div class="happy-monster-space" id="happy-monster-box"></div>
+        <div id="play-again-container">
+          <button class="playAgain">Play Again</button>
+        </div>
+        <div id="main-screen-gear">
+          <img id="main-gear" src="images/gear.png" alt="gear icon" />
+        </div>
       </div>
-      <div class="settings-container hide" id="settings-container">
+        
+      </div>
+      <div class="settings" id="settings-container">
         <div class="settings-header">
           <h1 class="header">Settings</h1>
           <img src="images/gear.png" alt="gear icon" />
@@ -108,53 +170,9 @@
           </div>
         </form>
       </div>
-      <div class="number-problem-container">
-        <div class="number-problem" id="problem">
-          <div id="num1">X</div>
-          <div id="operation">x</div>
-          <div id="num2">Y</div>
-          <div>=</div>
-          <div id="total">Z</div>
-        </div>
-      </div>
-      <div class="grid" id="numbers-container">
-        <button class="grid-number" value="7" onClick="getInput(event)">
-          7
-        </button>
-        <button class="grid-number" value="8" onClick="getInput(event)">
-          8
-        </button>
-        <button class="grid-number" value="9" onClick="getInput(event)">
-          9
-        </button>
-        <button class="grid-number" value="4" onClick="getInput(event)">
-          4
-        </button>
-        <button class="grid-number" value="5" onClick="getInput(event)">
-          5
-        </button>
-        <button class="grid-number" value="6" onClick="getInput(event)">
-          6
-        </button>
-        <button class="grid-number" value="1" onClick="getInput(event)">
-          1
-        </button>
-        <button class="grid-number" value="2" onClick="getInput(event)">
-          2
-        </button>
-        <button class="grid-number" value="3" onClick="getInput(event)">
-          3
-        </button>
-        <button class="grid-number" value="0" onClick="getInput(event)">
-          0
-        </button>
-        <button class="grid-number clear" value="0"">
-          clear
-        </button>
-        <button class="grid-number check" onClick="checkAnswer()">go!</button>
-      </div>
-      <div class="feedback"></div>
-      <button class="playAgain hide">Play Again</button>
+ 
+  
+     
       <div>
 
       </div>

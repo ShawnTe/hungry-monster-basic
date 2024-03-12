@@ -1,3 +1,6 @@
+// if topNum / focusNum (floor) < 3
+// "there aren't many options. Can you make the top number higher?"
+
 import Messages from "./lib/messages.mjs";
 import Utils from "./lib/utils.mjs";
 
@@ -5,16 +8,15 @@ const { generateRandomNumber } = Utils();
 const { successMessages, tooHighMessages, tooLowMessages, chooseMessage } =
   Messages();
 
-console.log("success phrase", chooseMessage(successMessages));
-
 let state = {};
 
 const canvas = document.querySelector("#game");
 
 const gearEl = document.querySelector("#main-screen-gear");
-const settingsEl = document.querySelector(".settings-container");
-const problemEl = document.querySelector(".number-problem-container");
-const gridEl = document.querySelector("#numbers-container");
+const settingsEl = document.querySelector("#settings-container");
+const problemEl = document.querySelector("#problem-box");
+
+const gridEl = document.querySelector("#calc-container");
 
 // problem
 const num1El = document.querySelector("#num1");
@@ -24,12 +26,12 @@ const num3El = document.querySelector("#total");
 
 const clearBtnEl = document.querySelector(".clear");
 const feedbackEl = document.querySelector(".feedback");
-const playAgainEl = document.querySelector(".playAgain");
+const playAgainEl = document.querySelector("#play-again-container");
 
 const form = document.querySelector("#form");
 form.addEventListener("submit", onFormSubmit);
 
-// Settings Form
+// SETTINGS FORM submission
 function onFormSubmit(event) {
   event.preventDefault();
 
@@ -58,20 +60,22 @@ playAgainEl.addEventListener("click", () => {
   feedbackEl.classList.remove("success");
   feedbackEl.textContent = "";
 
-  document.querySelector(".success-image").classList.add("hide");
-  playAgainEl.classList.add("hide");
+  hideHappyMonster();
+  playAgainEl.style.visibility = "hidden";
+
   playAgain();
 });
 
 function playAgain() {
-  state.phase = "hungry";
   state.inputAnswer = "";
-  gridEl.style.position = "absolute";
-  if (document.querySelector("#temp-success-image")) {
-    document.querySelector("#temp-success-image").remove();
+  gridEl.style.visibility = "visible";
+
+  // gridEl.style.position = "absolute";
+  if (document.querySelector(".success-image")) {
+    hideHappyMonster();
   }
-  if (document.querySelector("#temp-hungry-image")) {
-    document.querySelector("#temp-hungry-image").remove();
+  if (document.querySelector(".hungry-image")) {
+    hideHappyMonster();
   }
   draw();
   takeTurn();
@@ -106,41 +110,28 @@ clearBtnEl.addEventListener("click", () => {
 });
 
 function showSuccess() {
-  if (document.querySelector("#temp-hungry-image")) {
-    document.querySelector("#temp-hungry-image").remove();
-  }
-
-  feedbackEl.textContent = `YOU GOT IT${
-    state.playerName ? ", " + state.playerName.toUpperCase() : ""
+  hideHungryMonster();
+  showHappyMonster();
+  feedbackEl.textContent = `${chooseMessage(successMessages)}${
+    state.playerName ? ", " + state.playerName : ""
   }!!!!`;
   feedbackEl.classList.add("success");
 
-  gridEl.style.position = "unset";
-  playAgainEl.classList.remove("hide");
+  gridEl.style.visibility = "hidden";
+  playAgainEl.style.visibility = "visible";
 
-  // state.phase = "celebrating";
   state.inputAnswer = "";
-  // drawSuccess();
-  hideMonster();
-  const happyyMonsterImage = document.createElement("img"); // Use DOM HTMLImageElement
-  happyyMonsterImage.setAttribute("id", "temp-success-image");
-  happyyMonsterImage.srcset =
-    "./images/happy-monster-240w.gif, ./images/happy-monster-310w.gif 1.5x, ./images/happy-monster-481w.gif 2x";
-  happyyMonsterImage.src = "./images/happy-monster-481w.gif";
-  // happyyMonsterImage.src = './images/happy-monster.gif';
-  document.body.appendChild(happyyMonsterImage);
-  happyyMonsterImage.classList.add("success-image");
 }
 
 function tooHigh() {
   // if answer incorrect, offer a low or high hint
-  feedbackEl.textContent = "Ohhh, not so much";
+  feedbackEl.textContent = chooseMessage(tooHighMessages);
   feedbackEl.classList.add("try-again");
 }
 
 function tooLow() {
   // if answer incorrect, offer a low or high hint
-  feedbackEl.textContent = "More! More!";
+  feedbackEl.textContent = chooseMessage(tooLowMessages);
   feedbackEl.classList.add("try-again");
 }
 
@@ -170,8 +161,8 @@ function newGame() {
     phase: "hungry", // hungry | celebrating
     buildings: [],
     playerName: "",
-    focusNumber: "",
-    topNumber: 50,
+    focusNumber: 2,
+    topNumber: 20,
     operation: "addition", // addition | subtraction | multiplication | division
     problemType: "endResult", // missing | endResult
 
@@ -189,6 +180,9 @@ function newGame() {
   for (let i = 0; i < 5; i++) {
     generateBuilding(i);
   }
+
+  playAgainEl.style.visibility = "hidden";
+  settingsEl.style.visibility = "hidden";
 
   draw();
   takeTurn();
@@ -210,8 +204,7 @@ function draw() {
   // Draw scene
   drawBackground();
   drawBuildings();
-  drawMonster();
-  // drawNumbers();
+  showHungryMonster();
 
   ctx.restore();
 }
@@ -302,246 +295,36 @@ function drawBuildings() {
   });
 }
 
-function drawMonster() {
-  ctx.save();
-
-  const building = state.buildings.at(1);
-
-  ctx.translate(building.x + building.width / 2, building.height);
-
-  drawMonsterBody();
-  drawMonsterLeftArm();
-  drawMonsterRightArm();
-  drawMonsterEyes();
-  drawMonsterMouth();
-
-  ctx.restore();
+function showHappyMonster() {
+  const happyMonsterImage = document.createElement("img"); // Use DOM HTMLImageElement
+  // happyMonsterImage.setAttribute("id", "temp-success-image");
+  // happyMonsterImage.srcset =
+  // "./images/happy-monster-240w.gif, ./images/happy-monster-310w.gif 1.5x, ./images/happy-monster-481w.gif 2x";
+  happyMonsterImage.src = "./images/happy-monster-481w.gif";
+  document.querySelector("#happy-monster-box").appendChild(happyMonsterImage);
+  happyMonsterImage.classList.add("success-image");
 }
 
-// function drawMonster() {
-//   const hungryMonsterImage = document.createElement('img'); // Use DOM HTMLImageElement
-//   hungryMonsterImage.setAttribute('id', 'temp-hungry-image');
-//   // hungryMonsterImage.srcset = './images/hungry-monster.png';
-//   hungryMonsterImage.srcset="hungry-monster-240w.png, hungry-monster-310w.png 1.5x, hungry-monster-481w.png 2x"
-//   hungryMonsterImage.src = './images/hungry-monster-481w.png';
-//   document.body.appendChild(hungryMonsterImage);
-//   hungryMonsterImage.classList.add('hungry-image');
-// }
-
-function hideMonster() {
-  ctx.save();
-
-  ctx.translate(0, window.innerHeight);
-  ctx.scale(1, -1);
-  ctx.scale(state.scale, state.scale);
-
-  const building = state.buildings.at(1);
-  ctx.translate(building.x + building.width / 2, building.height);
-
-  ctx.fillStyle = "#EE9B00";
-  ctx.beginPath();
-  ctx.moveTo(-162, 0);
-  ctx.lineTo(-162, 271);
-  ctx.lineTo(162, 271);
-  ctx.lineTo(162, 0);
-
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function drawMonsterBody() {
-  ctx.fillStyle = "DarkCyan";
-
-  ctx.beginPath();
-  ctx.moveTo(0, 35);
-  ctx.lineTo(-7, 0);
-  ctx.lineTo(-40, 0);
-  ctx.lineTo(-40, 18);
-  ctx.lineTo(-20, 22);
-
-  ctx.lineTo(-61, 237);
-  ctx.lineTo(-52, 267);
-  ctx.lineTo(-40, 247);
-  ctx.lineTo(-40, 240);
-  ctx.lineTo(40, 240);
-  ctx.lineTo(40, 247);
-  ctx.lineTo(52, 270);
-  ctx.lineTo(61, 237);
-
-  ctx.lineTo(20, 22);
-  ctx.lineTo(40, 18);
-  ctx.lineTo(40, 0);
-  ctx.lineTo(7, 0);
-  ctx.fill();
-
-  // ctx.fillStyle = "pink";
-  ctx.beginPath();
-  ctx.ellipse(0, 140, 94, 110, 0, 0, 2 * Math.PI);
-
-  // ctx.arc(0, 140, 110, 0, 2 * Math.PI);
-  ctx.fill();
-}
-
-function drawMonsterRightArm() {
-  ctx.strokeStyle = "DarkCyan";
-  ctx.lineWidth = 16;
-
-  if (state.phase === "celebrating") {
-    // arm
-    ctx.beginPath();
-    ctx.moveTo(83, 170);
-    // quadraticCurveTo(cpx, cpy, end-x, end-y);
-    ctx.quadraticCurveTo(110, 185, 108, 210);
-
-    ctx.stroke();
-
-    // paw
-    ctx.beginPath();
-    // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-    ctx.ellipse(114, 210, 6, 12, -45, 0, 2 * Math.PI);
-    ctx.ellipse(106, 218, 6, 12, -60, 0, 2 * Math.PI);
-    ctx.ellipse(96, 214, 6, 12, 20, 0, 2 * Math.PI);
-  } else {
-    // arm
-    ctx.beginPath();
-    ctx.moveTo(83, 170);
-    // quadraticCurveTo(cpx, cpy, end-x, end-y);
-    ctx.quadraticCurveTo(110, 185, 118, 130);
-
-    ctx.stroke();
-
-    // paw
-    ctx.beginPath();
-    // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-    ctx.ellipse(124, 130, 6, 12, 45, 0, 2 * Math.PI);
-    ctx.ellipse(110, 125, 6, 12, -60, 0, 2 * Math.PI);
-    ctx.ellipse(119, 120, 6, 12, 0, 0, 2 * Math.PI);
+function hideHappyMonster() {
+  const imgNode = document.querySelector("#happy-monster-box");
+  if (imgNode.hasChildNodes()) {
+    imgNode.removeChild(imgNode.firstChild);
   }
-
-  ctx.fill();
 }
 
-function drawMonsterLeftArm() {
-  ctx.strokeStyle = "DarkCyan";
-  ctx.lineWidth = 16;
+function showHungryMonster() {
+  const hungryMonsterImage = document.createElement("img"); // Use DOM HTMLImageElement
+  hungryMonsterImage.src = "./images/hungry-monster-481w.png";
+  document.querySelector("#hungry-monster-box").appendChild(hungryMonsterImage);
+  hungryMonsterImage.classList.add("hungry-image");
+}
 
-  if (state.phase === "celebrating") {
-    // arm
-    ctx.beginPath();
-    ctx.moveTo(-83, 170);
-    // quadraticCurveTo(cpx, cpy, end-x, end-y);
-    ctx.quadraticCurveTo(-110, 185, -108, 210);
-
-    ctx.stroke();
-
-    // paw
-    ctx.beginPath();
-    // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-    ctx.ellipse(-118, 214, 6, 12, 45, 0, 2 * Math.PI);
-    ctx.ellipse(-106, 218, 6, 12, 60, 0, 2 * Math.PI);
-    ctx.ellipse(-96, 214, 6, 12, -20, 0, 2 * Math.PI);
-  } else {
-    // arm
-    ctx.beginPath();
-    ctx.moveTo(-83, 170);
-    // quadraticCurveTo(cpx, cpy, end-x, end-y);
-    ctx.quadraticCurveTo(-110, 185, -118, 130);
-
-    ctx.stroke();
-
-    // paw
-    ctx.beginPath();
-    // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-    ctx.ellipse(-124, 130, 6, 12, -45, 0, 2 * Math.PI);
-    ctx.ellipse(-110, 125, 6, 12, 60, 0, 2 * Math.PI);
-    ctx.ellipse(-119, 120, 6, 12, 0, 0, 2 * Math.PI);
+function hideHungryMonster() {
+  const imgNode = document.querySelector("#hungry-monster-box");
+  if (imgNode.hasChildNodes()) {
+    console.log(imgNode.firstElementChild);
+    imgNode.removeChild(imgNode.firstElementChild);
   }
-
-  ctx.fill();
-}
-
-function drawMonsterEyes() {
-  ctx.save();
-  ctx.fillStyle = "white";
-  ctx.scale(1, -1);
-
-  ctx.beginPath();
-  if (state.phase === "celebrating") {
-    // whites round
-    ctx.arc(45, -160, 30, 0, 2 * Math.PI, false);
-    ctx.arc(-45, -160, 30, 0, 2 * Math.PI, false);
-  } else {
-    // arc(x, y, radius, startAngle, endAngle, counterclockwise)
-    // whites half moon
-    ctx.arc(45, -160, 30, 0, Math.PI, false);
-    ctx.arc(-45, -160, 30, 0, Math.PI, false);
-  }
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.fillStyle = "blue";
-
-  if (state.phase === "celebrating") {
-    // pupils big
-    // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-    ctx.ellipse(45, -160, 12, 20, 0, 0, 2 * Math.PI);
-    ctx.ellipse(-45, -160, 12, 20, 0, 0, 2 * Math.PI);
-  } else {
-    // pupils small
-    ctx.arc(45, -156, 10, 0, 2 * Math.PI, false);
-    ctx.arc(-45, -156, 10, 0, 2 * Math.PI, false);
-  }
-
-  ctx.fill();
-  ctx.restore();
-
-  ctx.beginPath();
-  ctx.fillStyle = "blue";
-
-  ctx.moveTo(-83, 170);
-  // quadraticCurveTo(cpx, cpy, end-x, end-y);
-
-  ctx.quadraticCurveTo(110, 185, 108, 210);
-}
-
-function drawMonsterMouth() {
-  ctx.strokeStyle = "Crimson";
-  ctx.fillStyle = "PaleGoldenrod";
-
-  ctx.lineWidth = 8;
-
-  ctx.beginPath();
-  if (state.phase === "celebrating") {
-    // lips smile
-    ctx.moveTo(-50, 100);
-
-    ctx.bezierCurveTo(-30, 120, 30, 100, 50, 100);
-    ctx.bezierCurveTo(35, 50, -35, 40, -50, 100);
-    ctx.fill();
-  } else {
-    // lips sad
-    ctx.moveTo(-40, 80);
-    ctx.bezierCurveTo(0, 100, 20, 90, 40, 85);
-  }
-
-  ctx.stroke();
-}
-
-function add(num1, num2) {
-  return num1 + num2;
-}
-
-function subtract(num1, num2) {
-  return num1 - num2;
-}
-
-function multiply(num1, num2) {
-  return num1 * num2;
-}
-
-function divide(num1, num2) {
-  return num1 / num2;
 }
 
 function displayMultiplicationAndAdditionProblem(numbers, operation) {
@@ -661,56 +444,6 @@ function getDivisionNumbers() {
   return { focusNum, num2, total };
 }
 
-// function setProblem(numbers) {
-//   if (state.operation === "subtraction") {
-//     if (state.problemType === "endResult") {
-//       if (isFocusNumber(numbers.num1)) {
-//         num2New = numbers.num1;
-//         num3New = numbers.num2;
-//       } else {
-//         num2New = numbers.num2;
-//         num3New = numbers.num1;
-//       }
-//       state.problemNum1 = numebrs.total;
-//       state.problemNum2 = num3New;
-//       state.problemTotal = num3New;
-//     }
-
-//     if (state.problemType === "missing") {
-//       if (isFocusNumber(numbers.num1)) {
-//         totalNew = numbers.num1;
-//         num2New = numbers.num2;
-//       } else {
-//         totalNew = numbers.num2;
-//         num2New = numbers.num1;
-//       }
-//       return { num1: total, num2: num2New, total: totalNew };
-//     }
-//   }
-// }
-
-function isFocusNumber(num) {
-  return num === state.focusNumber;
-}
-
-function totalField(total) {
-  if (state.problemType === "missing") {
-    num3El.textContent = total;
-  } else {
-    num3El.textContent = "?";
-    num3El.classList.add("question");
-  }
-}
-
-// if topNum / focusNum (floor) < 3
-// "there aren't many options. Can you make the top number higher?"
-function displayProblem(numbers, operation) {
-  num1Field(numbers.num1);
-  operationField(operation);
-  num2Field(numbers.num2);
-  totalField(numbers.total);
-}
-
 function takeTurn() {
   let numbers = {};
   switch (state.operation) {
@@ -734,19 +467,20 @@ function takeTurn() {
 }
 
 const openSettings = () => {
-  if (document.querySelector("#temp-success-image")) {
-    document.querySelector("#temp-success-image").remove();
+  console.log("in openSettings");
+  if (document.querySelector(".success-image")) {
+    hideHappyMonster();
   }
-  if (document.querySelector("#temp-hungry-image")) {
-    document.querySelector("#temp-hungry-image").remove();
+  if (document.querySelector(".hungry-image")) {
+    hideHungryMonster();
   }
-  gridEl.style.position = "unset";
-  problemEl.classList.add("hide");
-  document.querySelector("#main-screen-gear").classList.add("hide");
-  settingsEl.classList.remove("hide");
+  gearEl.style.visibility = "hidden";
+  gridEl.style.visibility = "hidden";
+  playAgainEl.style.visibility = "hidden";
+  problemEl.style.visibility = "hidden";
   feedbackEl.textContent = "";
-  playAgainEl.classList.add("hide");
 
+  settingsEl.style.visibility = "visible";
   document.querySelector("#fname").focus();
   document.querySelector("#fname").textContent = state.fname;
   document.querySelector("#focus-number").textContent = state.focusNumber;
@@ -754,15 +488,18 @@ const openSettings = () => {
 };
 
 const closeSettings = () => {
-  gearEl.classList.remove("hide");
-  settingsEl.classList.add("hide");
-  gridEl.style.position = "absolute";
-  problemEl.classList.remove("hide");
+  gearEl.style.visibility = "visible";
+  gridEl.style.visibility = "visible";
+  problemEl.style.visibility = "visible";
+  settingsEl.style.visibility = "hidden";
+
+  // gearEl.classList.remove("hide");
+  // settingsEl.classList.add("hide");
+  // gridEl.style.position = "absolute";
+  // problemEl.classList.remove("hide");
 };
 
-document
-  .querySelector("#main-screen-gear")
-  .addEventListener("click", openSettings);
+gearEl.addEventListener("click", openSettings);
 
 window.addEventListener("resize", () => {
   canvas.width = document.documentElement.clientWidth;
@@ -770,10 +507,3 @@ window.addEventListener("resize", () => {
   calculateScale();
   draw();
 });
-
-// module.exports = {
-//   add,
-//   subtract,
-//   multiply,
-//   divide,
-// };

@@ -1,8 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Protest Strike', sans-serif;
-  color: #9B2226;
+  font-family: "Protest Strike", sans-serif;
+  color: #9b2226;
 }
 
 img {
@@ -82,7 +82,7 @@ img {
   width: 100%;
   height: 100%;
   padding: 5px 15px 10px;
-  background-color: #94D2BD;
+  background-color: #94d2bd;
 }
 
 .settings-header {
@@ -119,18 +119,18 @@ h1 {
   align-self: flex-end;
 }
 
-input[type='text'] {
+input[type="text"] {
   border: none;
-  border-bottom: 2px solid #9B2226;
-  background-color: #94D2BD;
+  border-bottom: 2px solid #9b2226;
+  background-color: #94d2bd;
   height: 2em;
-  color: #9B2226;
+  color: #9b2226;
   font-size: 25px;
   width: 50px;
   padding-left: 20px;
 }
 
-input[id='fname'] {
+input[id="fname"] {
   width: 300px;
 }
 
@@ -140,10 +140,10 @@ input[id='fname'] {
 }
 
 .button {
-  background-color: #94D2BD;
-  border: 5px solid #9B2226;
+  background-color: #94d2bd;
+  border: 5px solid #9b2226;
   border-radius: 10px;
-  color: #9B2226;
+  color: #9b2226;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -169,24 +169,24 @@ input[id='fname'] {
 }
 
 /* Number Problem Container */
-.number-problem-container {
+/* .number-problem-container {
   display: absolute;
   top: 15%;
   left: 8%;
   /* min-width: 300px; */
-  align-items: center;
-}
+/* align-items: center; */
+/* } */
 
-.number-problem {
+/* .number-problem {
   display: flex;
   font-size: 3.5em;
   gap: 20px;
   align-items: center;
-}
+} */
 
-.question {
-  color: BlueViolet;
-}
+/* .question { */
+/* color: BlueViolet; */
+/*} */
 
 /* Numbers Container */
 #numbers-container {
@@ -204,14 +204,14 @@ input[id='fname'] {
 
 .grid > button {
   padding: 10px;
-  background-color: #E9D8A6;
+  background-color: #e9d8a6;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   font-size: 4em;
-  color: #9B2226;
-  font-family: 'Protest Strike', sans-serif;
+  color: #9b2226;
+  font-family: "Protest Strike", sans-serif;
   cursor: pointer;
   box-shadow: 0 15px 21px rgba(0, 0, 0, 0.2);
 }
@@ -235,11 +235,11 @@ button.check {
 
 .try-again {
   font-size: 4em;
-  color: #94D2BD;
+  color: #94d2bd;
 }
-.success {
+/* .success {
   font-size: 6em;
-  color: #94D2BD;
+  color: #94d2bd;
   animation: blinker 0.7s linear infinite;
 }
 
@@ -247,17 +247,17 @@ button.check {
   50% {
     opacity: 0;
   }
-}
+} */
 
 .playAgain {
   font-size: 4em;
-  font-family: 'Protest Strike', sans-serif;
-  color: #0A9396;
+  font-family: "Protest Strike", sans-serif;
+  color: #0a9396;
   top: 65%;
   right: 10%;
   border-radius: 10px;
-  border: 2px solid #0A9396;
-  background-color: YellowGreen;
+  border: 2px solid #0a9396;
+  background-color: #94d2bd;
 }
 
 @media (max-width: 767px) {
@@ -279,20 +279,20 @@ button.check {
     width: 40%;
     line-break: auto;
   }
-  input[type='text'] {
+  input[type="text"] {
     height: 1.3em;
-    color: #9B2226;
+    color: #9b2226;
     font-size: 2em;
     width: 40px;
     padding-left: 20px;
   }
 
-  input[id='fname'] {
+  input[id="fname"] {
     width: 150px;
   }
 
   .button {
-    border: 3px solid #9B2226;
+    border: 3px solid #9b2226;
     border-radius: 6px;
     width: 100px;
     height: 40px;
@@ -321,7 +321,7 @@ button.check {
 
   .success {
     font-size: 4em;
-    color: #94D2BD;
+    color: #94d2bd;
     animation: blinker 0.7s linear infinite;
   }
   .success-image {
@@ -359,20 +359,20 @@ button.check {
     width: 40%;
     line-break: auto;
   }
-  input[type='text'] {
+  input[type="text"] {
     height: 1em;
-    color: #9B2226;
+    color: #9b2226;
     font-size: 1.8em;
     width: 30px;
     padding-left: 10px;
   }
 
-  input[id='fname'] {
+  input[id="fname"] {
     width: 100px;
   }
 
   .button {
-    border: 3px solid #9B2226;
+    border: 3px solid #9b2226;
     border-radius: 6px;
     width: 80px;
     height: 30px;
